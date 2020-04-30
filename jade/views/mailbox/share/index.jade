@@ -1,0 +1,97 @@
+
+
+
+
+// Start form compose
+.panel-default(style="background-color: white")
+  .panel-heading
+    button.btn.btn-secondary.btn-sm(ui-sref="app.mailbox.internal.in") Regresar
+    button.btn.btn-secondary.btn-sm.btn-signed.pull-right(ng-disabled='!docs.folio' ng-show="docs.steep == 1" type='button' ng-click='docs.setByFolio()') Buscar
+    button.btn.btn-secondary.btn-sm.btn-signed.pull-right(ng-disabled='!docs.folio' ng-show="docs.steep !== 1" type='button' ng-click='docs.loading = false; docs.folio = null; docs.steep = 1;') Cancelar
+
+
+// loading
+.panel-default(ng-if="docs.loading")
+  .panel-heading
+      h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+  .panel-body.loader-demo.loader-demo-sk
+      .spinner
+          .dot1
+          .dot2
+// end loading
+
+
+
+.panel-default(style="background-color: white" ng-if="!docs.loading && docs.steep === 1")
+  .panel-heading
+    h3.text-center.Poppins-SemiBold.primaryTextBlue(ng-if="docs.error") No se encontro el folio
+  .panel-body
+    fieldset
+      .form-group
+        label Folio
+        input.form-control(ng-model='docs.folio', type='text')
+
+
+
+
+
+
+.panel-default(style="background-color: white" ng-if="!docs.loading && docs.steep === 2")
+  .panel-body
+    fieldset
+      .form-group
+        label Asunto:
+        input.form-control(ng-model='docs.subject', type='text')
+
+
+.panel-default(ng-if="!docs.loading && docs.steep === 2")
+  .panel-body
+    .contenedorSummer
+      .pantallaSummer
+        summernote#summernoteViewOptions( data-backdrop="false" ng-model="docs.html" config='docs.summernoteViewOptions')
+
+
+.panel-default(style="background-color: white" ng-if="!docs.loading && docs.steep === 2")
+  .panel-body
+    fieldset
+    .col-md-12
+      .form-group
+        label Para:
+        h5.text-danger Coloca el email de <{{docs.dataOfFolio.nombrE_EMPLEADO}}> primero
+        h6 Agrega email de <{{docs.dataOfFolio.nombrE_EMPLEADO}}> y el resto de personal
+        ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedTo', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+          ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+          ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+            div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+            div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+            small
+              | email: {{person.email}}
+
+
+
+
+
+
+
+
+
+
+.panel-default(style="background-color: white" ng-if="!docs.loading && docs.steep === 2")
+  .panel-heading Continuar
+  .panel-body
+    legend.pull-right.text-danger {{docs.compose.error}}
+    .form-group
+
+      .input-group.form-group
+        span.input-group-addon.text-sm Compartir con:
+        ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+          ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+          ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+            div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+            div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+            small
+              | email: {{person.email}}
+      .mb-editor
+        button(type="button" ng-click="docs.goToNextPanel()").btn.btn-primary.btn-sm.mb Continuar
+
+

@@ -1,0 +1,89 @@
+
+div(ui-view="")
+
+
+
+  .container
+
+    .col-md-12(style='text-align: center')
+          p(style='color: #203847; font-size: 25px;') Selecciona un formato de oficio
+          p(style='color: #213948; font-size: 15px;') Agiliza tu trabajo seleccionando una de las plantillas predeterminadas, también, puedes crearla desde cero dando click en el botón "Nueva plantilla"
+    .container
+      .col-md-12.dividerFilter
+
+      .col-md-4
+        button.btn.btn-sm.btn-signed(style="position: absolute; left: 20px; top: -2px;" ui-sref="app.templates.compose") Nueva plantilla
+      .col-md-4
+        button.btn.btn-sm.btn-secondary(ng-click="docs.selectTemplatesToView('mostUsed')" style="margin-right: 20px" ng-style="getButtonStyle('mostUsed')") Las más usadas
+        button.btn.btn-sm.btn-secondary(ng-click="docs.selectTemplatesToView('recent')" ng-style="getButtonStyle('recent')") Recientes
+      .col-md-4
+        form
+          .form-group(style="display: flex;")
+            input(type="text" class="form-control" id="searchInput" ng-model="docs.templateName" placeholder="Buscar plantilla" style='border-radius: 5px; width: 100%;')
+      .col-md-12.dividerFilter
+
+
+
+
+
+
+      .col-md-12(ng-if="docs.isLoading()")
+        .panel-default
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando plantillas
+            .panel-body.loader-demo.loader-demo-sk
+                .spinner
+                    .dot1
+                    .dot2
+
+
+      .col-md-12(ng-if="!docs.isLoading() && docs.viewingByName && !docs.templatesByName.length")
+        .panel-default
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue No se encontraron plantillas con el nombre especificado
+        p(style="margin-top: 20px") No se encontraron plantillas con el nombre especificado
+
+
+
+
+      .col-md-12(ng-if='!docs.hidePaginate && !docs.isLoading()', ng-include="'/views/mailbox/general/paginate.html'")
+
+
+
+
+
+      .col-md-12(ng-if="!docs.isLoading()" )
+        .col-md-3(ng-repeat="template in docs.visibleTemplates()" style='margin-top: 40px;')
+          .col-md-12.cartaVistaPrevia(ng-mouseover="docs.setHoveredTemplate(template)" style="padding-top: 10px; padding-bottom: 10px; "  ng-if="template.previewImage")
+            img(ng-src="{{docs.getPreviewImage(template)}}" style="width: 100%; max-height: 100%;")
+
+
+
+          .col-md-12.cartaVistaPrevia(ng-mouseover="docs.setHoveredTemplate(template)" style="padding-top: 50%;  text-align: center;" ng-if="!template.previewImage")
+            p No hay imagen previa
+
+
+            
+          .col-md-12.animated.fadeIn(ng-if="docs.isTemplateHovered(template)" ng-mouseleave="docs.clearHoveredTemplate()" style="padding-top: 20%; padding-bottom: 20%; position: absolute; width: 248px;background: rgba(0,0,0,0.7); height: 300px; text-align: center; display: flex; flex-direction: column; justify-content: space-around;")
+
+            h5(style="color: #fff") {{template.name}}
+            button.btn(style="width: 100%;"  type='button' ng-if="docs.canEdit(template)" ng-click="docs.editTemplate(template._id)") Ver
+
+            button.btn.btn-secondary(style="width: 100%;"  type='button' ng-if="docs.canEdit(template)" ng-click="docs.editTemplate(template._id)")
+                em.fa.fa-pencil(style= "padding-right: 10px;")
+                | Editar
+
+
+
+
+            delete-template-component(template = "template")
+
+          .col-md-12(ng-mouseleave="docs.clearHoveredTemplate()" ng-mouseover="docs.setHoveredTemplate(template)")
+            h5.text-center( ng-if ="template.name.length > 21" style='color: #203847;') {{template.name | limitTo: 21}}...
+            h5.text-center( ng-if ="template.name.length <= 21" style='color: #203847;') {{template.name }}
+
+      .col-md-12(ng-if='!docs.hidePaginate && !docs.isLoading()', ng-include="'/views/mailbox/general/paginate.html'")
+
+
+
+

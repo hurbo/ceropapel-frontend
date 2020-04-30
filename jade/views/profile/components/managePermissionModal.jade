@@ -1,0 +1,92 @@
+div(data-ng-controller= "managePermissionComponentController as mpcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Administrar permisos
+    .modal-body
+        .panel-default(ng-if="!mpcmp.isLoading")
+        
+            .panel-heading
+                legend.text-danger {{mpcmp.currentUser.name}} <{{mpcmp.currentUser.email}} >
+            .panel-body
+                .form-group
+                    label.col-sm-2.control-label Permisos de oficios
+                    .col-sm-10
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', checked='mpcmp.currentUser.permissions.readIn' ng-model='mpcmp.currentUser.permissions.readIn' value='1')
+                                span.fa.fa-check
+                                |  Leer mis oficios recibidos
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', checked='mpcmp.currentUser.permissions.readOut' ng-model='mpcmp.currentUser.permissions.readOut' value='1')
+                                span.fa.fa-check
+                                |  Leer mis oficios enviados
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', checked='mpcmp.currentUser.permissions.readTurned' ng-model='mpcmp.currentUser.permissions.readTurned' value='1')
+                                span.fa.fa-check
+                                |  Leer mis oficios turnados por mis asistentes
+                        .checkbox.c-checkbox
+                            label
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.sign' ng-model='mpcmp.currentUser.permissions.sign', value='1')
+                                span.fa.fa-check
+                                |  Firmar mis oficios recibidos
+                        .checkbox.c-checkbox
+                            label
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.reject' ng-model='mpcmp.currentUser.permissions.reject', value='1')
+                                span.fa.fa-check
+                                |  Rechazar mis oficios recibidos
+                        .checkbox.c-checkbox
+                            label
+                                input(type='checkbox',ng-disabled="!mpcmp.currentUser.permissions.readIn"   checked='mpcmp.currentUser.permissions.changeStatus' ng-model='mpcmp.currentUser.permissions.changeStatus', value='1')
+                                span.fa.fa-check
+                                |  Cambiar estatus de oficios recibidos
+                        .checkbox.c-checkbox
+                            label
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.turn' ng-model='mpcmp.currentUser.permissions.turn', value='1')
+                                span.fa.fa-check
+                                |  Turnar oficios recibidos
+                .form-group
+                    label.col-sm-2.control-label Permisos de carpetas
+                    .col-sm-10
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.showIn' ng-model='mpcmp.currentUser.permissions.showIn' value='1')
+                                span.fa.fa-check
+                                |  Ver carpetas de oficios recibidos
+
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readOut" checked='mpcmp.currentUser.permissions.showOut' ng-model='mpcmp.currentUser.permissions.showOut' value='1')
+                                span.fa.fa-check
+                                |  Ver carpetas de oficios enviados
+
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.createFolders' ng-model='mpcmp.currentUser.permissions.createFolders' value='1')
+                                span.fa.fa-check
+                                |  Crear carpetas
+
+                        .checkbox.c-checkbox.needsclick
+                            label.needsclick
+                                input(type='checkbox', ng-disabled="!mpcmp.currentUser.permissions.readIn" checked='mpcmp.currentUser.permissions.archiveInboxes' ng-model='mpcmp.currentUser.permissions.archiveInboxes' value='1')
+                                span.fa.fa-check
+                                |  Archivar oficios
+
+
+
+
+
+        .panel-default(ng-if="mpcmp.isLoading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+    .modal-footer
+
+        button.btn.btn-default(ng-click='mpcmp.deletePermissions(mpcmp.currentUser)') Eliminar permisos
+        button.btn.btn-primary(ng-click='mpcmp.ok(mpcmp.currentUser)') Actualizar
+        button.btn.btn-secondary(ng-click='mpcmp.cancel()') Cancelar

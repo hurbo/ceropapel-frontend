@@ -1,0 +1,23 @@
+div(ng-controller= "createFolderComponentController as cfcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Crear carpeta
+    .modal-body
+        .panel-default(ng-if="!cfcmp.loading")
+            .panel-body
+                .form-group
+                    label.col-sm-2.control-label Nombre
+                    .col-sm-10
+                        input.form-control(type='text', name='Nombre', ng-model='cfcmp.folder.name', aria-invalid='true', style='')
+
+        .panel-default(ng-if="cfcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+    .modal-footer
+        button.btn.btn-primary(ng-click='cfcmp.ok()') Crear
+        button.btn.btn-secondary(ng-click='cfcmp.cancel()') Cancel

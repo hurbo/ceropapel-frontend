@@ -1,0 +1,14 @@
+._*
+._.*
+.DS_Store
+build/
+vendor
+*.log
+bower_components
+node_modules
+.bowerrc
+test_reports/
+.tmp/
+*.env
+/dist
+environment.module.json

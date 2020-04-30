@@ -1,0 +1,88 @@
+div(ng-controller= "multipleTurnComponentController as mtcmp")
+    .modal-header
+        button.close.text-white(type='button',ng-click='mtcmp.cancel()', aria-hidden='true') ×
+        h4.modal-title.Poppins-Bold Turnar
+
+    .modal-body
+        form.form-group(ng-if="mtcmp.steep === 1")
+            .row-md-12.input-group.form-group
+                span.input-group-addon.text-sm Para:
+                ui-select(multiple='',  tagging-tokens=',|/', ng-model='mtcmp.selectedTo', on-remove="mtcmp.onRemoveTo($item, $model)", on-select="mtcmp.onSelectTo($item, $model)", theme='bootstrap',  title='Agregar destinatario')
+                    ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                    ui-select-choices(repeat='person in mtcmp.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                        div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                        div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                        small
+                            | email: {{person.email}}
+            .row-md-12.form-group(ng-if="mtcmp.recipients.length > 0")
+                label Listado destinatarios
+                table.table.table-striped.table-bordered
+                    thead.bg-blue-primary
+                        tr
+                            th
+                                dt.text-center.text-white Destinario
+                            th
+                                dt.text-center.text-white Requiere firmar
+                    tbody
+                        tr(ng-repeat="recipient in mtcmp.recipients track by $index")
+                            td.text-primary
+                                strong {{recipient.name}}
+                                span {{recipient.email}}
+                            td.text-primary.text-center
+                                button.btn(ng-init="recipient.needSign = true" ng-click="mtcmp.toggleSignatureRequirement(recipient)", ng-class="recipient.needSign? 'btn-primary' : 'btn-defualt'") {{recipient.needSign? 'Si' : 'No'}}
+
+            .row-md-12.form-group
+                label.col-md-2.control-label Tipo de turnado
+                .col-md-10
+                    ui-select(ng-model='mtcmp.trackingReason', theme='bootstrap', width="'100%'", title='Tipo de turnado')
+                        ui-select-match(placeholder='Selecciona el tipo de turnado') {{$select.selected.name}}
+                        ui-select-choices(repeat='type in mtcmp.turnTypes | filter: $select.search')
+                            span(ng-bind-html='type.name | highlight: $select.search')
+                            small(ng-bind-html='type.id | highlight: $select.search')
+            .form-group.row-md-12
+                br
+                label Mensaje
+                textarea.form-control(type='text', placeholder='Mensaje de turnado' ng-model="mtcmp.turnMessage")
+        
+        
+        form.form-group(ng-if="mtcmp.steep === 2")
+            .row-md-12.form-group(ng-repeat="details in mtcmp.fullDetails track by $index")
+                h4.text-blue(ng-if="details.inbox.subject.length > 50") {{details.inbox.subject | limitTo: 50}}...
+                h4.text-blue(ng-if="details.inbox.subject.length <= 50") {{details.inbox.subject}}
+                table.table.table-striped.table-bordered
+                    thead.bg-blue-confirm
+                        tr
+                            th
+                            th
+                                dt.text-center.text-white Destinario
+                            th
+                                dt.text-center.text-white Requiere firmar
+                            th
+                                dt.text-center.text-white Detalles
+                    tbody
+                        tr(ng-repeat="recipient in details.recipients track by $index")
+                            td.text-primary.text-center
+                                button.btn.btn-danger.pull-center(ng-click="details.recipients.splice($index, 1);") x
+                            td.text-primary
+                                strong {{recipient.name}}
+                                br
+                                span {{recipient.email}}
+                            td.text-primary.text-center
+                                button.btn(ng-disabled = "!recipient.canRecibe" ng-click="recipient.needSign = !recipient.needSign", ng-class="recipient.needSign? 'btn-primary' : 'btn-defualt'") {{recipient.needSign? 'Si' : 'No'}}
+                            td.text-primary.text-center
+                                strong(ng-class="recipient.canRecibe? 'text-blue' : 'text-red'") {{recipient.canRecibe? 'Sin detalles' : recipient.errorMessage}}
+        form.form-group(ng-if="mtcmp.steep === 3")
+            .panel.panel-default
+                .panel-heading
+                h3.text-center Cargando
+                .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+
+    .modal-footer
+        button.btn.btn-secondary(type='button' ng-disabled="mtcmp.steep === 3" ng-click='mtcmp.cancel()') Cancelar
+        button.btn.btn-signed(type='button', ng-disabled= "mtcmp.disableTurnButton"  ng-if="mtcmp.steep === 1" ng-click='mtcmp.steepTwo()') Continuar
+        button.btn.btn-warning(type='button', ng-disabled= "mtcmp.disableTurnButton" ng-if="mtcmp.steep === 2"  ng-click='mtcmp.steep = 1') Regresar
+        button.btn.btn-signed(type='button', ng-disabled= "mtcmp.disableTurnButton" ng-if="mtcmp.steep === 2"  ng-click='mtcmp.steepThree()') Turnar

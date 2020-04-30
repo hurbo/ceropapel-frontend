@@ -1,0 +1,200 @@
+
+
+
+.row(ng-if='tc.isLoading()')
+  .col-md-12
+    .panel-default
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando plantilla
+        .panel-body.loader-demo.loader-demo-sk
+            .spinner
+                .dot1
+                .dot2
+
+
+
+
+
+
+
+.row(ng-if='!tc.isLoading()')
+  .col-md-12#templateForm(style= "background-color: white;")
+    .panel-default
+        .panel-heading
+          .col-md-12
+            .form-group
+              .col-md-6
+                button.btn.btn-secondary.btn-sm.pull-left(ui-sref="app.templates.list")
+                  i.fa.fa-arrow-left
+                  |  REGRESAR
+              .col-md-6
+                button.btn.btn-primary.btn-sm.pull-right(ng-disabled="templateForm.$invalid || tc.saving" ng-click='tc.showPreviewTemplate()' )
+                  i.fa.fa-arrow-right
+                  |  Continuar
+          .col-md-12
+            h3.Poppins-SemiBold.primaryTextBlue Editar plantilla
+        .panel-body
+          .row
+            .col-md-12
+              .form
+                .col-md-12
+                  .form-group#name
+                    label.control-label Nombre de plantilla:
+                    input.form-control(ng-model='tc.template.name', type='text', placeholder="Nombre plantilla", style="border-radius: 7px;", required)
+
+                .col-md-12
+                  .col-md-6
+                    .form-group
+                      label.col-md-4.control-label Tipo de plantilla:
+                      .col-md-8
+                        select.form-control(ng-model='tc.template.type' ng-options="item.id as item.name for item in tc.documentTypes", style="border-radius: 7px;", required)
+                          option(value="", selected=true)
+                            | Selecciona una opción
+                  .col-md-3
+                    .form-group
+                      label.col-md-6.control-label Requiere firma
+                      .col-md-6
+                        .clearfix.pull-left
+                          .pull-right
+                            label.switch
+                              input(type='checkbox', ng-model="tc.template.signatureRequiered")
+                              span
+                  .col-md-3
+                    .form-group
+                      label.col-md-6.control-label Compartir
+                      .col-md-6
+                        .clearfix.pull-left
+                          .pull-right
+                            label.switch
+                              input(type='checkbox', ng-model="tc.template.private")
+                              span
+
+
+                .col-md-12.animated( ng-class= "tc.template.private ? 'fadeIn': 'fadeOut'"  ng-if="tc.template.private" style="background-color: #c5c8ca; border-radius: 5px;padding-top: 10px;margin-top: 15px;")
+                  .form-group
+                    label.control-label Secretaría a compartir
+
+                    select.form-control(ng-model='tc.template.secretariateID', ng-options='item.id as item.name for item in tc.secretariates', style='border-radius: 7px;', required)
+                      option(value="", selected=true)
+                        | Selecciona una opción
+
+
+
+
+
+
+
+
+
+
+
+.row(ng-if='!tc.isLoading()')
+  .col-md-4(style= "background-color: #ebeded;")
+    .panel-default
+      .panel-heading
+        h3 Listado de variables
+      .panel-body
+        .row(ng-repeat="variable in tc.variables track by $index", style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;")
+          .col-md-12
+            .form-group#variables
+              h4
+                button.btn.btn-signed.btn-sm(ng-if="tc.isOnComposeFunction() && !variable.typeObject.fixed", style="background: transparent; border: 1px solid #e96057; color: #e96057; margin-right: 5px;", type='button', ng-click='tc.removeVariable($index)')
+                  i.fa.fa-minus
+                | Variable {{$index + 1}}: {{variable.name}}
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                label Nombre
+                input.form-control(ng-model='variable.name', type='text', placeholder="Nombre", style="border-radius: 7px;", ng-change='tc.onChangeVariableName($index)', required, ng-disabled='variable.typeObject.fixed')
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                label Variable
+                input.form-control(ng-model='variable.variable', type='text', placeholder="Variable", style="border-radius: 7px;", readonly)
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                label Tipos de variables
+                select.form-control(ng-if='variable.typeObject.fixed', required, ng-options='item as item.name group by item.groupName for item in tc.fixedVariables track by item.type', ng-model='variable.typeObject', ng-change='tc.onChangeVariableType($index)', placeholder="Tipo", style="border-radius: 7px;", ng-disabled='variable.typeObject.fixed')
+                select.form-control(ng-if='!variable.typeObject.fixed', required, ng-options='item as item.name group by item.groupName for item in tc.normalVariableTypes track by item.type', ng-model='variable.typeObject', ng-change='tc.onChangeVariableType($index)', placeholder="Tipo", style="border-radius: 7px;", ng-disabled='variable.typeObject.fixed')
+                  option(value='', selected, disabled)
+                    | Tipo de variable
+                  //- optgroup(ng-repeat='group in tc.variableTypes', ng-options='item.type as item.name for item in group.options track by item.type')
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                div(ng-show='variable.typeObject.handleBoundaries')
+                  label Longitud minima
+                  input.form-control(type='number', ng-model='variable.min', placeholder="{{ variable.type === 'number' ? 'Valor min' : 'Long. min' }}", style="border-radius: 7px;")
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                div(ng-show='variable.typeObject.handleBoundaries')
+                  label Longitud maxima
+                  input.form-control(type='number', ng-model='variable.max', placeholder="{{ variable.type === 'number' ? 'Valor max' : 'Long. max' }}", style="border-radius: 7px;")
+              .col-sm-4.col-md-6(style='margin-bottom: 10px;')
+                div(ng-show='variable.typeObject.handleDefault')
+                  label Valor default
+                  input.form-control(type='text', ng-model='variable.default_value', placeholder="Valor default", style="border-radius: 7px;")
+              .col-sm-12.col-md-12(ng-if='variable.typeObject.type === tc.specialTypes.TABLE', style='margin-bottom: 10px;')
+                .row
+                  .col-md-12(style="margin-top: 10px;")
+                    span Columnas:
+
+                    button.btn.btn-signed.btn-sm(ng-if="tc.isOnComposeFunction()", style="background: transparent; border: 1px solid #e96057; color: #e96057;", type='button', ng-click='tc.onRemoveTableColumn(variable)')
+                      i.fa.fa-minus
+                      span(style="margin-right: 5px;") Remover
+
+                    button.btn.btn-signed.btn-sm(ng-if="tc.isOnComposeFunction()", style="background: transparent; border: 1px solid #e96057; color: #e96057;", type='button', ng-click='tc.onAddTableColumn(variable)')
+                      i.fa.fa-plus
+                      span(style="margin-right: 5px;") Agregar
+                br
+                .col-md-6.col-sm-3.col-md-12(ng-repeat='tableColumn in variable.tableColumns track by $index', style='border-right: 2px; margin-bottom: 10px;')
+                  input.form-control(ng-model='variable.tableColumns[$index].name', type='text', placeholder="Columna {{$index + 1}}", style="border-radius: 7px; width: 63%; display: inline-block;", required)
+                  input.form-control(ng-model='variable.tableColumns[$index].width', type='text', placeholder="Ancho {{$index + 1}}", style="border-radius: 7px; width: 35%; display: inline-block;")
+        .row(style="padding-bottom: 10px;")
+          .col-sm-12.col-md-12
+            button.btn.btn-signed.btn-sm.pull-right(ng-if="tc.isOnComposeFunction()", style="background: transparent; border: 1px solid #e96057; color: #e96057;", type='button', ng-click='tc.addVariable()')
+              i.fa.fa-plus
+              | AGREGAR VARIABLE
+
+
+
+  .col-md-8(style= "background-color: #c5c8ca;")
+    .panel-default
+      .panel-heading
+        h3 Formato
+      .panel-body
+
+      
+        .pantallaSummerPlantilla.realWidth(ng-if="!tc.isOnComposeFunction()")
+          div(ng-bind-html="tc.previewTemplate | trusted")
+        .pantallaSummerPlantilla(ng-if="tc.isOnComposeFunction()")
+          h4
+            | Cabecera
+          summernote(id="summernoteHeader" ng-model='tc.template.header' config='tc.templateHeaderOptions')
+          h4
+            | Contenido
+          summernote(id="summernoteContent" ng-model='tc.template.content' config='tc.templateContentOptions')
+          h4
+            | Pie de página
+          summernote(id="summernoteFooter" ng-model='tc.template.footer' config='tc.templateFooterOptions')
+
+          //- .pantallaSummerPlantilla()
+          div#html2image(style='background-color: white;')
+
+
+
+// Start Modal vista previa
+#modalPreviewTemplate.modal.fade(role='dialog', style="background: rgba(0, 0,0, .75);overflow-y: auto;")
+  .modal-dialog.modal-lg
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Guardar plantilla 
+      .modal-body
+
+        .row
+          .col-md-12
+            .form-group#name
+              p 
+                label.control-label(style="margin-right: 10px;") Nombre de plantilla:
+                | {{tc.template.name}}
+          .col-md-12(style="padding-left: 30px; padding-right: 30px;")
+            .col-md-12(style= "background-color: #c5c8ca;" ng-bind-html="tc.previewTemplate")
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal', ng-click="tc.saveTemplate()")
+          i.fa.fa-save
+          |  GUARDAR PLANTILLA
+// End Modal vista previa

@@ -1,0 +1,26 @@
+div(ng-controller= "displayPhotoComponentController as dpcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='dpcmp.cancel()') ×
+        h4.modal-title Vista previa
+    .modal-body
+        .panel-default(ng-if="dpcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!dpcmp.loading")
+            .panel-body
+
+                img.img-responsive(ng-src="{{dpcmp.currentImage.downloadURL}}", alt="{{dpcmp.currentImage.name}}" , title="{{dpcmp.currentImage.name}}" )
+    .modal-footer
+        a.btn.btn-primary(ng-href="{{dpcmp.currentImage.downloadURL}}", download="{{dpcmp.currentImage.name}}")
+            em.fa.fa-download(style="margin-right: 10px;")
+            | Descargar
+        button.btn.btn-secondary(ng-click='dpcmp.cancel()') Cerrar
+
+
+        
+                                    

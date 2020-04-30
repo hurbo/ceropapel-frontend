@@ -1,0 +1,21 @@
+div(ng-controller= "deleteTemplateComponentController as dtcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='dtcmp.cancel()') ×
+        h4.modal-title Eliminar plantilla
+    .modal-body
+        .panel-default(ng-if="dtcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!dtcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.text-danger ¿Estás seguro de eliminar la plantilla?
+                h4.text-center.Poppins-SemiBold.text-light-blue {{dtcmp.currentTemplate.name}}
+
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="!dtcmp.canDelete" ng-click='dtcmp.ok()') Eliminar
+        button.btn.btn-secondary(ng-click='dtcmp.cancel()') Cancelar

@@ -1,0 +1,134 @@
+.div(ng-if="mvc.document.fileHash")
+    .container
+        h4.text-blue Documentos adjuntos
+        a.btn.btn-secondary(style="margin: 10px;" ng-href="{{mvc.document.fileURL}}"  )
+            em.fa.fa-download(style="margin-right: 10px;")
+            | Descargar Zip
+        button.btn.btn-primary(style="margin: 10px;" ng-if="mvc.isShowInAttachment('zip')" ng-href="{{mvc.document.fileURL}}", ng-click="mvc.showFiles()" )
+            em.fa.fa-eye(style="margin-right: 10px;")
+            | Ver archivos
+        
+        
+
+
+        .col-md-12(ng-if="mvc.isShowInAttachment('loader')")
+            .panel-default
+                .panel-heading
+                    h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+                .panel-body.loader-demo.loader-demo-sk
+ 
+                    .spinner
+                        .dot1
+                        .dot2
+
+
+
+
+    .container(ng-if="mvc.isShowInAttachment('files')")
+        .panel-default(ng-if="mvc.files.images.length > 0")
+            .panel-heading
+                h4.text-blue Imágenes
+            .table-responsive
+                table#table-ext-1.table.table-bordered.table-hover
+                    thead
+                        tr
+                        th ID
+                        th Vista previa
+                        th Nombre
+                        th Ver
+                        th Descargar
+
+                    tbody
+                        tr(ng-repeat="file in mvc.files.images")
+                            td {{$index +1 }}
+                            td
+                                .media
+                                    img.img-responsive(ng-src="{{file.downloadURL}}", alt="{{file.name}}" , title="{{file.name}}" )
+                            td {{file.name | limitTo: 20}}
+                            td
+                                display-photo-component(file= "file")
+
+                            td
+                                a(ng-href="{{file.downloadURL}}", download="{{file.name}}")
+                                    em.fa.fa-download(style="margin-right: 10px;")
+                                    | Descargar
+        .panel-default(ng-if="mvc.files.pdf.length > 0")
+            .panel-heading
+                h4.text-blue Archivos PDF
+            .table-responsive
+                table#table-ext-1.table.table-bordered.table-hover
+                    thead
+                        tr
+                        th ID
+                        th Vista previa
+                        th Nombre
+                        th Ver
+                        th Descargar
+
+                    tbody
+                        tr(ng-repeat="file in mvc.files.pdf")
+                            td {{$index +1 }}
+                            td
+                                .media
+                                    img.img-responsive(src='/img/pdf.png', alt="pdf.{{file.name}}" , title="pdf.{{file.name}}")
+                            td {{file.name | limitTo: 20}}
+                            td 
+                                a(ng-click="mvc.showPDF(file)") 
+                                    em.fa.fa-eye
+                                    | Ver documento
+
+                            td
+                                a(ng-href="{{file.downloadURL}}", download="{{file.name}}")
+                                    em.fa.fa-download(style="margin-right: 10px;")
+                                    | Descargar
+
+
+
+        .panel-default(ng-if="mvc.files.others.length > 0")
+            .panel-heading
+                h4.text-blue Otros archivos
+            .table-responsive
+                table#table-ext-1.table.table-bordered.table-hover
+                    thead
+                        tr
+                        th ID
+                        th Vista previa
+                        th Nombre
+                        th Ver
+                        th Descargar
+
+                    tbody
+                        tr(ng-repeat="file in mvc.files.others")
+                            td {{$index +1 }}
+                            td
+                                .media
+                                    img.img-responsive(src='/img/newIcons/file.svg', alt="file.{{file.name}}" , title="file.{{file.name}}"  )
+                            td {{file.name | limitTo: 20}}
+                            td 
+                                a.text-muted No disponible
+
+                            td
+                                a(type='button' ng-href="{{file.downloadURL}}", download="{{file.name}}")
+                                    em.fa.fa-download(style="margin-right: 10px;")
+                                    | Descargar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pdf-preview-container(ng-show="mvc.isShowPDF", ng-click="mvc.isShowPDF=false")
+  //- span.close(ng-click="mvc.isShowPDF=false", style="color:white;") X
+  iframe#viewer(src="", frameborder="0")
+
+
+
+

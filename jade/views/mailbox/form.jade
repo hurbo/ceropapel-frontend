@@ -1,0 +1,644 @@
+
+
+
+
+
+
+.row(style="background-color: #c5c8ca" ng-if="docs.compose.variables.length  >= 1")
+  .col-md-12
+    .panel-default
+        .panel-body
+          .col-md-6
+            .pull-left(ng-if="docs.step === docs.StepEnum.FILL_DATA")
+              button.btn.btn-sm(type='button', style='background: transparent; border: 1px solid #e96057; color: #e96057; margin-right: 5px;', ng-click="docs.compose.variables = []")
+                i.fa.fa-arrow-left
+                | &nbsp;PLANTILLAS
+            .pull-left(ng-if="docs.step === docs.StepEnum.FILL_SEND_DATA")
+              button.btn.btn-sm(type='button', style='background: transparent; border: 1px solid #e96057; color: #e96057; margin-right: 5px;', ng-click='docs.setStep(docs.StepEnum.FILL_DATA);')
+                i.fa.fa-arrow-left
+                | Regresar
+
+            .pull-left(ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
+              button.btn.btn-sm.pull-left(type='button', style='background: transparent; border: 1px solid #e96057; color: #e96057; margin-right: 5px;', ng-click='docs.setStep(docs.StepEnum.FILL_SEND_DATA);')
+                i.fa.fa-arrow-left
+                | &nbsp;EDITAR DATOS DE ENVIO
+          .col-md-6
+            .pull-right(ng-if="docs.step === docs.StepEnum.FILL_DATA")
+              button.btn.btn-sm(ng-if='docs.compose.areAllVariablesFilled();', type='button', style='background-color: #e96057; color: white;', ng-click='docs.compose.showPreviewTemplate()')
+                | LLENAR DATOS DE ENVIO&nbsp;
+                i.fa.fa-arrow-right
+
+
+            .pull-right(ng-if="docs.step === docs.StepEnum.FILL_SEND_DATA")
+              button.btn.btn-sm(type='button', style='background-color: #e96057; color: white;', ng-click='docs.setStep(docs.StepEnum.REVIEW_DATA);')
+                | CONTINUAR&nbsp;
+                i.fa.fa-arrow-right
+
+            .pull-right(ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
+              button.btn.btn-sm(type='button', style='background-color: #e96057; color: white;', ng-click='!docs.compose.isDraft ? docs.compose.createDocument() : docs.compose.saveDraft()')
+                | {{!docs.compose.isDraft ? 'ENVIAR OFICIO' : 'GUARDAR OFICIO'}}&nbsp;
+                i.fa.fa-arrow-right
+
+
+
+
+
+
+.row(style="background-color: #fff" ng-if="docs.step === docs.StepEnum.FILL_DATA" )
+  .col-md-12(style="background-color: #eceded" ng-if="docs.compose.variables.length === 0")
+    select-template-component
+  .col-md-12(ng-if="docs.compose.variables.length >= 1")
+    .col-md-7(style="background-color: #fff")
+      .panel-default
+          .panel-heading
+              h3.Poppins-SemiBold.primaryTextBlue Listado de variables
+          .panel-body
+            .form-group(style="background: white; border-radius: 5px; margin-left: 15px; padding-top: 15px;")
+              .controls
+                .control(ng-repeat="variable in docs.compose.variables track by $index")
+                  div.variable-folio.col-sm-12.col-md-6(ng-if="variable.type === 'folio'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    input.form-control.border-rounded(type='text', readonly, ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar folio')
+
+                  div.variable-date.col-sm-12.col-md-6(ng-if="docs.compose.isDateVariable(variable);", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-calendar(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='date', format='dd/MM/yyyy', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  div.variable-time.col-sm-12.col-md-6(ng-if="variable.type === 'time'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-clock-o(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='time', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  div.variable-text.col-sm-12.col-md-6(ng-if="variable.type === 'text'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-font(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='text', minlength='{{ variable.min || undefined }}', maxlength='{{ variable.max || undefined }}', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar texto')
+
+                  div.variable-longtext.col-sm-12.col-md-6(ng-if="variable.type === 'longtext'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    textarea.form-control.border-rounded(type='text', cols='20', rows='4', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  div.variable-number.col-sm-12.col-md-6(ng-if="variable.type === 'number'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    input.form-control.border-rounded(numbers-only, type='text', pattern="{{variable.pattern}}", minlength='{{ variable.min || undefined }}', maxlength='{{ variable.max || undefined }}', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar numero')
+
+                  div.variable-user-active.col-sm-12.col-md-6(ng-if="variable.type === 'user_active'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-user(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='text', readonly, ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  div.variable-user-secretariat.col-sm-12.col-md-6(ng-if="variable.type === 'user_secretariat'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-users(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='text', readonly, ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  div.variable-current-date.col-sm-12.col-md-6(ng-if="docs.compose.isCurrentDateVariable(variable);", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                    label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
+                    span
+                      i.fa.fa-calendar-o(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded(type='date', readonly, ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+
+                  .row(ng-if="variable.type === 'table'")
+                    .col-xs-12
+                      div.variable-current-date.col-sm-12(ng-if="variable.type === 'table'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                        label.text-sm(style='font-weight: bold; margin-top: 10px;', ng-bind='variable.name')
+                        //- span
+                        //-   i.fa.fa-table(style='position: absolute; top: 68%; right: 13%;')
+                        //- input.form-control.border-rounded(type='date', readonly, ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+                        .col-sm-12.col-md-12(ng-if='variable.typeObject.type === tc.specialTypes.TABLE', style='margin-bottom: 10px;')
+                          .row
+                            .col-xs-12(style="margin-bottom: 15px;")
+                              span Registros:
+
+                              button.btn.btn-signed.btn-sm(style="background: transparent; border: 1px solid #e96057; color: #e96057;", type='button', ng-click='docs.compose.onRemoveTableRow(variable)')
+                                i.fa.fa-minus &nbsp;
+                                span(style="margin-right: 5px;") Remover
+
+                              button.btn.btn-signed.btn-sm(style="background: transparent; border: 1px solid #e96057; color: #e96057;", type='button', ng-click='docs.compose.onAddTableRow(variable)')
+                                i.fa.fa-plus &nbsp;
+                                span(style="margin-right: 5px;") Agregar
+
+                          .row(ng-if="docs.compose.variableValues[variable.variable].length")
+                            .col-xs-12(style="display: flex;")
+                              div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1;")
+                                p
+                                  strong
+                                    | {{ tableColumn.name }}
+
+                          .row(ng-repeat='tableValues in docs.compose.variableValues[variable.variable] track by $index')
+                            .col-xs-12(style="display: flex;")
+                              div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1; margin-bottom: 5px;")
+                                input.form-control(ng-model='tableValues[$index].name', type='text', placeholder="Ingresar valor", style="border-radius: 7px;", required, ng-change='docs.compose.onChangeVariable(variable, $parent.$index, $index)')
+
+    .col-md-5(style="background-color: #eceded")
+      .panel-default
+          .panel-heading
+              h3.Poppins-SemiBold.primaryTextBlue Vista previa
+          .panel-body
+            summernote(id="summernoteFullContent" ng-model='docs.compose.templateFullContent' config='docs.compose.templateFullContentOptions')
+
+
+
+
+
+
+.row(ng-if="docs.step === docs.StepEnum.FILL_SEND_DATA" style="background-color: #fff;")
+  .col-md-12
+    .panel-default
+        .panel-body
+          .controls
+            .row(style='display: flex; justify-content: space-around;')
+              .col-xs-12
+                label Asunto
+                input.form-control.border-rounded(type='text', ng-model ='docs.compose.document.subject')
+
+            .row(style="margin-top: 30px;")
+              .col-sm-4
+                label Privacidad
+
+                .row
+                  .col-xs-12
+                    .clearfix.pull-left
+                      p.pull-left Asignar como importante&nbsp;
+                      .pull-right
+                        label.switch(style="margin-left: 11px;")
+                          input(type='checkbox', ng-model="docs.compose.havePriority")
+                          span
+
+                  .col-xs-12
+                    .clearfix.pull-left
+                      p.pull-left Asignar como confidencial&nbsp;
+                      .pull-right
+                        label.switch(style="margin-left: 5px;")
+                          input(type='checkbox', ng-model="docs.compose.isConfidential")
+                          span
+
+              .col-sm-4
+                label Fecha limite
+
+                .row
+                  .col-xs-12
+                    .clearfix.pull-left
+                      p.pull-left Asignar fecha límite&nbsp;
+                      .pull-right
+                        label.switch
+                          input(type='checkbox', ng-model="docs.compose.haveDeadline")
+                          span
+
+                  .col-xs-12
+                    label.text-sm(ng-if='docs.compose.haveDeadline', style='font-weight: bold;') Fecha límite de respuesta
+                    div.variable-date(ng-if='docs.compose.haveDeadline', style='position: relative; margin: 0 auto;')
+                      span
+                        i.fa.fa-calendar(style='position: absolute; top: 30%; right: 2%;')
+                      input.form-control.border-rounded(type='date', format='dd/MM/yyyy', ng-model='docs.compose.deadline', min="{{docs.compose.today | date:'yyyy-MM-dd'}}")
+                      div(ng-if='alertDate')
+                        p.red.danger La fecha límite debe ser despues al día de hoy
+
+              .col-lg-4
+                div(ng-if="docs.compose.showUploadFiles()")
+                  .form-group
+                    label Adjuntar archivos
+                    .controls
+                      div
+                        h3.text-danger() {{docs.compose.getFullSize() / 1000000 }} DE 35MB
+                        ul.list-group
+                          li.list-group-item(ng-repeat="file in docs.compose.fileList.getItems()")
+
+                            button.btn.btn-secondary.badge( style="background: red;" ng-click="docs.compose.removeFile(file)") X
+                            button.btn.btn-default.badge(ng-if="file.old")
+                              display-photo-component( ng-if="file.cssClass == 'fa-file-image-o'" file= "file")
+                            button.btn.btn-default.badge(ng-if="file.old" ng-href="{{file.downloadURL}}", download="{{file.name}}")
+                              a(ng-href="{{file.downloadURL}}", download="{{file.name}}")
+                                em.fa.fa-download(style="margin-right: 10px;")
+                                | Descargar
+                            span {{file.name | limitTo: 20}}
+                      .form-group
+                        input.form-control(type='file', namde='keyFile', required='', file-model="docs.compose.files" multiple='' placeholder="Selecciona los archivos")
+                div(ng-if="!docs.compose.showUploadFiles()")
+                  h3 Existe uno o más archivos adjuntos en este documento
+                  p.h4 ¿Desea editarlo?
+                  button.btn.btn-primary.btn-sm.mb(ng-click="docs.compose.unzipFiles()" ng-disabled="docs.compose.blockDownload") Editar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.row(ng-if="docs.step === docs.StepEnum.FILL_SEND_DATA")
+  .col-md-12
+    .panel-default(style="background-color: #eceded")
+
+
+      .panel-body
+
+        legend.pull-right.text-danger {{docs.compose.error}}
+        // START row
+        .row
+
+
+
+
+          .col-md-2
+          .col-md-8(style="background-color: #c5c8ca; height: 1000px; overflow: scroll; padding: 50px;" )
+            .process-document(ng-if="docs.compose.document.sheets")
+              .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+                div(ng-repeat="section in sheet.sections")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0; left: 0;")
+                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+          .col-md-2
+
+
+        // END row
+    .panel-default(style="background-color: #fff")
+      .panel-heading Personal involucrado
+      .panel-body
+        legend.pull-right.text-danger {{docs.compose.error}}
+        .row
+          .col-md-6
+            .col-md-12(ng-if="docs.compose.external")
+              .form-group
+                label Comisionado a:
+                ui-select( multiple='false',   tagging-tokens=',|/', ng-model='docs.externalInfo.commissioned', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar comisionado')
+                  ui-select-match(placeholder='Agregar comisionado') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12(ng-if="docs.compose.external")
+              .form-group
+                label Con copia para:
+                ui-select( multiple='false',   tagging-tokens=',|/', ng-model='docs.compose.externalInfo.cc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar copia para')
+                  ui-select-match(placeholder='Agregar copia para') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12
+              .form-group
+                label Para:
+                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedTo', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12
+              .form-group
+                .checkbox.c-checkbox
+                  label
+                    input(type='checkbox', ng-model="docs.compose.colaboration")
+                    span.fa.fa-check
+                    |  Este oficio requiere colaboración
+            .col-md-12(ng-if="docs.compose.colaboration")
+              .form-group
+                label Colaborador:
+                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedColaborators', on-remove="docs.compose.onRemoveColaboration($item, $model)", on-select="docs.compose.onSelectColaboration($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar colaborador')
+                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+              .col-md-12
+                hr(style="margin: 30px 0")
+                h4.text-danger Orden de colaboración.
+                div#orden(ng-nestable ng-model='docs.compose.listColaborators')
+                  div(ng-if="$item")
+                    strong {{docs.getPossition($item)}} 
+                    img.img-circle(style="height: 30px; padding-right: 10px; padding-left: 10px; " ng-src="{{$item.avatar}}", alt="To Avatar")
+                    | {{$item.name}} < {{$item.email}} >
+                hr(style="margin: 30px 0")
+            .col-md-12
+              .form-group
+                label Copia para:
+                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedToCc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectToCc($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12
+              .form-group
+                label Grupo:
+                ui-select(ng-if="docs.compose.showTo" multiple='',  tagging-tokens=',|/', ng-model='docs.compose.selectedGroup' on-select="docs.compose.onSelectGroup($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar grupo')
+                  ui-select-match(placeholder='Agregar grupo') {{$item.name}} <{{$item.name}}>
+                  ui-select-choices(repeat='group in docs.compose.groups | propsFilter: {name: $select.search, name: $select.search}')
+                    div(ng-if='group.isTag', ng-bind-html="group.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!group.isTag', ng-bind-html='group.name| highlight: $select.search')
+                    small
+                      | Nombre del grupo: {{group.name}}
+
+            .col-md-12(ng-if="docs.compose.recipients.length > 0")
+              br
+              .form-group
+                label Listado destinatarios
+                table.table.table-striped.table-bordered
+                  thead.bg-blue-primary
+                    tr
+                      th
+                        dt.text-center.text-white Destinario
+                      th
+                        dt.text-center.text-white Requiere firmar
+
+                  tbody
+                    tr(ng-repeat="recipient in docs.compose.recipients")
+                      td.text-primary
+                        strong {{recipient.name}}
+                        span {{recipient.email}}
+                      td.text-primary.text-center
+                        button.btn(ng-click="docs.compose.toggleSignatureRequirement(recipient)", ng-class="recipient.needSign? 'btn-primary' : 'btn-defualt'") {{recipient.needSign? 'Si' : 'No'}}
+
+
+
+          .col-md-6
+            .col-md-12(ng-if="!docs.compose.isDraft")
+              label.col-sm-3.control-label Mensajes personales
+              .col-sm-9
+                .checkbox.c-checkbox
+                  label
+                    input(ng-disabled="!docs.compose.listToPrivateMessages.length" type='checkbox' ng-model="docs.compose.havePrivateMessages")
+                    span.fa.fa-check
+                    |  Selecciona este campo para enviar correos personales
+            fieldset
+            .col-md-12(ng-if="!docs.compose.isDraft")
+
+
+
+              .panel-default(ng-if="docs.compose.havePrivateMessages")
+                .panel-heading.principal
+                  .panel-title(style="color: #fafafa") Mensajes personales
+                .panel-default
+                  .panel-body
+
+
+
+                    form(name="privateMessages", novalidate)
+
+                      .form-group
+                        .row
+                          .col-md-3
+                            label  Correo electrónico
+                          .col-md-9
+                            select.form-control(ng-model='docs.compose.privateMessageTo', ng-options='person.name for person in docs.compose.listToPrivateMessages')
+                      .form-group
+                        .row
+                          .col-md-3
+                            label Contenido
+                          .col-md-12
+                            textarea.form-control(type='text', placeholder='Mensaje personal' ng-model="docs.compose.privateMessageContent")
+                      .form-group.col-md-12
+                        button.btn.btn-signed.pull-right(ng-click="docs.compose.addMessage()" ng-disabled="!docs.compose.privateMessageTo") Agregar
+
+            .col-md-12(ng-if="docs.compose.listPrivateMessages.length")
+              .list-group
+                // START list group item
+                a.list-group-item
+                  .media-box
+                    .media-box-body.clearfix(ng-repeat="message in docs.compose.listPrivateMessages")
+                      strong.media-box-heading.text-primary
+                        | {{message.to.name}} <{{message.to.email}}>
+                      p.mb-sm {{message.content}}
+    .panel-default(style="background-color: #fff")
+      .panel-heading Enviar
+      .panel-body
+        legend.pull-right.text-danger {{docs.compose.error}}
+        .form-group
+          .row
+            .col-md-8
+              .checkbox.c-checkbox
+                label
+                  input(type='checkbox', ng-model="docs.compose.isDraft" ng-disabled = "docs.compose.truncateDraft")
+                  span.fa.fa-check
+                  |  Enviar como borrador
+
+            .col-md-4
+
+        div(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft")
+          .input-group.form-group
+            span.input-group-addon.text-sm Contraseña:
+            input.form-control(type='password' ng-model ='docs.compose.password')
+          .mb-editor
+          button(type="button" ng-click="docs.compose.createDocument()").btn.btn-primary.btn-sm.mb Enviar
+        div(ng-if="docs.compose.isDraft || docs.compose.truncateDraft")
+          .input-group.form-group
+            span.input-group-addon.text-sm Borrador para:
+            ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+              ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+              ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                small
+                  | email: {{person.email}}
+          .mb-editor
+            button(type="button" ng-click="docs.compose.saveDraft()").btn.btn-primary.btn-sm.mb Guardar borrador
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.row(style="background-color: #eceded" ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
+  .col-md-12
+    .panel-heading
+      button.btn.btn-md.btn-primary.pull-right(type='button', ng-click='docs.compose.showPreviewTemplate()') Visualizar documento
+    .panel-default
+        .panel-body(style=" margin-top: 20px;")
+
+          .col-md-12.compose-review-label.panel(style="padding: 15px;")
+            .row
+              .col-xs-12
+                .row
+                  .col-xs-12
+                    span.labelBold(style='font-weight: bold; color: #3a6c82;')
+                      | PARA:
+
+                    .row(ng-if="!docs.compose.selectedTo.length")
+                      .col-xs-12
+                        span No se han agregado destinatarios
+
+                    .row(ng-repeat="listTo in docs.compose.selectedTo track by $index")
+                      .col-xs-12
+                        .row
+                          .col-xs-12
+                            span.value(style='font-weight: bold;', ng-bind='listTo.name')
+                        .row
+                          .col-xs-12
+                            span(ng-bind='listTo.email')
+
+            .row
+              .col-xs-12
+                hr(style='border-top-width: 2px;')
+            .row
+              .col-xs-12
+                span.labelBold(style='font-weight: bold; color: #3a6c82;')
+                  | ASUNTO:
+            .row
+              .col-xs-12
+                span.value(style='font-weight: bold;', ng-bind='docs.compose.document.subject')
+            .row
+              .col-xs-12
+                hr(style='border-top-width: 2px;')
+
+            .row
+              .col-xs-12
+                span.labelBold(style='font-weight: bold; color: #3a6c82;')
+                  | COLABORADORES:
+
+                .row(ng-if="!docs.compose.selectedColaborators.length")
+                  .col-xs-12
+                    span No se han agregado colaboradores
+
+                .row(ng-repeat="colaborator in docs.compose.selectedColaborators track by $index")
+                  .col-xs-1
+                    span.labelBold(style='font-weight: bold; color: #3a6c82;', ng-bind="('' + ($index + 1)).padStart(2, '0')")
+                  .col-xs-11
+                    span.value(style='font-weight: bold;')
+                      | {{ colaborator.name }}
+                    br
+                    span(style='font-size: 12px;')
+                      | {{ colaborator.jtName }}
+
+            .row
+              .col-xs-12
+                hr(style='border-top-width: 2px;')
+
+            .row
+              .col-xs-12
+                span.labelBold(style='font-weight: bold; color: #3a6c82;')
+                  | COPIA PARA:
+
+            .row(ng-if="!docs.compose.selectedToCc.length")
+              .col-xs-12
+                span No se han agregado destinatarios
+
+            .row(ng-repeat="colaborator in docs.compose.selectedToCc track by $index")
+              .col-xs-12
+                span.value(style='font-weight: bold;', ng-bind='colaborator.name')
+                br
+                span(style='font-size: 12px;', ng-bind='colaborator.jtName')
+
+            .row
+              .col-xs-12
+                hr(style='border-top-width: 2px;')
+
+            .row
+              .col-xs-12
+                span.labelBold(style='font-weight: bold; color: #3a6c82;')
+                  | MENSAJES PERSONALIZADOS:
+
+                .row(ng-if="!docs.compose.listPrivateMessages.length")
+                  .col-xs-12
+                    span No se han agregado mensajes
+
+                .row(ng-repeat='privateMessage in docs.compose.listPrivateMessages')
+                  .col-xs-1
+                    span.labelBold(style='font-weight: bold; color: #3a6c82;', ng-bind="('' + ($index + 1)).padStart(2, '0')")
+                  .col-xs-11
+                    .row
+                      .col-xs-12
+                        span.labelBold(style='font-weight: bold; color: #3a6c82; font-size: 12px;')
+                          | PARA:
+                    .row
+                      .col-xs-10
+                        span.value(style='font-weight: bold;', ng-bind='privateMessage.to.name')
+                        br
+                        span(style='font-size: 12px;', ng-bind='privateMessage.to.jtName')
+
+                      .col-xs-2
+                        .mb-editor.pull-right
+                          button(type="button", ng-click="privateMessage.showMessage = !privateMessage.showMessage").btn.btn-primary.btn-sm.mb Ver mensaje
+                    .row(ng-if='privateMessage.showMessage')
+                      .col-xs-12
+                        span(ng-bind='privateMessage.content')
+                    hr
+
+
+
+
+
+
+
+
+// Start Modal vista previa
+#modalPreviewTemplate.modal.fade(role='dialog', style="background: rgba(0, 0,0, .75);overflow-y: auto;")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header 
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Vista previa
+      .modal-body
+        .row
+
+          .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
+          .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
+            .process-document
+              .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+                div(ng-repeat="section in sheet.sections")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0; left: 0;")
+                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+
+
+      .modal-footer(ng-if="docs.step === docs.StepEnum.FILL_DATA")
+        button.btn.btn-secondary(type='button', ng-click="docs.compose.printDocument()")
+          |  IMPRIMIR
+        button.btn.btn-secondary(type='button', data-dismiss='modal', ng-click="docs.setStep(docs.StepEnum.FILL_SEND_DATA);")
+          |  CONTINUAR
+
+      .modal-footer(ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
+        button.btn.btn-secondary(type='button', ng-click="docs.compose.printDocument()")
+          |  IMPRIMIR
+        button.btn.btn-secondary(type='button', data-dismiss='modal')
+          |  ACEPTAR
+// End Modal vista previa

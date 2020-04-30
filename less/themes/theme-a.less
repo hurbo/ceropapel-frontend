@@ -1,0 +1,278 @@
+@import '../bootstrap/variables';
+@import '../bootstrap/mixins/gradients';
+@import '../app/media-queries';
+@import '../app/material/colors';
+
+
+//
+// Variables to change general look
+//
+@newFocus: rgb(26, 56, 70);
+@newActiveFocus: rgb(88, 138, 163);
+
+
+@newColor-1: #F3C98B;
+@newColor-2: #FFD167;
+@newColor-3: #E96057;
+@newColor-4: #DB564F;
+@newColor-5: #CC4B47;
+@newColor-6: #BE413F;
+@newColor-7: #AF3737;
+@newColor-8: #ECEDED;
+@newColor-9: #659EBA;
+@newColor-10: #55849D;
+@newColor-11: #456B80;
+@newColor-12: #355263;
+@newColor-13: #253846;
+@newColor-14: #DD2C57;
+@newColor-15: #C3274B;
+@newColor-16: #A92140;
+@newColor-17: #8E1C34;
+@newColor-18: #741628;
+@newColor-19: #D6D6D6;
+// LAYOUT
+
+@content-bg: @newColor-8;
+@aside-bg: #253846;
+
+// NAVBAR TOP
+
+@nav-top-bg: @newColor-8;
+@nav-top-bg-start: @nav-top-bg;
+@nav-top-bg-end: @nav-top-bg;
+@nav-header-bg: transparent;
+
+@nav-top-item-mobile: @newFocus;
+@nav-top-item-mobile-active: @newActiveFocus;
+
+@nav-top-item-desktop: @newFocus;
+@nav-top-item-desktop-active: @newActiveFocus;
+
+// SIDEBAR
+
+@sidebar-bg: @aside-bg;
+
+@sidebar-item-color: @newActiveFocus;
+@sidebar-item-color-active: @newActiveFocus;
+@sidebar-item-bg-active: darken(@sidebar-bg, 1%);
+
+@sidebar-icon-color: @newActiveFocus;
+@sidebar-icon-color-active: @newActiveFocus;
+
+@sidebar-bullet-color: rgba(0, 0, 0, .25);
+@sidebar-bullet-color-active: @sidebar-icon-color-active;
+
+@sidebar-heading-color: #919DA8;
+@sidebar-label-color: @sidebar-item-color;
+
+// OFFSIDEBAR
+
+@offsidebar-bg: @newColor-10;
+@offsidebar-border-color: greyscale(darken(@offsidebar-bg, 20%));
+@offsidebar-color: @text-color;
+
+
+/* ========================================================================
+   Component: layout
+ ========================================================================== */
+
+body,
+.wrapper>section {
+  background-color: @content-bg;
+}
+
+.wrapper>.aside {
+  background-color: @aside-bg;
+}
+
+/* ========================================================================
+   Component: top-navbar
+ ========================================================================== */
+
+// Navbar Mobile General styles
+// ------------------------------
+
+.topnavbar {
+
+  background-color: @nav-top-bg;
+
+  .navbar-header {
+    background-color: @aside-bg;
+
+    // #gradient.horizontal(@nav-top-bg-start, @nav-top-bg-end);
+    @media @tablet {
+      background-image: none;
+    }
+  }
+
+  .navbar-nav>li>a,
+  .navbar-nav>.open>a {
+    color: @nav-top-item-mobile;
+
+    &:hover,
+    &:focus {
+      color: @nav-top-item-mobile-active;
+    }
+  }
+
+  // Navbar link active style
+  .navbar-nav>.active>a,
+  .navbar-nav>.open>a {
+
+    &,
+    &:hover,
+    &:focus {
+      background-color: trarednsparent;
+    }
+  }
+
+
+  #loading-bar {
+    background-color: @newColor-10 !important;
+  }
+
+  // the button to toggle search
+  .navbar-nav>li>[data-toggle='navbar-search'] {
+    color: @nav-top-item-desktop;
+  }
+
+  .nav-wrapper {
+    background-color: @newColor-10 !important;
+    #gradient.horizontal(@nav-top-bg-start, @nav-top-bg-end);
+  }
+}
+
+// Navbar Desktop styles
+// ------------------------------
+
+@media @tablet {
+
+  // Navbar top styles
+  .topnavbar {
+    background-color: @nav-top-bg;
+    // background-color: @nav-top-bg;
+    #gradient.horizontal(@nav-top-bg-start, @nav-top-bg-end);
+    // #gradient.horizontal(@nav-top-bg-start, @nav-top-bg-end);
+
+    // .navbar-nav > .open > a {
+    //   &, &:hover, &:focus {
+    //     box-shadow: 0 -3px 0 rgba(255,255,255,.5) inset;
+    //   }
+    // }
+    // porno
+
+    .navbar-nav>li>a,
+    .navbar-nav>.open>a {
+      color: @nav-top-item-desktop;
+
+      &:hover,
+      &:focus {
+        color: @nav-top-item-mobile-active;
+      }
+    }
+
+  }
+
+  // .topnavbar
+
+}
+
+/* ========================================================================
+   Component: sidebar
+ ========================================================================== */
+
+.sidebar {
+  background-color: @sidebar-bg;
+
+  .nav-heading {
+    color: @sidebar-heading-color;
+  }
+
+  // Items
+  .nav {
+    >li {
+
+      >a,
+      >.nav-item {
+        color: @sidebar-item-color;
+
+        &:focus,
+        &:hover {
+          color: @sidebar-item-color-active;
+        }
+
+        // Item icon
+        >em {
+          color: @sidebar-icon-color;
+        }
+      }
+
+      // Active item state
+      &.active,
+      &.open {
+
+        &,
+        >a,
+        .nav {
+          background-color: @sidebar-item-bg-active;
+          color: @sidebar-item-color-active;
+        }
+
+        >a>em {
+          color: @sidebar-icon-color-active;
+        }
+      }
+
+      &.active {
+        border-left-color: @sidebar-item-color-active;
+      }
+    }
+  }
+}
+
+.sidebar-subnav {
+  background-color: @sidebar-bg;
+
+  >.sidebar-subnav-header {
+    color: @sidebar-item-color;
+  }
+
+  >li {
+
+    >a,
+    >.nav-item {
+      color: @sidebar-item-color;
+
+      &:focus,
+      &:hover {
+        color: @sidebar-item-color-active;
+      }
+    }
+
+    &.active {
+
+      >a,
+      >.nav-item {
+        color: @sidebar-icon-color-active;
+
+        &:after {
+          border-color: @sidebar-bullet-color-active;
+          background-color: @sidebar-bullet-color-active;
+        }
+      }
+    }
+  }
+
+  // li
+}
+
+
+/* ========================================================================
+   Component: offsidebar
+ ========================================================================== */
+
+.offsidebar {
+  border-left: 0.5px   rgba(37, 56, 70, .50);
+  background-color: @offsidebar-bg;
+  color: @offsidebar-color;
+}

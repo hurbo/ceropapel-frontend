@@ -1,0 +1,37 @@
+div(ng-controller= "multipleChangeStatusComponentController as mcscmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Cambiar estatus
+    .modal-body(style="height: 18em;")
+        
+        form(role='form' ng-if="!mcscmp.loading")
+            .form-group.col-md-12(ng-if="!mcscmp.requirePass()")
+                label No requiere contraseña
+                input.form-control(type='password' placeholder='No requiere contraseña' ng-model="mcscmp.password" ng-disabled="true")
+            .form-group.col-md-12(ng-if="mcscmp.requirePass()")
+                label Contraseña
+                input.form-control(type='password' placeholder='Ingrese contraseña' ng-model="mcscmp.password")
+            .form-group.col-md-3
+                label Estatus
+                select.form-control(ng-model="mcscmp.newStatus", ng-options="item as item.name for item in mcscmp.optionsStatus")
+
+
+
+
+            .form-group.col-md-9
+                label Mensaje
+                input.form-control(ng-model="mcscmp.message")
+
+        div(ng-if="mcscmp.loading")
+            h3.text-center.text-blue Cargando
+                .panel-body.loader-demo.loader-demo-sk
+
+                    .spinner
+                        .dot1
+                        .dot2
+            uib-progressbar(animate='false', value='mcscmp.value')
+                b {{mcscmp.value}}%
+
+    .modal-footer
+        button.btn.btn-primary(ng-click='mcscmp.ok()' ng-disabled="mcscmp.loading || (mcscmp.requirePass() && !mcscmp.password) || !mcscmp.newStatus || (mcscmp.newStatus.name === 'No procede' && (!mcscmp.message || mcscmp.message.length <8) )") Cambiar estatus
+        button.btn.btn-secondary(ng-click='mcscmp.cancel()' ng-disabled="mcscmp.loading") Cancelar

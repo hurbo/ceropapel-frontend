@@ -1,0 +1,70 @@
+
+
+
+// Contenedor carga
+.container(ng-if='!mvc.document')
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          h3.text-center Cargando dos
+        .panel-body.loader-demo.loader-demo-sk
+          .spinner
+            .dot1
+            .dot2
+
+div( ng-if="mvc.document")
+  // END action buttons
+  .contenedorSummer
+    .pantallaSummer
+      summernote#summernoteViewOptions( data-backdrop="false" ng-model="mvc.content" config='mvc.summernoteViewOptions')
+
+  // panel de asunto
+  .panel.panel-default
+    .panel-body
+      table.table.mb-mails.mb-view
+        tbody
+          tr
+            td(style='background: #fff;')
+              .pull-left
+                img.mb-mail-avatar.pull-left(ng-src="{{mvc.document.from.avatar}}", alt="Mail Avatar")
+                .pull-left
+                  p
+                    span Asunto:
+                    span.mb-mail-from {{mvc.document.subject}}
+                  p
+                    span De:
+                    span.mb-mail-from {{mvc.document.from.name}} <{{mvc.document.from.email}}>
+              .pull-right
+                h2
+                  span.label.label-read.pull-right(ng-if='!mvc.document.priority') Normal
+                  span.label.label-no-read.pull-right(ng-if='mvc.document.priority') Importante
+              .clearfix
+
+              // archivo adjunto
+              div(ng-if="mvc.document.fileHash")
+                span.attachment-title Archivo adjunto
+                div.attachment
+                  a.download-attachment(ng-href="{{mvc.document.fileURL}}")
+                    span
+                      i.fa.fa-file-zip-o.fa-2x
+                    span Descargar
+              // fin archivo adjunto
+              br
+
+
+
+
+  .panel.panel-default
+    .panel-heading
+      .panel-title Mensaje de cancelación
+    .panel-body
+      .list-group-item
+        .media-box
+          .pull-right
+            strong Fecha de cancelación:
+            br
+            small {{(mvc.document.canceledAt   | date:'dd-MM-yyyy h:mm a') }}
+
+          .media-box-body.clearfix
+            strong.media-box-heading.text-primary(style="text-transform: capitalize;") {{mvc.document.cancelMessage}}

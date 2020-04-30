@@ -1,0 +1,80 @@
+
+
+
+
+.div(ng-if="cscmp.fallUpon && !cscmp.itsOutbox && cscmp.currentDocument.needCancel === 1 && cscmp.inbox.needSign && cscmp.inbox.signed === 1 && cscmp.inbox.agreeCancel !== 1")
+    .panel-default.detailsContainer
+        .panel-body
+            h4.text-blue Autorizar cancelación
+            h2.text-danger {{cscmp.currentDocument.cancelMessage}}
+            h3.dangerText(ng-if="cscmp.prossesing") Cargando...
+
+            .row-md-12
+                form.ng-pristine
+                    .form-group
+                        label Contraseña
+                        input.form-control(type='password' ng-disabled="cscmp.prossesing" placeholder='Ingresar contraseña' ng-model="cscmp.password")
+                        
+                    .form-group
+                        label Mensaje
+                        textarea.form-control(type='text' ng-disabled="cscmp.prossesing" placeholder='Ingresar mensaje' ng-model="cscmp.message")
+
+                    button.btn.btn-sm.btn-primary(ng-click="cscmp.aceptCancel()" ng-disabled="cscmp.prossesing") Aceptar
+                    button.btn.btn-sm.btn-primary(ng-click="cscmp.rejectCancel()" ng-disabled="cscmp.prossesing || !cscmp.password || !cscmp.message") Rechazar
+
+
+
+.div(ng-if="cscmp.fallUpon && !cscmp.itsOutbox && cscmp.currentDocument.needCancel !== 1 && !cscmp.imAuthor && cscmp.inbox.rejected !== 1")
+    .panel-default.detailsContainer
+        .panel-body
+            h4.text-blue(ng-if="cscmp.inbox.needSign && cscmp.inbox.signed === 0") Recibir 
+            h3.dangerText(ng-if="cscmp.prossesing") Cargando...
+            h4.text-blue(ng-if="!cscmp.inbox.needSign") Confirmar
+            .row-md-12(ng-if="cscmp.inbox.needSign && cscmp.inbox.signed === 0")
+                form.ng-pristine
+                    .form-group
+                        label Contraseña
+                        input.form-control(type='password' ng-disabled="cscmp.prossesing" placeholder='Ingresar contraseña' ng-model="cscmp.password")
+                    .form-group
+                        .col-md-1
+                            button.btn.btn-sm.btn-primary(ng-click="cscmp.signDocument()" ng-disabled="cscmp.prossesing || !cscmp.password") Firmar
+                        .col-md-1
+                            reject-component(document="cscmp.currentDocument")
+
+            .row-md-12(ng-if="(!cscmp.inbox.needSign || cscmp.inbox.signed === 1) && cscmp.inbox.rejected !== 1")
+                form.ng-pristine
+                    .form-group.col-md-3
+                        label Estatus
+                        select.form-control(ng-model="cscmp.newStatus", ng-options="item for item in cscmp.optionsStatus")
+                    .form-group.col-md-9
+                        label Mensaje
+                        input.form-control(ng-model="cscmp.message")
+
+                    .form-group
+                        .col-md-2
+                            button.btn.btn-sm.btn-primary(ng-click="cscmp.changeStatus()" ng-disabled ="!cscmp.newStatus || ( cscmp.newStatus === 'No procede' && !cscmp.message ) || ( cscmp.newStatus === 'Congelado' && !cscmp.message )") Cambiar estatus
+
+                        .col-md-1
+                            reject-component(document="cscmp.currentDocument")
+
+.div(ng-if="cscmp.inbox.rejected === 1")
+    .panel-default.detailsContainer
+        .panel-body
+            h4.text-blue El oficio fue rechazado
+            .row-md-12
+                .col-md-12
+                    h4.text-danger {{cscmp.inbox.rejectMessage}}
+
+.div(ng-if="cscmp.fallUpon && cscmp.itsOutbox && cscmp.imAuthor")
+    .panel-default.detailsContainer
+        .panel-body
+            h4.text-blue Herramientas
+            .row-md-12
+                .col-md-2
+                    request-cancel-component(document="cscmp.currentDocument")
+
+
+.div.divider
+
+
+

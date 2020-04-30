@@ -1,0 +1,16 @@
+div(ng-controller= "requestChangesComponentController as rchcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Solicitar cambios
+    .modal-body
+        .panel-default(ng-if="rchcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+    .modal-footer
+        button.btn.btn-primary(ng-click='rchcmp.ok()') OK
+        button.btn.btn-secondary(ng-click='rchcmp.cancel()') Cancel

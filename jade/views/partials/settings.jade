@@ -1,0 +1,18 @@
+h3.text-center.text-thin Configuraciones
+
+.p
+  h4.text-muted.text-thin Diseño
+
+  .clearfix
+    p.pull-left Fijo
+    .pull-right
+      label.switch
+        input(type='checkbox', ng-model="app.layout.isFixed")
+        span
+  .clearfix
+    p.pull-left En caja
+    .pull-right
+      label.switch
+        input(type='checkbox', ng-model="app.layout.isBoxed")
+        span
+

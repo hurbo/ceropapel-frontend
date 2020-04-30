@@ -1,0 +1,45 @@
+
+
+.container
+  .col-md-12( ng-if="!gc.groups.length" style="padding-top: 10em;")
+    .col-md-6
+      .col-md-2
+      .col-md-10
+        h1.text-blue.Poppins-Bold(style="font-size: -webkit-xxx-large;") Bienvenido a los Grupos de trabajo de Cero Papel
+        h4.text-blue.Poppins-SemiBold ¡Organízate! reduce tus tiempos de trabajo y aumenta tu productividad. ¡Te invitamos a crear tu primer grupo!
+        button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref='app.groups.create')
+          img(src='/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+          | Crear grupo
+    .col-md-6
+      img.center(src="/img/ilustracion-grupos.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;") 
+
+  .col-md-12( ng-if="gc.groups.length")
+    .col-md-12(style="padding-top: 10px; padding-bottom: 10px;")
+      button.btn.btn-secondary.btn-sm.pull-right.animated(ui-sref='app.groups.create')
+        img(src='/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+        | Crear grupo
+
+    .col-md-12(ng-repeat='group in gc.groups')
+      .col-md-12(style="background-color: white; margin-bottom: 10px !important;" ng-init= "group.display = true"  ng-attr-id= "{{'panel-' + group.id}}")
+        button.btn.btn-edit.btn-sm.pull-right.animated(ui-sref="app.groups.edit({id: group.id})" style="margin-top: 10px;") Editar
+        delete-group-component(group="group")
+
+        button.btn.btn-down.btn-sm.pull-left.animated(tool-collapse='Mostrar detalles' style="margin-left: -15px; height: 55px; width: 55px;" panel-collapse='' uib-tooltip='Ver detalles' ng-click='group.display = !group.display; gc.changeShowDetails(group)')
+          em.fa.fa-chevron-down.ng-no-animation(ng-show="group.display" aria-hidden='false')
+          em.fa.fa-chevron-up.ng-no-animation.ng-hide(ng-show='!group.display' aria-hidden='true')
+        h4.text-light-blue.Poppins-SemiBold(style="padding-left: 50px;") {{group.name}}
+        .col-md-12.collapse(uib-collapse="group.display" aria-expanded='false' aria-hidden='true' )
+          .col-md-12.dividerView
+          table.table.table-hover
+            thead
+              tr
+                th.text-light-blue.Poppins-SemiBold USUARIO
+                th.text-light-blue.Poppins-SemiBold PUESTO
+                th.text-light-blue.Poppins-SemiBold ÁREA
+            tbody(ng-repeat='member in group.members')
+              tr
+                td
+                  strong.text-light-blue.Poppins-SemiBold {{member.userName}}
+                td.text-light-blue.Poppins-Light {{member.memberJobTitleName}}
+                td.text-light-blue.Poppins-Light {{member.memberSecretariateName}}
+

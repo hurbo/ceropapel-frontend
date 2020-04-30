@@ -1,0 +1,25 @@
+div(ng-controller= "multipleSignComponentController as mscmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Firmar
+    .modal-body(style="height: 18em;")
+        
+        form(role='form' ng-if="!mscmp.loading")
+            .form-group.col-md-12
+                label Contraseña
+                input.form-control(type='password' placeholder='Ingrese contraseña' ng-model="mscmp.password")
+
+
+        div(ng-if="mscmp.loading")
+            h3.text-center.text-blue Cargando
+                .panel-body.loader-demo.loader-demo-sk
+
+                    .spinner
+                        .dot1
+                        .dot2
+            uib-progressbar(animate='false', value='mscmp.value')
+                b {{mscmp.value}}%
+
+    .modal-footer
+        button.btn.btn-primary(ng-click='mscmp.ok()' ng-disabled="mscmp.loading || !mscmp.password") Firmar
+        button.btn.btn-secondary(ng-click='mscmp.cancel()' ng-disabled="mscmp.loading") Cancelar

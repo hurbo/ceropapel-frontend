@@ -1,0 +1,22 @@
+div(ng-controller= "multipleDeleteDraftsComponentController as mddcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Eliminar borradores
+    .modal-body
+        .panel-default(ng-if="mddcmp.isLoading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+            uib-progressbar(animate='false', value='mddcmp.value')
+                b {{mddcmp.value}}%
+        .panel-default(ng-if="!mddcmp.isLoading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.dangerText ¿Estas seguro de eliminar los borradores seleccionados?
+
+    .modal-footer
+        button.btn.btn-primary(ng-click='mddcmp.multipleDelete()') OK
+        button.btn.btn-secondary(ng-click='mddcmp.cancel()') Cancel

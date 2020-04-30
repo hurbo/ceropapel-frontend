@@ -1,0 +1,16 @@
+div(ng-controller= "xxxxComponentController as xxxxcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='xxxxcmp.cancel()') ×
+        h4.modal-title xxxxxx
+    .modal-body
+        .panel-default(ng-if="xxxxcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+ 
+                .spinner
+                    .dot1
+                    .dot2
+    .modal-footer
+        button.btn.btn-primary(ng-click='xxxxcmp.ok()') OK
+        button.btn.btn-secondary(ng-click='xxxxcmp.cancel()') Cancel

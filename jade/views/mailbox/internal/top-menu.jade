@@ -1,0 +1,59 @@
+div
+
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goCompose(style='background-color: #C3274B' ui-sref-active="active" ui-sref="app.mailbox.compose")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-plus-circle.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Crear oficio
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goIn(ui-sref-active="active" ui-sref="app.mailbox.internal.in.page({page:1})")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-inbox.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Recibidos
+      h5.m0.text-bold.text-white(ng-if="mailbox.counts.DocumentsCount > 0") Pendientes: {{mailbox.counts.DocumentsCount}}
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goOut(ui-sref-active="active" ui-sref="app.mailbox.internal.out.page({page:1})")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-paper-plane-o.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Enviados
+      h5.m0.text-bold.text-white(ng-if="mailbox.counts.SendDocumentsCount > 0") Pendientes: {{mailbox.counts.SendDocumentsCount}}
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goColaboration(ui-sref-active="active" ui-sref="app.mailbox.internal.collaboration.page({page:1})")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-users.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation En colaboración
+      h5.m0.text-bold.text-white(ng-if="mailbox.counts.DocumentsColaborationCount > 0") Pendientes: {{mailbox.counts.DocumentsColaborationCount}}
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goDafts(ui-sref-active="active" ui-sref="app.mailbox.internal.drafts.page({page:1})")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-edit.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Borradores
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goArchived(ui-sref-active="active" ui-sref="app.mailbox.internal.archivedOut")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-archive.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Archivados Enviados
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goArchived(ui-sref-active="active" ui-sref="app.mailbox.internal.archived")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-archive.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Archivados Recibidos
+  a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goElaborated(ui-sref-active="active" ui-sref="app.mailbox.internal.elaborated.page({page:1})")
+    .row.text-center
+      .col-xs-12
+        p.mb.text-white: fa.fa-fw.fa.fa-check-square-o.fa-2x
+    .row.text-center
+      h4.m0.text-bold.text-white.textCardNavigation Elaborados
+  //- a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goElaborated(ui-sref-active="active" ui-sref="app.mailbox.search")
+  //-   .row.text-center
+  //-     .col-xs-12
+  //-       p.mb.text-white: fa.fa-fw.fa.fa-search.fa-2x
+  //-   .row.text-center
+  //-     h4.m0.text-bold.text-white Buscar

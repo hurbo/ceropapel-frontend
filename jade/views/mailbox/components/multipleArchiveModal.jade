@@ -1,0 +1,16 @@
+
+
+
+div(ng-controller= "multipleArchiveComponentController as macmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Archivar
+    .modal-body
+
+        external-tree-folders-component
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="!macmp.externalSelectedFolder.getSelectedFolder().id" ng-click='macmp.ok()') Archivar
+        button.btn.btn-secondary( ng-click='macmp.cancel()') Cancelar
+
+    
+

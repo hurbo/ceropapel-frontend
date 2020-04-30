@@ -1,0 +1,66 @@
+
+
+
+
+.col-md-12(style='background-color: white; margin-top: 10px !important;' )
+
+  h3.text-light-blue.Poppins-SemiBold.ng-binding(style='padding-left: 50px;') {{gcc.formTitle}}
+  .col-md-12.dividerView
+  .col-md-12
+    .col-md-12.dividerView
+    
+    .container
+
+      .col-md-12
+        button.btn.btn-primary.pull-right#guardarGrupo(ng-click="gcc.saveGroup()" style="margin-left: 10px;") Guardar
+        button.btn.btn-secondary.pull-right(ui-sref="app.groups") Cancelar
+        br
+        .col-md-6
+
+          h4 Datos generales
+          span Selecciona área para comenzar a ver usuarios
+          hr(style="margin-top:0;")
+          .form-group#nombreGrupo
+            label.col-sm-2.control-label(for='name') Nombre
+            .col-sm-10
+              input#inputName.form-control(type='text', placeholder='Nombre del grupo', ng-model="gcc.name")
+          br
+          br
+          .form-group#selectSecretariate
+            label.col-sm-2.control-label(for='secretariates') Área
+            .col-sm-10
+              select.form-control(ng-model="gcc.secretariate", ng-options="sec.name for sec in gcc.secretariates", ng-change="gcc.changeSecretariate()")
+          br
+          br
+          span(ng-if="gcc.jobTitles") Usuarios disponibles
+          .form-group#nombreGrupo(ng-if="gcc.jobTitles")
+            label.col-sm-2.control-label(for='seach') Filtrar
+            .col-sm-10
+              input.form-control(type='text', placeholder='Filtrar', ng-model="gcc.seach")
+          hr(style="margin-top:0;")
+          ul.list-unstyled#selectUsuarios
+            li(ng-if="gcc.jobTitles.length == 0")
+              dl(style="margin:0px; padding:5px;")
+                dt No hay usuarios disponibles
+              hr(style="margin:0;")
+            li.clickable.user(ng-repeat="jt in gcc.jobTitles | filter: gcc.seach", ng-click="gcc.addMember(jt)")
+              dl(style="margin:0px; padding:5px;")
+                dt {{jt.userName}}
+                dd {{jt.jobTitleName}}
+              hr(style="margin:0;")
+        
+
+        
+        .col-md-6#miembros
+          h4 Miembros selecionados
+          span Click sobre el usuario para quitarlo de la lista
+          hr(style="margin-top:0;")
+          .list-group
+            span.list-group-item.clickable.user(ng-repeat="member in gcc.members", ng-click="gcc.removeMember(member)")
+              h4.list-group-item-heading {{member.userName}}
+              p.list-group-item-text {{member.jobTitleName}}
+      
+    .col-md-12.dividerView
+
+
+

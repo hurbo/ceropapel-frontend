@@ -1,0 +1,22 @@
+div(ng-controller= "treeFoldersComponentController as tfcmp")
+    .panel-default(ng-if='!tfcmp.my_data')
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+        .panel-body.loader-demo.loader-demo-sk
+
+            .spinner
+                .dot1
+                .dot2
+    div(ng-if="tfcmp.my_data")
+        abn-tree(tree-data='tfcmp.my_data', tree-control='tfcmp.my_tree', on-select='tfcmp.my_tree_handler(branch)', expand-level='1')
+
+
+    .panel-default(ng-if='tfcmp.isClean')
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.text-danger No has creado ninguna carpeta
+        .panel-body.loader-demo.loader-demo-sk
+            .spinner
+                .dot1
+                .dot2
+
+

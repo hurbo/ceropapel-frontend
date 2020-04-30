@@ -1,0 +1,90 @@
+
+div(ng-include="'/views/mailbox/general/filter-advanced-full.html'")
+.content(style="padding: 15px;")
+  div(ng-include="'/views/mailbox/search-advanced/form.html'")
+
+  .row( ng-if="!docs.paginator.items.length && !docs.paginator.loading")
+    .col-lg-12( ng-if="!docs.filter.active" )
+      .panel.panel-default
+        .panel-heading
+        .panel-body
+          fieldset
+          p.lead.text-center No hay oficios recibidos
+    .col-lg-12( ng-if="docs.filter.active ")
+      .panel.panel-default
+        .panel-heading
+        .panel-body
+          fieldset
+          p.lead.text-center No se encontraron coincidencias
+
+  .row( ng-if="!docs.paginator.items.length && docs.paginator.loading")
+    .col-lg-12( ng-if="!docs.filter.active" )
+      .panel.panel-default
+        .panel-heading
+        .panel-body
+          center
+            .loader(style="margin-top: 30px;")
+            p(style="margin-top: 20px") Buscando documentos
+
+  .card.card-default(ng-if="docs.paginator.items.length" style="padding: 15px;")
+    .card-header
+      .col-lg-6
+        div.form-inline(ng-if="docs.inboxMarked.length" style="padding: 25px;")
+          div.input-group.form-group
+            label.input-group-addon.text-sm Acciones:
+            select.form-control(style='width: 200px;' ng-model='docs.action', title='Acciones', ng-options='action for action in docs.actions' ng-change='docs.changeAction()')
+      .col-lg-6
+        .d-flex(ng-if='!docs.hidePaginate', ng-include="'/views/mailbox/general/paginate-card-header.html'")
+
+    div(ng-if="docs.paginator.loading")
+      center
+        .loader(style="margin-top: 30px;")
+        p(style="margin-top: 20px") Buscando documentos
+
+    .table.table-responsive(ng-if="!docs.paginator.loading")
+      table.table.table-striped.table-bordered.table-hover.col-lg-12(id="searchTable")
+        thead
+          tr
+            th(style="font-size: 15px;") Folio
+            th(style="font-size: 15px;") Fecha
+            th(style="font-size: 15px;") Asunto
+            th(style="font-size: 15px;") Dirigido
+            th(style="font-size: 15px;") Turnado
+            th(style="font-size: 15px;") Solicitante
+            th(style="font-size: 15px;") Estatus
+
+        tbody
+          tr(ng-repeat="mail in docs.paginator.items", ng-class="mail.read ? '': 'bg-blue-grey-50' ")
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{mail.folio}}
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{docs.datetime2Client(mail.createdAt);}}
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{mail.subject}}
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{mail.TUName}} <{{mail.TUEmail}}>
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{mail.isTurned ? mail.TUName : ''}}
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{mail.fromName}} <{{mail.fromEmail}}>
+            td(ng-click="docs.searchAdvanced.goTo(mail)")
+              .media.align-items-center
+                .media-body.d-flex
+                  p(style="font-size: 13px;") {{docs.StatusType[mail.status]}}
+
+    .card-footer
+      .d-flex(ng-if='!docs.hidePaginate', ng-include="'/views/mailbox/general/paginate-card-footer.html'")
+
+

@@ -1,0 +1,151 @@
+
+.container(style="padding-bottom: 5em;" ng-init="pc.needChanges = false")
+  .col-md-12
+    .col-md-12(style="padding-top: 5em;")
+      .panel-default(style="border-style: solid;")
+        .panel-heading(ng-if="!pc.needChanges")
+          h4.text-light-blue.Poppins-Bold Datos de usuario
+            button.btn.btn-sm.btn-primary.pull-right.animated( ng-class="!pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.needChanges = true;' ) Editar datos personales
+        .panel-heading(ng-if="pc.needChanges")
+          h4.text-light-blue.Poppins-Bold Datos de usuario
+            button.btn.btn-sm.btn-secondary.pull-right.animated(style="margin-left: 10px;" ng-class="pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.needChanges = false;' ) Cancelar
+            button.btn.btn-sm.btn-primary.pull-right.animated(ng-class="pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.updateProfileUser(); pc.needChanges = false;' ) Guardar
+        .panel-body
+          form(action='')
+            .col-md-2
+              img.img-circle.thumb128(ng-src="{{pc.profile.avatar}}", alt="Avatar", title="{{pc.profile.email}}")
+              
+            .col-md-6
+
+              .form-group.fadeIn(ng-if="pc.needChanges")
+                h4.text-light-blue.Poppins-Medium {{pc.profile.email}}
+                h4.text-blue.Poppins-Bold Nombre
+                input.form-control(type='text' ng-model='pc.profile.name' name='name')
+                h4.text-blue.Poppins-Bold Firma
+                input.form-control( type='file', namde='firmaAutografa', accept='.png', required='', file-model="pc.profile.signature"  placeholder="Selecciona tu firma")
+                h4.text-blue.Poppins-Bold Avatar
+                input.form-control(type='text' ng-model='pc.profile.avatar' name='name')
+
+                .col-md-12(style="padding-top: 10px;")
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/rosa.png' " ng-src='/img/avatars/rosa.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/cafe.png' " ng-src='/img/avatars/cafe.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/largo.png' " ng-src='/img/avatars/largo.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/china.png' " ng-src='/img/avatars/china.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/Giada-Minotti.png' " ng-src='/img/avatars/Giada-Minotti.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/rojo-2.png' " ng-src='/img/avatars/rojo-2.png' alt='Image')
+
+                .col-md-12(style="padding-top: 10px;")
+                  .col-md-2
+                    
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/barba.png' " ng-src='/img/avatars/barba.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/avatar-380.png' " ng-src='/img/avatars/avatar-380.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/moreno.png' " ng-src='/img/avatars/moreno.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/avatar-372.png' " ng-src='/img/avatars/avatar-372.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/chino.png' " ng-src='/img/avatars/chino.png' alt='Image')
+                  .col-md-2
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/user-male.png' " ng-src='/img/avatars/user-male.png' alt='Image')
+
+              .form-group.fadeIn(ng-if="!pc.needChanges")
+                h5.text-light-blue.Poppins-Medium {{pc.profile.email}}
+                h4.text-danger.Poppins-Bold {{pc.profile.name}}
+                h4.text-blue.Poppins-Bold Área
+                h5.text-blue.Poppins-SemiBold(ng-if="pc.profile.secretariateName") {{pc.profile.secretariateName }}
+                h5.text-danger.Poppins-SemiBold(ng-if="!pc.profile.jobTitle.name") No cuentas con puesto de trabajo
+                h4.text-blue.Poppins-Bold Puesto
+                h5.text-blue.Poppins-SemiBold(ng-if="pc.profile.jobTitle.name") {{pc.profile.jobTitle.name }}
+                h5.text-danger.Poppins-SemiBold(ng-if="!pc.profile.secretariateName") No cuentas con puesto de trabajo
+
+            .col-md-2
+              img.img-responsive.thumb128(ng-if="!pc.needChanges && pc.profile.signature" ng-src="{{pc.profile.signature}}", alt="Signature", title="{{pc.profile.signature}}")
+
+
+
+    .col-md-6(style="padding-top: 3em;")
+      .panel-default(style="border-style: solid;")
+        .panel-heading(ng-if="!pc.showUploadFormCer")
+          h4.text-light-blue.Poppins-Bold Archivo Cer
+            button.btn.btn-primary.pull-right.animated(ng-class="!pc.showUploadFormCer? 'fadeIn' : 'fadeOut'" ng-click="pc.showUploadFormCer = true") Subir de nuevo
+        .panel-heading(ng-if="pc.showUploadFormCer")
+          h4.text-light-blue.Poppins-Bold Archivo Cer
+            button.btn.btn-secondary.pull-right.animated(style="margin-left: 10px;" ng-class="pc.showUploadFormCer? 'fadeIn' : 'fadeOut'" ng-click="pc.showUploadFormCer = false") Cancelar
+            button.btn.btn-primary.pull-right.animated(ng-disabled='pc.disabledButtonCer()' ng-class="pc.showUploadFormCer? 'fadeIn' : 'fadeOut'"  ng-click='pc.uploadCerFile(); pc.showUploadFormCer = false') Subir archivo
+
+        .panel-body(ng-if= "pc.showUploadFormCer")
+          input.form-control(type='file', namde='cerFile' accept='.cer', required='', file-model="pc.cerFile")
+        .panel-body(ng-if= "!pc.showUploadFormCer")
+          h4.text-blue.Poppins-Bold Actualizado en
+          h4.text-blue.Poppins-SemiBold(ng-if="pc.profile.cerUpdatedAt") {{pc.profile.cerUpdatedAt  | date:'dd-MM-yyyy h:mm a' || "No cuenta con archivo"}}
+          h4.text-danger.Poppins-SemiBold(ng-if="!pc.profile.cerUpdatedAt") No cuenta con archivo
+    
+    
+    
+    .col-md-6(style="padding-top: 3em;")
+      .panel-default(style="border-style: solid;")
+        .panel-heading(ng-if="!pc.showUploadFormKey")
+          h4.text-light-blue.Poppins-Bold Archivo Key
+            button.btn.btn-primary.pull-right.animated(ng-class="!pc.showUploadFormKey? 'fadeIn' : 'fadeOut'" ng-click="pc.showUploadFormKey = true") Subir de nuevo
+        .panel-heading(ng-if="pc.showUploadFormKey")
+          h4.text-light-blue.Poppins-Bold Archivo Key
+            button.btn.btn-secondary.pull-right.animated(style="margin-left: 10px;" ng-class="pc.showUploadFormKey? 'fadeIn' : 'fadeOut'" ng-click="pc.showUploadFormKey = false") Cancelar
+            button.btn.btn-primary.pull-right.animated(ng-disabled='pc.disabledButtonKey()' ng-class="pc.showUploadFormKey? 'fadeIn' : 'fadeOut'"  ng-click='pc.uploadKeyFile(); pc.showUploadFormKey = false') Subir archivo
+
+        .panel-body(ng-if= "pc.showUploadFormKey")
+          input.form-control(type='file', namde='keyFile' accept='.key', required='', file-model="pc.keyFile")
+        .panel-body(ng-if= "!pc.showUploadFormKey")
+          h4.text-blue.Poppins-Bold Actualizado en
+          h4.text-blue.Poppins-SemiBold(ng-if="pc.profile.keyUpdatedAt")  {{pc.profile.keyUpdatedAt  | date:'dd-MM-yyyy h:mm a'}}
+          h4.text-danger.Poppins-SemiBold(ng-if="!pc.profile.keyUpdatedAt") No cuenta con archivo
+
+    .col-md-12(style="padding-top: 3em;")
+      .panel-default(style="border-style: solid;")
+        .panel-heading
+          h4.text-light-blue.Poppins-Bold Administrar permisos
+
+
+
+        .panel-body.loader-demo.loader-demo-sk(ng-if="!pc.profile.jobTitleID")
+
+          h4.text-danger.Poppins-Bold No cuentas con puesto de trabajo
+
+          .spinner
+            .dot1
+            .dot2
+        .panel-body(ng-if="pc.profile.jobTitleID")
+          .input-group(style="margin-bottom: 10px;")
+            input.form-control(type='text' ng-model="pc.filter" placeholder='Filtrar' name='filtro')
+            span.input-group-btn
+              button.btn.btn-secondary(type='button' ng-disabled="true")
+                em.icon-magnifier.ng-no-animation(style='padding-right: 5px;')
+                | Filtrar
+
+          .table-responsive
+            table.table
+              thead
+                tr
+                  th
+                  th
+                  th
+              tbody
+                tr(ng-repeat = "fav in pc.potentialSecretaries | orderBy : fav.name | filter: pc.filter ")
+                  td(style="text-align: center;")
+
+                    img.img-circle.thumb64(ng-src="{{fav.avatar}}", alt="Avatar fav", title="{{fav.name}}")
+
+                  td
+                    h4.text-blue.Poppins-Bold {{fav.name}}
+                    h5.text-blue.Poppins-SemiBold {{fav.email}}
+                    h5.text-light-blue.Poppins-Medium {{fav.jobTitleName}}
+                  td(ng-if="pc.profile.jobTitleID")
+                    manage-permission-component(user="fav")
+                  td(ng-if="!pc.profile.jobTitleID")
+                    h5.text-danger.Poppins-Bold No cuentas con puesto de trabajo

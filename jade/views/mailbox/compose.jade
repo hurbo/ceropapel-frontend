@@ -1,0 +1,124 @@
+
+
+
+
+
+
+.row(ng-if='docs.compose.prossesing')
+  .col-md-12
+    .panel-default
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue(ng-show="docs.compose.isDraft") Guardando borrador
+            h3.text-center.Poppins-SemiBold.primaryTextBlue(ng-show="!docs.compose.isDraft") Enviando
+        .panel-body.loader-demo.loader-demo-sk
+            .spinner
+                .dot1
+                .dot2
+
+.row(ng-if='docs.compose.prossesingDeleteDraft')
+  .col-md-12
+    .panel-default
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue Eliminando borrador
+        .panel-body.loader-demo.loader-demo-sk
+            .spinner
+                .dot1
+                .dot2
+
+
+
+.row(style="background-color: #fff")
+  .col-md-12
+    .panel-default
+      .panel-heading
+        .row
+          .col-md-10(ng-if="docs.step === docs.StepEnum.FILL_DATA")
+            span(style='color: #203847; font-size: 25px;') Llena los datos de tu plantilla
+            br
+            span(style='color: #213948; font-size: 15px;') Ten en cuenta que no debes omitir ningún dato, todos son necesarios para continuar.
+          .col-md-10(ng-if="docs.step === docs.StepEnum.FILL_SEND_DATA")
+            span(style='color: #203847; font-size: 25px;') Llena los datos de envío
+            br
+            span(style='color: #213948; font-size: 15px;') Recuerda que puedes añadir colaboradores, grupos y mensajes personalizados.
+          .col-md-10(ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
+            span(style='color: #203847; font-size: 25px;') Resumen de oficio
+            br
+            span(style='color: #213948; font-size: 15px;') Revisa todos los detalles del oficio antes de enviarlo. Si deseas hacer cambios puedes regresar para seguir editando.
+          .col-md-2
+            compose-document-tour-component(tour = "docs.getTour()")
+
+
+
+
+
+
+.row(style="background-color: #fff" ng-if="!docs.compose.prossesing && !docs.compose.prossesingDeleteDraft")
+  .col-md-12#formComposeDocument(ng-include="'/views/mailbox/form.html'")
+
+
+
+
+#modalSelectTemplete.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', style="background: rgba(0, 0,0, .75);overflow-y: auto;")
+  .modal-dialog.modal-lg(role='document', style='position: static;')
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') ×
+        h4#myModalLabel.modal-title  Selecciona un formato
+      .modal-body
+        .div
+          .form-group
+              label.col-md-2.control-label Filtar por nombre
+                .col-md-10(style=" width: 30em;")
+                  input.form-control.form-control-rounded(type='text' ng-model="docs.searchText")
+
+          table.table.table-hover
+            thead
+              tr
+                th #
+                th Nombre
+                th Formato para
+                th Autor
+                th Fecha de creación
+                th
+
+
+            tbody(ng-repeat='template in (docs.templates || []) | filter: docs.searchText')
+              tr
+                td {{$index + 1}}
+                td {{template.name}}
+                td {{template.type}}
+                td {{template.authorName}}
+                td {{template.createdAt | date:'h:mm a dd-MM-yyyy' }}
+                td.pull-right
+                  button.btn.btn-default#botonVisualizarPlantilla(ng-click='docs.selectTemplete(template)' type='button', data-toggle='modal', data-target='#modalPreview')
+                    | Ver
+                    em.icon-eye
+
+                  button.btn.btn-signed#botonSeleccionarPlantilla(type='button' data-dismiss='modal' ng-click='docs.compose.setTemplate(template)')
+                    |  Seleccionar
+                    em.icon-check
+
+      .modal-footer
+        button.btn.btn-secondary.pull-right(type='button', data-dismiss='modal') Cancelar
+
+
+
+// Start Modal vista previa
+#modalPreview.modal.fade(role='dialog', style="background: rgba(0, 0,0, .75);overflow-y: auto;")
+  .modal-dialog.modal-lg
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', ng-click="docs.showListTemplates()") ×
+        h4.modal-title Vista previa
+      .modal-body
+        .panel.panel-default.contenedorSummerPlantilla
+          .pantallaSummerPlantilla.realWidth
+            div(ng-bind-html="docs.selectedFormat | trusted")
+        //- .contenedorSummer
+        //-   .pantallaSummer
+        //-     summernote(ng-model="docs.selectedFormat" config='docs.summernoteViewOptions')
+      .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal', ng-click="docs.showListTemplates()") Cancelar
+// End Modal vista previa

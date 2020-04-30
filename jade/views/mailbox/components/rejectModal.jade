@@ -1,0 +1,21 @@
+div(ng-controller= "rejectComponentController as rcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Rechazar oficio
+    .modal-body
+        .panel-default(ng-if="rcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!rcmp.loading")
+            .panel-body
+                form(role='form', name="rejectForm")
+                    .form-group
+                        textarea.form-control(type='text', placeholder='Razon de rechazo', required='true', name='rejectMessage', ng-model="rcmp.rejectMessage")
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="arcmp.loading || !rcmp.rejectMessage " ng-click='rcmp.ok()') Rechazar
+        button.btn.btn-secondary(ng-click='rcmp.cancel()') Cancel

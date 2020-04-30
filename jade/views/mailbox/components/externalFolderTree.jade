@@ -1,0 +1,14 @@
+div(ng-controller= "externalTreeFoldersComponentController as etfcmp")
+    .panel-default(ng-if='!etfcmp.my_data')
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+        .panel-body.loader-demo.loader-demo-sk
+
+            .spinner
+                .dot1
+                .dot2
+    div(ng-if="etfcmp.my_data")
+        abn-tree(tree-data='etfcmp.my_data', tree-control='etfcmp.my_tree', on-select='etfcmp.my_tree_handler(branch)', expand-level='1')
+
+
+

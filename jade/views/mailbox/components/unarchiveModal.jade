@@ -1,0 +1,15 @@
+
+div(ng-controller= "archiveComponentController as acmp")
+    .modal-header
+        button.close(ng-click='acmp.cancel()' type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Desarchivar
+    .modal-body
+        tree-folders-component
+    .modal-footer
+        button.btn.btn-secondary( ng-click='acmp.unarchive()') Desarchivar
+        button.btn.btn-primary(ng-disabled ="!acmp.ViewFactory.isFolderSelected()" ng-click='acmp.archive()') Cambiar de carpeta
+        button.btn.btn-secondary(ng-click='acmp.cancel()') Cancelar
+
+
+
+

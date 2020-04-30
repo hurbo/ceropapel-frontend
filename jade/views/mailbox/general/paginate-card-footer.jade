@@ -1,0 +1,6 @@
+.card-footer
+  .d-flex.text-right
+    section.paginacion
+      ul.pagination.pagination-sm
+        li(ng-repeat="page in docs.paginator.pages" ng-class="page.active? 'active': ''" )
+          span(ng-click="docs.paginator.goPage(page)") {{page.text}}

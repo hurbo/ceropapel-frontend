@@ -1,0 +1,79 @@
+//- form.ng-pristine(role='form')
+.container
+  .col-md-12.dividerFilter
+  .row
+    .col-xs-6
+      h4.text-light-blue.Poppins-SemiBold
+        img(src='/img/newIcons/filtrar-busqueda.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
+        | Consulta y reportes
+    
+    .col-xs-6
+      select.form-control.border-rounded(ng-model='docs.selectedSearchType' ng-options="item.value as item.label for item in docs.searchTypes" )
+  .col-md-12.dividerFilter
+
+  .container
+
+    .row
+
+      fieldset.col-xs-12
+        .row
+          .col-xs-12(style='margin-bottom: 10px;')
+            input.form-control.border-rounded(type='text', ng-model='docs.searchOption.subject', placeholder='Asunto')
+        .row
+          .col-xs-12(style='margin-bottom: 10px;')
+            ui-select.border-rounded(ng-disabled="docs.selectedSearchType === 'sent'" ng-if="docs.showTo", multiple='', tagging-tokens=',|/', ng-model='docs.selectedTo', on-remove="docs.onRemoveTo($item, $model)", on-select="docs.onSelectTo($item, $model)", theme='bootstrap', title='Remitente')
+              ui-select-match(placeholder='Remitente')
+                | {{$item.name}} <{{$item.contact}}>
+              ui-select-choices(repeat='contact in docs.contactsFrom | propsFilter: {contact: $select.search}', refresh="docs.refreshContactsFrom($select.search)", refresh-delay="0")
+                div(ng-if='contact.isTag', ng-bind-html="contact.contact + ' ' + $select.taggingLabel | highlight: $select.search")
+                div(ng-if='!contact.isTag', ng-bind-html='contact.contact| highlight: $select.search')
+                small
+                  | {{contact.name}} <{{contact.contact}}>
+        .row
+          .col-xs-12(style='margin-bottom: 10px;')
+            ui-select.border-rounded(ng-disabled="docs.selectedSearchType === 'received'" ng-if="docs.showFrom", multiple='', tagging-tokens=',|/', ng-model='docs.selectedFrom', on-remove="docs.onRemoveFrom($item, $model)", on-select="docs.onSelectFrom($item, $model)", theme='bootstrap', title='Destinatario')
+              ui-select-match(placeholder='Destinatario')
+                | {{$item.name}} <{{$item.contact}}>
+              ui-select-choices(repeat='contact in docs.contactsTo | propsFilter: {contact: $select.search}', refresh="docs.refreshContactsTo($select.search)", refresh-delay="0")
+                div(ng-if='contact.isTag', ng-bind-html="contact.contact + ' ' + $select.taggingLabel | highlight: $select.search")
+                div(ng-if='!contact.isTag', ng-bind-html='contact.contact| highlight: $select.search')
+                small
+                  | {{contact.name}} <{{contact.contact}}>
+        .row
+          .col-xs-12(style='margin-bottom: 10px;')
+            input.form-control.border-rounded(type='text', disabled, ng-model='docs.searchOption.beneficiary', placeholder='Beneficiario')
+        .row
+          .col-xs-12.col-sm-6(style='margin-bottom: 10px;')
+            input.form-control.border-rounded(type='text', ng-model='docs.searchOption.folio', placeholder='Folio de oficio')
+          .col-xs-12.col-sm-3(style='margin-bottom: 10px;')
+            select.form-control.border-rounded(ng-model='docs.searchOption.documentType' ng-options="item.id as item.name for item in docs.documentTypes")
+              option(value='', selected=true)
+                | Selecciona Tipo de documento
+          .col-xs-12.col-sm-3
+            select.form-control.border-rounded(ng-model='docs.searchOption.status' ng-options="item.value as item.label for item in docs.statusTypes")
+              option(value='', selected=true)
+                | Selecciona Estatus
+    .row
+      label.col-xs-12.control-label Buscar por fecha
+      fieldset.col-xs-12
+        .row
+          .col-xs-12.col-sm-6
+            input.form-control.border-rounded(type='date', ng-model='docs.searchOption.startDate', placeholder='Fecha inicio', format='dd/MM/yyyy', min="2017-01-01", max="{{docs.maxDate}}")
+          .col-xs-12.col-sm-6
+            input.form-control.border-rounded(type='date', ng-model='docs.searchOption.endDate', placeholder='Fecha fin', format='dd/MM/yyyy', min="2017-01-01", max="{{docs.maxDate}}")
+
+    .row
+      .col-xs-12.pull-right(style='margin-bottom: 30px;')
+        button.btn.btn-signed.btn-sm.pull-right#btnSearch(type='submit', style="background-color: #e96057; color: white;", ng-click='docs.search()')
+          i.fa.fa-search
+          |  Buscar
+
+        button.btn.btn-signed.btn-sm.pull-right#btnCleanFilter(ng-if="docs.paginator.items && docs.paginator.items.length" type='submit', style="background-color: #e96057; color: white; margin-right: 5px;", ng-click='docs.exportToExcel()')
+          |  Exportar a excel
+
+        button.btn.btn-signed.btn-sm.pull-right#btnCleanFilter(ng-if="docs.paginator.items && docs.paginator.items.length" type='submit', style="background-color: #e96057; color: white; margin-right: 5px;", ng-click='docs.exportToPDF()')
+          |  Exportar a PDF
+
+        button.btn.btn-signed.btn-sm.pull-right#btnCleanFilter(type='submit', style="background-color: #e96057; color: white; margin-right: 5px;", ng-click='docs.clearSearchOption()')
+          i.fa.fa-eraser
+          |  Limpiar

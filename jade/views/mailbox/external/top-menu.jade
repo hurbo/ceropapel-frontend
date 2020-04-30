@@ -1,0 +1,28 @@
+
+a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goCompose(ui-sref-active="active", ui-sref="app.mailbox.compose")
+  .row.text-center
+    .col-xs-12
+      p.mb.text-white: fa.fa-fw.fa.fa-plus-circle.fa-2x
+  .row.text-center
+    h4.m0.text-bold.text-white Crear oficio
+a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goIn(ui-sref-active="active", ui-sref='app.mailbox.external.in({jobTitle: emc.currentUser.jobTitleID})')
+  .row.text-center
+    .col-xs-12
+      p.mb.text-white: fa.fa-fw.fa.fa-inbox.fa-2x
+  .row.text-center
+    h4.m0.text-bold.text-white Recibidos
+    //- h5.m0.text-bold.text-white(ng-if="mailbox.counts.DocumentsCount > 0") Pendientes: {{mailbox.counts.DocumentsCount}}
+
+a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goOut(ui-sref-active="active" ui-sref="app.mailbox.external.turned({jobTitle: emc.currentUser.jobTitleID})")
+  .row.text-center
+    .col-xs-12
+      p.mb.text-white: fa.fa-fw.fa.fa-paper-plane-o.fa-2x
+  .row.text-center
+    h4.m0.text-bold.text-white Turnados
+a.top-menu.btn.btn-navigator.btn-primary.btn-lg.fa-1x#goArchived(ui-sref-active="active", ui-sref="app.mailbox.external.archived({jobTitle: emc.currentUser.jobTitleID})" )
+  .row.text-center
+    .col-xs-12
+      p.mb.text-white: fa.fa-fw.fa.fa-archive.fa-2x
+  .row.text-center
+    h4.m0.text-bold.text-white Archivados
+

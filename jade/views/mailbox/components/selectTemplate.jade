@@ -1,0 +1,91 @@
+//- button.btn.btn-primary.pull-right( style="margin-top: -25px;" type='button' ng-click='stcmp.open(\'lg\')') Seleccionar plantilla
+
+
+
+
+.row(style="background-color: #eceded")
+    .container
+        .col-md-12.dividerFilter
+        .col-md-12(style='text-align: center')
+            p(style='color: #203847; font-size: 25px;') Selecciona un formato de oficio
+        .col-md-4
+
+            ul.pagination(ng-if='stcmp.pager.pages.length')
+                li(ng-repeat='page in stcmp.pager.pages' ng-class='{active:stcmp.pager.currentPage === page}')
+                    a(ng-click='stcmp.setPage(1)' ng-if="page === 1 && stcmp.pager.currentPage !== 1") Primera
+                    a(ng-click="stcmp.setPage(page)" ng-if="page === (stcmp.pager.currentPage - 1)") {{page}}
+                    a(ng-click="stcmp.setPage(page)" ng-if="page === (stcmp.pager.currentPage - 2)") {{page}}
+                    a(ng-click="stcmp.setPage(page)" ng-if="page === (stcmp.pager.currentPage )") {{page}}
+                    a(ng-click="stcmp.setPage(page)" ng-if="page === (stcmp.pager.currentPage +1 )") {{page}}
+                    a(ng-click="stcmp.setPage(page)" ng-if="page === (stcmp.pager.currentPage +2 )") {{page}}
+                    a(ng-click='stcmp.setPage(stcmp.pager.totalPages)' ng-if="page === stcmp.pager.totalPages && stcmp.pager.currentPage !== stcmp.pager.totalPages") Ultima
+        .col-md-4(ng-if = "stcmp.box === 'mostUsed'")
+            button.btn.btn-sm.btn-primary#mostUsedTemplates( ng-click="stcmp.selectTemplatesToView('mostUsed')") Las más usadas
+            button.btn.btn-sm.btn-secondary#recentTemplates(ng-click="stcmp.selectTemplatesToView('recent')" ) Recientes
+
+
+        .col-md-4(ng-if = "stcmp.box !== 'mostUsed'")
+            button.btn.btn-sm.btn-secondary( ng-click="stcmp.selectTemplatesToView('mostUsed')") Las más usadas
+            button.btn.btn-sm.btn-primary( ng-click="stcmp.selectTemplatesToView('recent')" ) Recientes
+
+
+            
+            
+
+
+
+        .col-md-4
+
+            .form-group#filterTemplatesByName(style="display: flex;")
+                input(type="text" class="form-control" id="searchInput" ng-model="stcmp.templateName" placeholder="Buscar plantilla" style='')
+                button.btn.btn-sm.btn-primary#apliFilter(ng-click="stcmp.selectTemplatesToView('name')" ) Buscar
+        .col-md-12.dividerFilter
+
+
+
+.row(ng-if="stcmp.loading")
+    .container
+        .panel-default
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando plantillas
+            .panel-body.loader-demo.loader-demo-sk
+                .spinner
+                    .dot1
+                    .dot2
+
+
+
+
+.row(ng-if="!stcmp.loading && stcmp.viewingByName && !stcmp.templatesByName.length")
+    .container
+        .panel-default
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue No se encontraron plantillas con el nombre especificado
+            .panel-body
+
+
+.row(ng-if="!stcmp.loading" )
+    .container
+        .col-md-12#containerOfTemplates
+            .col-md-3(id="templateFormat-{{$index}}" ng-repeat="template in stcmp.templates" style='margin-top: 40px;')
+                
+                .col-md-12.cartaVistaPrevia(ng-mouseover="stcmp.setHoveredTemplate(template)" style="padding-top: 10px; padding-bottom: 10px; "  ng-if="template.previewImage")
+                    img(ng-src="{{stcmp.getPreviewImage(template)}}" style="width: 100%; max-height: 100%;")
+
+
+
+                .col-md-12.cartaVistaPrevia(ng-mouseover="stcmp.setHoveredTemplate(template)" style="padding-top: 50%;  text-align: center;" ng-if="!template.previewImage")
+                    p No hay imagen previa
+
+
+                
+                .col-md-12.animated.fadeIn(ng-if="stcmp.isTemplateHovered(template)" ng-mouseleave="stcmp.clearHoveredTemplate()" style="padding-top: 20%; padding-bottom: 20%; position: absolute; width: 248px;background: rgba(0,0,0,0.7); height: 300px; text-align: center; display: flex; flex-direction: column; justify-content: space-around;")
+
+                    h5(style="color: #fff") {{template.name}}
+                    button.btn.btn-secondary(style="width: 100%;"  type='button' ng-click="stcmp.setTemplateToCompose(template)" ) Seleccionar
+
+                .col-md-12(ng-mouseleave="stcmp.clearHoveredTemplate()" ng-mouseover="stcmp.setHoveredTemplate(template)")
+                    h5.text-center( ng-if ="template.name.length > 21" style='color: #203847;') {{template.name | limitTo: 21}}...
+                    h5.text-center( ng-if ="template.name.length <= 21" style='color: #203847;') {{template.name }}
+
+

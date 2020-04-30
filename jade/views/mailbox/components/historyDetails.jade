@@ -1,0 +1,43 @@
+
+
+
+
+
+
+
+.div.divider
+.div(ng-if="hcmp.currentDocument")
+  .panel-default.detailsContainer
+    .panel-body
+
+        h4 Detalles avanzados del documento
+
+        table.table.mb-mails.mb-view
+            thead
+                tr
+                    th
+                        dt(style="color: #456b80") Acción
+
+                    th
+                        dt(style="color: #456b80") Autor
+                    th
+                        dt(style="color: #456b80") Puesto de trabajo
+                    th
+                        dt(style="color: #456b80") Fecha
+                    th
+                        dt(style="color: #456b80") Hora
+                    th
+                        dt(style="color: #456b80") Mensaje
+
+            tbody
+                tr(ng-repeat="record in hcmp.currentDocument.history | orderBy:'id' ")
+                    td.text-primary {{record.action}}
+                    td.text-primary {{record.author}}
+                    td.text-primary {{record.jobTitle}}
+                    td.text-primary {{record.date  | date:'dd-MM-yyyy'}}
+                    td.text-primary {{record.date  | date:'h:mm a'}}
+                    td.text-primary(ng-if="record.action === 'Leído por aistente'") 
+                        | Leído por aistente {{record.clerkName}}
+                    td.text-primary(ng-if="record.action === 'Firmado como asistente'") 
+                        | Firmo asistente {{record.clerkName}}
+                    td.text-primary(ng-if="record.action !== 'Leído por aistente'") {{record.message}}

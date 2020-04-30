@@ -1,0 +1,81 @@
+
+.container.animated.fadeIn(ng-if="mvc.document && !mvc.document.active")
+  br
+  br
+  br
+  br
+  .col-md-12
+    .col-md-6
+      .col-md-2
+      .col-md-10
+        h1.text-blue.Poppins-Bold(style="font-size: x-large;") El documento fue cancelado el {{mvc.document.updatedAt  | date:'dd-MM-yyyy h:mm a'}}
+        h3.text-center.text-info [{{mvc.document.folio}}]
+        h4.text-danger.Poppins-SemiBold {{mvc.document.cancelMessage}}
+
+    .col-md-6
+      img.center(src="/img/verificacion.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;") 
+
+
+
+.div.animated.fadeIn(ng-if="mvc.document.active")
+    // panel de asunto
+    .panel-default(style= "background-color: #fff")
+      .panel-body
+        .row-md-12
+          //- .col-md-1
+          //-   button.btn.btn-bm.btn-secondary.viewMenuButton(ui-sref="{{previousState.name}}(previousState.params)"  )
+          //-     i.fa.fa-arrow-left
+          //-     |  {{previousState.title}}
+
+
+          .col-md-1
+            button.btn.btn-bm.btn-default.viewMenuButton(ng-click='mvc.refresh()')
+              em.fa.fa-refresh.text-gray-dark
+              | Recargar
+
+          .col-md-1
+            turn-component(document='mvc.document')
+          .col-md-8
+          .col-md-1
+            archive-component(document='mvc.document')
+
+
+
+
+
+div(ng-if="mvc.isLoading")
+  div.animated.fadeIn
+    .row
+      .col-md-12
+        .panel-default
+          .panel-heading
+            h3.text-center Cargando
+          .panel-body.loader-demo.loader-demo-sk
+
+            .spinner
+              .dot1
+              .dot2
+
+
+
+
+
+
+// Contenedor documento
+div(ng-if="!mvc.isLoading && mvc.document && mvc.document.active")
+  div.animated.zoomInDown
+    from-details-component(document='mvc.document')
+    .contenedorSummer
+      .pantallaSummer
+        summernote#summernoteViewOptions(ng-change="mvc.clear()" ng-model="mvc.content" config='mvc.summernoteViewOptions')
+
+    change-status-component(document='mvc.document')
+    .col-md-12(ng-include="'/views/mailbox/components/downloadAttaches.html'")
+    details-component(document='mvc.document')
+    history-details-component(document='mvc.document')
+
+
+
+.pdf-preview-container(ng-show="mvc.isShowPDF", ng-click="mvc.isShowPDF=false")
+  //- span.close(ng-click="mvc.isShowPDF=false", style="color:white;") X
+  iframe#viewer(src="", frameborder="0")

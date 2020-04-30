@@ -1,0 +1,56 @@
+
+html(lang="en", data-ng-app="angle")
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    meta(name='description', content='{{app.description}}')
+    meta(name='keywords', content='app, responsive, angular, bootstrap, dashboard, admin')
+
+    title(data-ng-bind="::pageTitle()") Cero papel
+
+    link(rel='icon' type='image/png' href='img/icon.png')
+
+    // Bootstrap styles
+    link(rel='stylesheet', href='/css/bootstrap.css', data-ng-if='!app.layout.isRTL')
+    link(rel='stylesheet', href='/css/bootstrap-rtl.css', data-ng-if='app.layout.isRTL')
+
+    // ngMaterial styles
+    link(rel='stylesheet', href='vendor/angular-material/angular-material.css')
+    link(rel='stylesheet', href='//cdn.jsdelivr.net/bootstrap-tour/0.9.1/css/bootstrap-tour.min.css')
+
+    // Application styles
+    link(rel='stylesheet', href='/css/app.css', data-ng-if='!app.layout.isRTL')
+    link(rel='stylesheet', href='/css/app-rtl.css', data-ng-if='app.layout.isRTL')
+
+    // Themes
+    link(rel='stylesheet', ng-href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css')
+    link(rel='stylesheet', ng-href='/css/theme-a.css')
+    link(href='//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css', rel='stylesheet')
+    link(rel='stylesheet', href='//mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css')
+    link(href='//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css', rel='stylesheet')
+    link(rel='icon' type='image/png' href='/img/icon.png')
+
+
+  body(data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled}")
+
+    div(data-preloader)
+
+    .wrapper(data-ui-view="", data-autoscroll='false')
+
+    script(src='js/base.js')
+
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.css')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.9.1/sweetalert2.min.js')
+    script(src='vendor/moment/min/moment-with-locales.min.js')
+
+    script(src='js/app.js')
+
+
+    //- // Global site tag (gtag.js) - Google Analytics
+    //- script(async='', src=`https://www.googletagmanager.com/gtag/js?id=${code}`)
+    //- script.
+    //-   window.dataLayer = window.dataLayer || [];
+    //-   function gtag(){dataLayer.push(arguments);}
+    //-   gtag('js', new Date());
+    //-   gtag('config', '#{code}');

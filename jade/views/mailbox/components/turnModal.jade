@@ -1,0 +1,49 @@
+div(ng-controller= "turnComponentController as tcmp")
+    .modal-header
+        button.close.text-white(type='button',ng-click='tcmp.cancel()', aria-hidden='true') ×
+        h4.modal-title.Poppins-Bold Turnar
+
+    .modal-body
+
+      form.form-group
+        .row-md-12.input-group.form-group
+          span.input-group-addon.text-sm Para:
+          ui-select(multiple='', tagging-tokens=',|/', ng-model='tcmp.selectedTo', on-remove="tcmp.onRemoveTo($item, $model)", on-select="tcmp.onSelectTo($item, $model)", theme='bootstrap',  title='Agregar destinatario')
+            ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+            ui-select-choices(repeat='person in tcmp.contacts | propsFilter: {name: $select.search, email: $select.search}')
+              div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+              div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+              small
+                | email: {{person.email}}
+        .row-md-12.form-group(ng-if="tcmp.recipients.length > 0")
+          label Listado destinatarios
+          table.table.table-striped.table-bordered
+            thead.bg-blue-primary
+              tr
+                th
+                  dt.text-center.text-white Destinario
+                th
+                  dt.text-center.text-white Requiere firmar
+            tbody
+              tr(ng-repeat="recipient in tcmp.recipients")
+                td.text-primary
+                  strong {{recipient.name}}
+                  span {{recipient.email}}
+                td.text-primary.text-center
+                  button.btn(ng-init="recipient.needSign = true" ng-click="tcmp.toggleSignatureRequirement(recipient)", ng-class="recipient.needSign? 'btn-primary' : 'btn-defualt'") {{recipient.needSign? 'Si' : 'No'}}
+        .row-md-12.form-group
+          label.col-md-2.control-label Tipo de turnado
+          .col-md-10
+            ui-select(ng-model='tcmp.trackingReason', theme='bootstrap', width="'100%'", title='Tipo de turnado')
+              ui-select-match(placeholder='Selecciona el tipo de turnado') {{$select.selected.name}}
+              ui-select-choices(repeat='type in tcmp.turnTypes | filter: $select.search')
+                span(ng-bind-html='type.name | highlight: $select.search')
+                small(ng-bind-html='type.id | highlight: $select.search')
+        .row-md-12
+          br
+          label Mensaje
+          textarea.form-control(type='text', placeholder='Mensaje de turnado' ng-model="tcmp.turnMessage")
+
+    .modal-footer
+        button.btn.btn-secondary(type='button' ng-click='tcmp.cancel()') Cancelar
+        button.btn.btn-signed(type='button', ng-disabled= "tcmp.disableTurnButton"  ng-click='tcmp.turnDocument()') Enviar

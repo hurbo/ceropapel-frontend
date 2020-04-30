@@ -1,0 +1,82 @@
+
+
+
+div(ui-view="")
+
+  .row( ng-if="!docs.paginator.items.length" )
+    .col-lg-12
+      .panel-default
+        .panel-heading
+        .panel-body
+          .col-md-12
+            p.lead.text-center No hay borradores
+            img.pull-center(src="/img/newIcons/no-hay-oficios.svg", alt="" style="height: 25em; padding-left: 40%;")
+
+  div(ng-if="docs.paginator.items.length")
+    div.container(style="padding-top: 10px")
+      .col-md-12.dividerMailbox
+      .col-md-12(style="padding-bottom: 10px; padding-top: 10px")
+        table
+          tr
+            //- td
+            //-   multiple-send-drafts-component()
+            td
+              multiple-delete-drafts-component()
+      .col-md-12
+        .col-md-1
+          .col-md-6(check-all='check-all')
+            .checkbox.c-checkbox
+              label
+                input(type='checkbox' ng-click="docs.paginator.selectedAll()" ng-model="docs.paginator.areSelectedAll" )
+                span.fa.fa-check
+          .col-md-6
+            h5.Poppins-SemiBold.text-light-blue #
+        .col-md-2
+          h5.Poppins-SemiBold.text-light-blue CREADOR DEL BORRADOR
+        .col-md-3
+          h5.Poppins-SemiBold.text-light-blue ASUNTO
+        .col-md-2
+          h5.Poppins-SemiBold.text-light-blue FECHA DE CREACIÓN
+        .col-md-2
+          h5.Poppins-SemiBold.text-light-blue FECHA DE ULTIMA EDICIÓN
+        .col-md-2
+          h5.Poppins-SemiBold.text-light-blue DETALLES
+      .col-md-12.dividerMailbox
+      .col-md-12( ng-repeat="mail in docs.paginator.items")
+        .col-md-1(style="padding-top: 2%;")
+          .col-md-6
+            .checkbox.c-checkbox
+              label
+                input(type='checkbox' ng-model="mail.selected" )
+                span.fa.fa-check(ng-class="checked")
+          .col-md-6
+            h5 {{$index + 1}}
+        .col-md-2(ui-sref="app.mailbox.internal.draft({id: mail.id})")
+          .col-md-12
+            h4.text-blue.Poppins-Bold(style="text-transform: capitalize;") {{mail.authorName}}
+            h6.text-light-blue.Poppins-SemiBold <{{mail.authorEmail}}>
+        .col-md-3(ui-sref="app.mailbox.internal.draft({id: mail.id})")
+          .col-md-12
+            p.subject.text-light-blue.Poppins-Regular(ng-if="mail.subject.length > 100") {{mail.subject | limitTo: 100}}...
+            p.subject.text-light-blue.Poppins-Regular(ng-if="mail.subject.length <= 100") {{mail.subject}}
+        .col-md-2(ui-sref="app.mailbox.internal.draft({id: mail.id})")
+          .col-md-12
+            h6.text-blue.Poppins-Bold {{mail.createdAt  | date:'dd-MM-yyyy h:mm a' || 'No aplica'}}
+        .col-md-2(ui-sref="app.mailbox.internal.draft({id: mail.id})")
+          .col-md-12
+            h6.text-blue.Poppins-Bold {{mail.updatedAt  | date:'dd-MM-yyyy h:mm a' || 'No aplica'}}
+        .col-md-2(ui-sref="app.mailbox.internal.draft({id: mail.id})")
+          .col-md-12
+            .media.align-items-center(style="padding-top: 10px")
+              img(ng-if="mail.needCancel || mail.needChanges" src="/img/newIcons/requiere-cambios.svg", uib-tooltip="Requiere aprobación"  alt="" style="height: 25px;")
+              img(ng-if="mail.needSign" src="/img/newIcons/requiere-firma.svg", uib-tooltip="Requiere ser firmado" alt="" style="height: 25px;")
+              img(ng-if="mail.confidential" src="/img/newIcons/es-confidencial.svg", uib-tooltip="Es un oficio confidencial" alt="" style="height: 25px;")
+              img(ng-if="mail.hasAttachment" src="/img/newIcons/tiene-adjuntos.svg", uib-tooltip="El oficio contiene adjuntos"  alt="" style="height: 25px;")
+              img(ng-if="mail.priority" src="/img/newIcons/es-importante.svg", uib-tooltip="El oficio es importante" alt="" style="height: 25px;")
+              img(ng-if="mail.deadline" src="/img/newIcons/tiene-fecha-limite.svg", uib-tooltip="El oficio tiene fecha limite" alt="" style="height: 25px;")
+        .col-md-12.dividerMailbox
+      .col-md-12(ng-if='!docs.hidePaginate', ng-include="'/views/mailbox/general/paginate.html'")
+
+
+
+

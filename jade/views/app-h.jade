@@ -1,0 +1,14 @@
+// top navbar
+header.topnavbar-wrapper(ng-include="'/views/partials/top-navbar-h.html'")
+
+// offsidebar
+aside.offsidebar(ng-include="'/views/partials/offsidebar.html'")
+
+// Main section
+section
+
+  // Page content
+  .content-wrapper(ui-view="", autoscroll="false", ng-class="app.viewAnimation")
+  
+// Page footer
+// footer(ng-include="'/views/partials/footer.html'")

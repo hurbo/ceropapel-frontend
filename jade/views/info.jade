@@ -1,0 +1,233 @@
+
+
+
+
+.container(ng-if="!ic.profile.jobTitleID")
+  .row
+    .col-lg-12
+      .jumbotron(style="color: #253846;")
+        h1 Cero papel.
+        p
+          | ¡Bienvenido a tu plataforma web de gestión de oficios!
+
+
+  .container
+    .row
+      .col-md-12
+        .panel.b
+          .panel-body.text-center
+            img(src="/img/ilustracion-cero-papel.svg", alt="home-image")
+
+.container.container-md(ng-if="ic.profile.jobTitleID")
+  .row(style="margin-top: 50px;")
+    .col-md-4
+      .panel.b(style="background: #8B2535; color: white; height: 150px;" ng-click="ic.goTo('sinLeer')")
+        .panel-body(style="padding: 5px 20px;")
+          h2 {{ic.sinLeerCount}}
+          h4 Documentos pendientes por recibir
+    .col-md-4
+      .panel.b(style="background: #8B2535; color: white; height: 150px;" ng-click="ic.goTo('pendientes')")
+        .panel-body(style="padding: 5px 20px;")
+          h2 {{ic.pendientesCount}}
+          h4 Documentos que requieren atención
+    .col-md-4
+      .panel.b(style="background: #8B2535; color: white; height: 150px;" ng-click="ic.goTo('sinFirmar')")
+        .panel-body(style="padding: 5px 20px;")
+          h2 {{ic.sinFirmarCount}}
+          h4 Documentos por firmar
+    //- .col-md-3
+    //-   .panel.b(style="background: #8B2535; color: white; height: 150px;" ng-click="ic.goTo('deadline')")
+    //-     .panel-body(style="padding: 5px 20px;")
+    //-       h2 10
+    //-       h4 Documentos con caducidad próxima
+
+
+  .row(style="margin-top: 15px;")
+    .col-md-12
+      .panel.b
+        .panel-body
+          p(style="margin-bottom: 20px; font-size: 16px;")
+            strong Recibidos
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.sinLeerCount}}
+            .col-8
+              p Oficios sin leer
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('sinLeer')")
+                p
+                  strong Revisar documentos
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.sinFirmarCount}}
+            .col-8
+              p Oficios sin firmar de recibido
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('sinFirmar')")
+                p
+                  strong Revisar documentos
+
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.pendientesCount}}
+            .col-8
+              p Me solicitan permiso para cancelar
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('pendientes')")
+                p
+                  strong Revisar documentos
+
+
+  .row(style="margin-top: 15px;")
+    .col-md-12
+      .panel.b
+        .panel-body
+          p(style="margin-bottom: 20px; font-size: 16px;")
+            strong Colaboración
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.colaboracionSinFirmarCount}}
+            .col-8
+              p Oficios sin firmar
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('colaboracionSinFirmar')")
+                p
+                  strong Revisar documentos
+
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.colaboracionPendientesCount}}
+            .col-8
+              p Me solicitan permiso para cancelar
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('colaboracionPendientes')")
+                p
+                  strong Revisar documentos
+
+  .row(style="margin-top: 15px;")
+    .col-md-12
+      .panel.b
+        .panel-body
+          p(style="margin-bottom: 20px; font-size: 16px;")
+            strong Enviados
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.enviadosSinLeerCount}}
+            .col-8
+              p Pendiente por leer
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('enviadosSinLeer')")
+                p
+                  strong Revisar documentos
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.enviadosSinFirmarCount}}
+            .col-8
+              p Pendientes por firmar
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo(enviadosSinFirmar)")
+                p
+                  strong Revisar documentos
+
+          //- .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+          //-   .col-1
+          //-     p 8
+          //-   .col-8
+          //-     p Pendientes por firmar en colaboración
+          //-   .col-3(style="text-align: right;")
+          //-     button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('enviadosEnColaboracionSinFirmar')")
+          //-       p
+          //-         strong Revisar documentos
+
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.enviadosPendientesCount}}
+            .col-8
+              p Pendiente por aceptar solicitud de cancelación
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('enviadosPendientes')")
+                p
+                  strong Revisar documentos
+
+  .row(style="margin-top: 15px;" ng-if="ic.profile.permissions && ic.profile.permissions.length !== 0")
+    .col-md-12
+      .panel.b
+        .panel-body
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-4
+              p(style="margin-bottom: 20px; font-size: 16px;")
+                strong Externos
+            .col-4
+              p(style="margin-bottom: 20px; font-size: 16px; color: #E96057;")
+                strong {{ic.currentUser.bossName}}
+            .col-4
+              .dropdown.dropdown-list.animated(uib-dropdown="")
+                a(uib-dropdown-toggle="") Elige bandeja a consultar
+                  img.img-circle(style = "height: 1.8em; padding-left:5px;" ng-src="{{ic.currentUser.avatar}}", alt="Avatar", title="{{ic.currentUser.name}}")
+
+                ul.dropdown-menu(class="animated flipInX")
+                  li(ng-repeat="user in ic.profile.permissions")
+                    .list-group
+                      a.list-group-item(ng-click="ic.changeUser(user)")
+                        .media-box
+                          .pull-left
+                            img.img-circle(style = "height: 35px; margin-top: 10px;" ng-src="{{user.avatar}}", alt="Avatar", title="{{user.email}}")
+                          .media-box-body.clearfix
+                              p.m0.text-blue {{user.bossName}}
+                              p.m0.text-danger {{user.bossJobTitleName}}
+                              p.m0.text-muted {{user.email}}
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.externosSinLeerCount}}
+            .col-8
+              p Oficios sin leer
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo(externosSinLeer)")
+                p
+                  strong Revisar documentos
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.externosSinFirmarCount}}
+            .col-8
+              p Oficios sin firmar de recibido
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('externosSinFirmar')")
+                p
+                  strong Revisar documentos
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.externosTurnadosCount}}
+            .col-8
+              p Turnados pendientes por atender
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('externosTurnados')")
+                p
+                  strong Revisar documentos
+
+  .row(style="margin-top: 15px;")
+    .col-md-12
+      .panel.b
+        .panel-body
+          p(style="margin-bottom: 20px; font-size: 16px;")
+            strong Borradores
+
+          .row(style="display: flex; padding: 0 15px; margin-top: 15px;")
+            .col-1
+              p {{ic.borradoresCount}}
+            .col-8
+              p Pendientes por enviar
+            .col-3(style="text-align: right;")
+              button(style="background: transparent; border: none; color: #E96057;" ng-click="ic.goTo('borradores')")
+                p
+                  strong Revisar documentos

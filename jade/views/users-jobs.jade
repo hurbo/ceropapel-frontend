@@ -1,0 +1,53 @@
+
+.container
+  .col-md-12( ng-if="!ujc.secretariates.length" style="padding-top: 10em;")
+    .col-md-6
+      .col-md-2
+      .col-md-10
+        h1.text-blue.Poppins-Bold(style="font-size: -webkit-xxx-large;") Bienvenido a Cero Papel
+        h4.text-blue.Poppins-SemiBold ¡Organízate! reduce tus tiempos de trabajo y aumenta tu productividad. ¡Te invitamos a crear tu primer  área!
+
+        button.btn.btn-secondary.pull-right(ng-if="ujc.profile.roleID === 3"  style='margin: 15px;', type='button', data-toggle='modal', data-target='#modalCreateJob' ) Agregar área
+
+    .col-md-6
+      img.center(src="/img/ilustracion-secretarias.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;") 
+
+  .col-md-12( ng-if="ujc.secretariates.length" style="padding-top: 5em;")
+    .col-md-12(ng-repeat='item in ujc.secretariates')
+      .col-md-12(style="background-color: white; margin-bottom: 10px !important;" ng-init= "item.display = true"  ng-attr-id= "{{'panel-' + item.id}}")
+        button.btn.btn-down.btn-sm.pull-left.animated(tool-collapse='Mostrar detalles' style="margin-left: -15px; height: 55px; width: 55px;" panel-collapse='' uib-tooltip='Ver detalles' ng-click='item.display = !item.display; ujc.changeShowDetails(item);')
+          em.fa.fa-chevron-down.ng-no-animation(ng-show="item.display" aria-hidden='false')
+          em.fa.fa-chevron-up.ng-no-animation.ng-hide(ng-show='!item.display' aria-hidden='true')
+
+
+        h4.text-light-blue.Poppins-SemiBold(style="padding-left: 50px;") {{item.name}}
+        .col-md-12.collapse(uib-collapse="item.display" aria-expanded='false' aria-hidden='true' )
+          .col-md-12.dividerView
+          table.table.table-hover
+            thead
+              tr
+                th.text-light-blue.Poppins-SemiBold PUESTO
+                th.text-light-blue.Poppins-SemiBold USUARIO
+                th.text-light-blue.Poppins-SemiBold ROL DE USUARIO
+                th
+
+
+            tbody(ng-repeat='jobTitle in item.jobTitles')
+              tr
+                td
+                  strong.text-light-blue.Poppins-SemiBold {{jobTitle.jobTitleName}}
+                td
+                  strong.text-light-blue.Poppins-SemiBold {{jobTitle.userName}}
+                td.text-light-blue.Poppins-Light {{jobTitle.rolName}}
+                td 
+                  button.btn.btn-primary.pull-right(ng-if='jobTitle.userID', ng-click='ujc.changeRole(jobTitle)', style='margin:5px;')
+                    i.fa.fa-user
+                    span Cambiar rol
+                  button.btn.btn-primary.pull-right(ng-click='ujc.changePerson(jobTitle)', style='margin:5px;')
+                    em.icon-refresh
+                    span Cambiar/asignar persona
+                  button.btn.btn-secondary.pull-right(ng-if='jobTitle.userID', ng-click='ujc.removePerson(jobTitle)', style='margin:5px;')
+                    em.fa.fa-trash
+                    span Quitar persona
+
+

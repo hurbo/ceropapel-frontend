@@ -1,0 +1,63 @@
+div(ng-controller= "requestCancelComponentController as rcacmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Solicitar cancelar
+    .modal-body
+        .panel-default(ng-if="rcacmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!rcacmp.loading && rcacmp.currentDocument.needCancel !== 1")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.text-danger {{rcacmp.simpleCancel? 'Cancelar oficio' : 'Solicitar cancelación' }} 
+            .panel-body
+                form(role='form', name="requestCancelForm")
+                    .form-group
+                        input.form-control(type='password', placeholder='Contraseña', required='true', name='userPassword', ng-model="rcacmp.password")
+ 
+                    .form-group
+                        textarea.form-control(type='text', placeholder='Mensaje', required='true', name='userMessage', ng-model="rcacmp.message")
+ 
+        .panel-default(ng-if="!rcacmp.loading && rcacmp.simpleCancel && rcacmp.currentDocument.needCancel === 1")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.text-danger {{rcacmp.simpleCancel? 'Cancelar oficio' : 'Solicitar cancelación' }} 
+            .panel-body
+                form(role='form', name="requestCancelForm")
+                    .form-group
+                        input.form-control(type='password', placeholder='Contraseña', required='true', name='userPassword', ng-model="rcacmp.password")
+ 
+                    .form-group
+                        textarea.form-control(type='text', placeholder='Mensaje', required='true', name='userMessage', ng-model="rcacmp.message")
+ 
+        .panel-default(ng-if="!rcacmp.loading && !rcacmp.simpleCancel && rcacmp.currentDocument.needCancel === 1")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.text-danger Espera a que los siguientes usuarios cedan permisos
+            .panel-body
+                .row-md-12.media-boxed(ng-repeat='item in rcacmp.wait')
+                    .col-md-12.divider
+                    .col-md-12.pull-left
+                        p.mb-sm
+                        strong.text-blue Usuario:
+                        small {{item.TUName}} <{{item.TUEmail}}>
+                        p.mb-sm
+                        strong.text-blue(style="font-size: smaller;")  Área:
+                        small {{item.TUSecName}}
+
+                        strong.text-blue(style="font-size: smaller;") Puesto:
+                        small {{item.TUJTName}}
+
+                        p.mb-sm.text-danger(ng-if="item.rejectCancelAt")
+                            strong Tu solicitud fue rechazada
+                        p.mb-sm.text-light-blue(ng-if="item.rejectCancelAt")
+                            strong {{item.rejectCancelMessage}}
+                        p.mb-sm.text-light-blue(ng-if="!item.rejectCancelAt")
+                            strong Sin atender
+                    
+
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="!rcacmp.password || arcacmp.loading || !rcacmp.message " ng-click='rcacmp.ok()') {{rcacmp.simpleCancel? 'Cancelar oficio' : 'Solicitar cancelación' }} 
+        button.btn.btn-secondary(ng-click='rcacmp.cancel()') Cancel

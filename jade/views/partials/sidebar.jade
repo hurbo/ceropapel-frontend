@@ -1,0 +1,30 @@
+
+
+script(type='text/ng-template', id="sidebar-test.html")
+
+  a(ng-href="{{$state.href(item.sref, item.params)}}" style="padding: 10px;")
+    img.menuIconImage( ng-src="{{item.src}}")
+
+
+  .pull-right(ng-if="item.alert", ng-class="item.label || 'label label-success'") {{item.alert}}
+  span.menuTextSpan {{(item.translate | translate) || item.text}}
+
+
+
+
+
+// Inline template with sidebar items markup and ng-directives
+script(type='text/ng-template', id="sidebar-renderer.html")
+  a(id="{{item.id}}" ng-if="!item.heading",  ng-href="{{$state.href(item.sref, item.params)}}" , title="{{item.text}}", md-ink-ripple ng-include="'sidebar-test.html'")
+
+// START Sidebar (left)
+.aside-inner
+  nav.sidebar(id="sidebarmenu" sidebar="", sidebar-anyclick-close="", ng-class="{'show-scrollbar': app.layout.asideScrollbar}")
+    // START sidebar nav
+    ul.nav
+      // Iterates over all sidebar items
+      li(style="font-size: large;"  ng-class="sbc.getMenuItemPropClasses(item)", ng-repeat='item in menuItems', ng-init="pIndex = $index", ng-include="'sidebar-renderer.html'", ng-click="toggleCollapse(pIndex, true)")
+
+    // END sidebar nav
+
+// END Sidebar (left)

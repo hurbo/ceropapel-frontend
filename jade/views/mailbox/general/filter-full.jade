@@ -1,0 +1,203 @@
+// START  panel filter
+
+
+.panel-default#panelFiltros
+
+  .panel-body
+    .form-group(ng-submit="docs.paginator.onFilterNew(docs.searchOption)")
+      label.col-sm-2.control-label Filtros
+      .col-sm-10
+        form.form-inline#formularioFiltros(role='form')
+
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)",  ng-checked="docs.filter.getStatus('priority')", type='checkbox')
+              span.fa.fa-check
+              |  Importantes
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('read')", type='checkbox')
+              span.fa.fa-check
+              |  Leídos
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('unread')", type='checkbox')
+              span.fa.fa-check
+              |  Sin leer
+          //- .checkbox.c-checkbox
+          //-   label
+          //-     input(type='checkbox' ng-model="docs.filterX.turned" ng-click="docs.filterX.onFilterNew()")
+          //-     span.fa.fa-check
+          //-     |  Turnados
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('signed')", type='checkbox')
+              span.fa.fa-check
+              |  Firmados
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('notSigned')", type='checkbox')
+              span.fa.fa-check
+              |  No Firmados
+          .checkbox.c-checkbox
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('rejected')", type='checkbox')
+              span.fa.fa-check
+              |  Rechazados
+          .checkbox.c-checkbox(ng-hide="$state.is('app.mailbox.external.in') || $state.is('app.mailbox.external.turned') || $state.is('app.mailbox.external.archived') || $state.is('app.mailbox.external.turned.page') || $state.is('app.mailbox.external.turned.filter') || $state.is('app.mailbox.external.turned.filter.page')")
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('confidential')", type='checkbox')
+              span.fa.fa-check
+              |  Confidencial
+           .checkbox.c-checkbox(ng-hide="$state.is('app.mailbox.external.turned') || $state.is('app.mailbox.external.turned.page') || $state.is('app.mailbox.external.turned.filter') || $state.is('app.mailbox.external.turned.filter.page')")
+            label
+              input(ng-click="docs.paginator.onFilterNew(docs.searchOption)", ng-checked="docs.filter.getStatus('notTurned')",  type='checkbox')
+              span.fa.fa-check
+              |  No Turnados
+          //- .input-group.form-group
+          //-   span.input-group-addon.text-sm Estado:
+          //-   //- ui-select(on-select="mvc.changeProcessStatus()" ng-model='mvc.inbox.status' , theme='bootstrap' , title='Agregar destinatario')
+          //-   ui-select(ng-model='docs.filterX.status' , theme='bootstrap' , title='Seleccionar estado')
+          //-     ui-select-match(placeholder='Seleccionar estado') {{docs.filterX.status}}
+          //-     ui-select-choices(repeat='p in docs.filterX.process')
+          //-       small
+          //-         | {{p}}
+          button.btn.btn-primary.pull-right#btnLimpiar(ng-click="docs.paginator.cleanFilter()" ) Limpiar
+        br
+        .input-group
+          input.form-control#inputFiltro(ng-model="docs.paginator.searchQuery", type='text')
+          span.input-group-btn
+            button.btn.btn-primary#btnBuscar(ng-click="docs.paginator.onFilter('searchQuery')"  ) Buscar
+
+// END  panel filter
+
+
+
+
+// START panel
+.row-sm-12
+  .panel.panel-default
+    .panel-heading
+    .panel-body
+      form.ng-pristine(role='form')
+        h3.text-center(ng-if="docs.searchOption.boxFilter === 1") Se mostraran todos los documentos que te involucren
+        h3.text-center(ng-if="docs.searchOption.boxFilter === 2") Se mostraran los documento que has enviado
+        h3.text-center(ng-if="docs.searchOption.boxFilter === 3") Se mostraran los documento que has recibido
+        .form-group.row
+          label.col-md-2.col-form-label
+          .col-md-10
+            .col-md-3
+              .form-check
+                input.form-check-input( checked= true, name='box', type='radio', value=1 , ng-click='docs.searchOption.boxFilter = 1')
+                label.form-check-label( for='all') Busqueda general
+            .col-md-3
+              .form-check
+                input.form-check-input( name='box', type='radio', value=2 , ng-click='docs.searchOption.boxFilter = 2')
+                label.form-check-label( for='send') Buscar de enviados
+            .col-md-3
+              .form-check
+                input.form-check-input( name='box', type='radio', value=3 , ng-click='docs.searchOption.boxFilter = 3')
+                label.form-check-label( for='inbox') Buscar de recibidos
+
+        
+
+
+
+        fieldset
+        .row-sm-12
+          .col-sm-12
+            .input-group.form-group
+              span.input-group-addon.text-sm Usuarios:
+              ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.selectedUsers', on-remove="docs.onRemoveTo($item, $model)",on-select="docs.onSelectTo($item, $model)", theme='bootstrap', title='Agregar destinatario')
+                ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}> <{{$item.jtName}}>
+                ui-select-choices(repeat='person in docs.contacts | propsFilter: {name: $select.search, email: $select.search}')
+                  div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                  div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                  small
+                    | email: {{person.email}}
+        .row-sm-12
+          .col-sm-6
+
+
+            .input-group.form-group
+              span.input-group-addon.text-sm Desde:
+              input.form-control(ng-model='docs.searchOption.startDate', type='date',  max="{{docs.today | date:'yyyy-MM-dd'}}")
+              div(ng-if='alertDate')
+                p.red.danger La fecha límite debe ser despues al día de hoy
+          .col-sm-6
+
+
+            .input-group.form-group
+              span.input-group-addon.text-sm Hasta:
+              input.form-control(ng-model='docs.searchOption.endDate', type='date',  max="{{docs.today | date:'yyyy-MM-dd'}}")
+              div(ng-if='alertDate')
+                p.red.danger La fecha límite debe ser despues al día de hoy
+
+
+        .row-sm-12
+          .col-sm-4
+            .form-group
+              label.col-lg-2.control-label Asunto
+              .col-lg-10
+                input.form-control(type='text', placeholder='Asunto' ng-model='docs.searchOption.subject')
+
+          .col-sm-4
+            .form-group
+              label.col-lg-2.control-label Folio
+              .col-lg-10
+                input.form-control(type='text', placeholder='Folio' ng-model='docs.searchOption.folio')
+
+          .col-sm-4
+            .form-group
+              label.col-sm-2.control-label Estatus
+              .col-sm-10
+                select.form-control(name='account' ng-model='docs.searchOption.status')
+                  option(value=1) Sin leer
+                  option(value=2) Leído
+                  option(value=3) Firmado
+                  option(value=4) Rechazado
+                  option(value=5) Recibido
+                  option(value=6) En proceso
+                  option(value=7) Atendido satisfactoriamente
+                  option(value=8) De conocimiento
+                  option(value=9) No procede
+
+        
+        .row-sm-12
+
+
+          .col-sm-3(style="padding-top: 15px;")
+            .form-group
+              .checkbox.c-checkbox
+                label
+                  input(type='checkbox', checked='', , ng-model= "docs.searchOption.require")
+                  span.fa.fa-check
+                  |  Requiere atención
+          .col-sm-3(style="padding-top: 15px;")
+            .form-group
+              .checkbox.c-checkbox
+                label
+                  input(type='checkbox', checked='', , ng-model= "docs.searchOption.ft")
+                  span.fa.fa-check
+                  |  Colaboracion
+          .col-sm-3(style="padding-top: 15px;")
+            .form-group
+              .checkbox.c-checkbox
+                label
+                  input(type='checkbox', checked='', , ng-model= "docs.searchOption.importance")
+                  span.fa.fa-check
+                  |  Importante
+          .col-sm-3(style="padding-top: 15px;")
+            .form-group
+              .checkbox.c-checkbox
+                label
+                  input(type='checkbox', checked='', , ng-model= "docs.searchOption.confidential")
+                  span.fa.fa-check
+                  |  Confidencial
+
+    .panel-footer
+      .row-sm-12(style="height: 35px;")
+        button.btn.btn-primary.pull-right(type='submit', ng-click='docs.search()') Buscar
+
+
+  // END panel

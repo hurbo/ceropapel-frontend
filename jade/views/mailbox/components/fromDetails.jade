@@ -1,0 +1,37 @@
+
+.div(ng-if="fdcmp.currentDocument")
+    // panel de asunto
+    .panel-default(style= "background-color: #fff")
+      .panel-body
+        table.table.mb-mails.mb-view
+            tbody
+                tr
+                    td
+                        .row-md-12
+                            .col-md-9
+                                p.text-blue
+                                    span.Poppins-SemiBold Folio:
+                                    span {{fdcmp.currentDocument.folio}}
+                                p.text-blue.text-justify.Poppins-Medium
+                                    span {{fdcmp.currentDocument.subject}}
+                                p.text-blue
+                                    span.Poppins-SemiBold DE:
+                                    span {{fdcmp.currentDocument.from.name}} <{{fdcmp.currentDocument.from.email}}>
+                            .col-md-3
+                                .col-md-12
+                                    h4.Poppins-SemiBold.text-blue.pull-right(ng-if='fdcmp.currentDocument.priority') 
+                                        img(src="/img/newIcons/importante-clear.svg", alt="" style="margin-right: 10px;") 
+                                        | Importante
+                                .col-md-12
+                                    span.pull-right.mb-mail-date {{fdcmp.currentDocument.createdAt  | date:'dd-MM-yyyy h:mm a'}}
+                                .col-md-12
+                                    span.pull-right.mb-mail-date Leído por: {{fdcmp.readCount}} de {{fdcmp.currentInvolveds.length}}
+                                .col-md-12
+                                    span.pull-right.mb-mail-date(ng-if="fdcmp.totalRequireSign === 0") No requiere firmas
+                                .col-md-12
+                                    span.pull-right.mb-mail-date(ng-if="fdcmp.totalRequireSign !== 0") Firmado por: {{fdcmp.signsCount}} de {{fdcmp.totalRequireSign}}
+                                .col-md-12
+                                    span.pull-right.mb-mail-date Fecha límite: {{fdcmp.currentDocument.deadline | date:'dd-MM-yyyy h:mm a' || 'No aplica'    }}
+
+
+

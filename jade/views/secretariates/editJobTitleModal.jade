@@ -1,0 +1,35 @@
+div(ng-controller= "editJobTitleComponentController as edjtcmp" ng-init="edjtcmp.init()")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='edjtcmp.cancel()') ×
+        h4.modal-title Editar {{edjtcmp.currentJobTitle.jobTitleID ? 'puesto': 'área'}}
+    .modal-body
+        .panel-default(ng-if="edjtcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!edjtcmp.loading")
+            .panel-heading
+            .panel-body
+                form.form-horizontal
+                    .form-group
+                        label.col-md-2.control-label Nombre
+                        .col-md-10
+                            input.form-control(type='text' placeholder='Nombre' ng-model ='edjtcmp.currentJobTitle.name')
+                    .form-group
+                        label.col-md-2.control-label Acrónimo
+                        .col-md-10
+                            input.form-control(type='text' placeholder='Acrónimo' ng-model ='edjtcmp.currentJobTitle.acronym')
+
+
+
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="!edjtcmp.currentJobTitle.name || !edjtcmp.currentJobTitle.acronym " ng-click='edjtcmp.ok(edjtcmp.currentJobTitle)') Editar
+        button.btn.btn-secondary(ng-click='edjtcmp.cancel()') Cancelar
+
+
+
+

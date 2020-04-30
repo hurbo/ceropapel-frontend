@@ -1,0 +1,24 @@
+div(ng-controller= "multipleSendDraftsComponentController as msdcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Enviar documentos
+    .modal-body(style="height: 18em;")
+        
+        form(role='form' ng-if="!msdcmp.isLoading")
+            .form-group.col-md-12
+                label Contraseña
+                input.form-control(type='password' placeholder='Ingrese contraseña' ng-model="msdcmp.password")
+
+
+        div(ng-if="msdcmp.isLoading")
+            h3.text-center.text-blue Cargando
+                .panel-body.loader-demo.loader-demo-sk
+
+                    .spinner
+                        .dot1
+                        .dot2
+            uib-progressbar(animate='false', value='msdcmp.value')
+                b {{msdcmp.value}}%
+    .modal-footer
+        button.btn.btn-primary(ng-click='msdcmp.ok()' ng-disabled="!msdcmp.password") Enviar
+        button.btn.btn-secondary(ng-click='msdcmp.cancel()') Cancel

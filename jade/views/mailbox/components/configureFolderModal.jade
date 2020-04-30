@@ -1,0 +1,38 @@
+div(ng-controller= "configureFolderComponentController as cfcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+        h4.modal-title Configurar
+    .modal-body
+        .panel-default(ng-if="!cfcmp.loading")
+            .panel-body
+                .form-group
+                    label.col-sm-2.control-label Nombre
+                    .col-sm-10
+                        input.form-control(type='text', name='Nombre', ng-model='cfcmp.folderToEdit.name', aria-invalid='true', style='')
+
+                .form-group
+                    label.col-sm-12.control-label Mover a carpeta {{cfcmp.selectedFolder().name}}
+
+                .col-md-12(style="background-color: #ECEDED ; margin-bottom: 10px !important;" ng-init= "cfcmp.folderToEdit.display = true"  ng-attr-id= "{{'panel-' + cfcmp.folderToEdit.id}}")
+
+                    button.btn.btn-down.btn-sm.pull-left.animated(tool-collapse='Mostrar detalles' style="height: 55px; width: 55px;" panel-collapse='' uib-tooltip='Ver detalles' ng-click='cfcmp.folderToEdit.display = !cfcmp.folderToEdit.display;')
+                        em.fa.fa-chevron-down.ng-no-animation(ng-show="cfcmp.folderToEdit.display" aria-hidden='false')
+                        em.fa.fa-chevron-up.ng-no-animation.ng-hide(ng-show='!cfcmp.folderToEdit.display' aria-hidden='true')
+                    h4.text-light-blue.Poppins-SemiBold(style="padding-left: 50px;") {{cfcmp.selectedFolder().name || 'Selecciona carpeta'}}
+                    .col-md-12.collapse(style="padding-top: 10px;" uib-collapse="cfcmp.folderToEdit.display" aria-expanded='false' aria-hidden='true' )
+                        .col-md-12.dividerView
+
+                        external-tree-folders-component
+
+        .panel-default(ng-if="cfcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+    .modal-footer
+        button.btn.btn-primary(ng-click='cfcmp.home()') Mover a inicio
+        button.btn.btn-primary(ng-click='cfcmp.ok()') Guardar
+        button.btn.btn-secondary(ng-click='cfcmp.cancel()') Cancel

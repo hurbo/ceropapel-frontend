@@ -1,0 +1,35 @@
+div(ng-controller= "addJobTitleComponentController as adjtcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='adjtcmp.cancel()') ×
+        h4.modal-title Agregar {{adjtcmp.currentJobTitle ? 'puesto': 'área'}}
+    .modal-body
+        .panel-default(ng-if="adjtcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!adjtcmp.loading")
+            .panel-heading
+            .panel-body
+                form.form-horizontal
+                    .form-group
+                        label.col-md-2.control-label Nombre
+                        .col-md-10
+                            input.form-control(type='text' placeholder='Nombre' ng-model ='adjtcmp.newJobTitle.name')
+                    .form-group
+                        label.col-md-2.control-label Acrónimo
+                        .col-md-10
+                            input.form-control(type='text' placeholder='Acrónimo' ng-model ='adjtcmp.newJobTitle.acronym')
+
+
+
+    .modal-footer
+        button.btn.btn-primary(ng-disabled="!adjtcmp.newJobTitle.name || !adjtcmp.newJobTitle.acronym " ng-click='adjtcmp.ok(adjtcmp.newJobTitle)') Agregar
+        button.btn.btn-secondary(ng-click='adjtcmp.cancel()') Cancelar
+
+
+
+

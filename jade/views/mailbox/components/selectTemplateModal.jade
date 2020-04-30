@@ -1,0 +1,59 @@
+div(ng-controller= "selectTemplateComponentController as stcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='stcmp.cancel()') ×
+        h4.modal-title Seleccionar plantilla
+    .modal-body
+        .panel-default(ng-if="stcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!stcmp.loading && stcmp.isTemplateVisible")
+            .panel-heading
+                button.btn.btn-bm.btn-secondary(ng-click='stcmp.currentTemplate = null; stcmp.isTemplateVisible = false;')
+                    em.icon-arrow-left
+                    | Regresar
+
+            .panel-body(style="background-color: #ECEDED; margin-left: 5%; margin-right: 5%;")
+                summernote( ng-model="stcmp.currentTemplate.content" config='stcmp.summernoteOptions')
+
+        .panel-default(ng-if="!stcmp.loading && !stcmp.isTemplateVisible")
+            .panel-body
+                .div
+                    .form-group
+                        label.col-md-2.control-label Filtar por nombre
+                        .col-md-10(style=" width: 30em;")
+                            input.form-control.form-control-rounded(type='text' ng-model="stcmp.searchText")
+
+                    table.table.table-hover
+                        thead
+                            tr
+                                th #
+                                th Nombre
+                                th Formato para
+                                th Autor
+                                th Fecha de creación
+                                th
+
+
+                        tbody(ng-repeat='template in stcmp.templates | filter: stcmp.searchText')
+                            tr
+                                td {{$index + 1}}
+                                td {{template.name}}
+                                td {{template.type}}
+                                td {{template.authorName}}
+                                td {{template.createdAt  | date:'dd-MM-yyyy h:mm a'}}
+                                td.pull-right
+                                    button.btn.btn-default#botonVisualizarPlantilla(ng-click='stcmp.setTemplate(template)' type='button', data-toggle='modal', data-target='#modalPreview')
+                                        | Ver
+                                        em.fa.fa-eye
+
+                                    button.btn.btn-signed#botonSeleccionarPlantilla(type='button' data-dismiss='modal' ng-click='stcmp.setTemplateToCompose(template)')
+                                        |  Seleccionar
+                                        em.icon-check
+
+    .modal-footer
+        button.btn.btn-secondary(ng-click='stcmp.cancel()') Cancel

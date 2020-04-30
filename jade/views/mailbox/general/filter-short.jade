@@ -1,0 +1,99 @@
+
+
+
+div.container.col-md-12
+  h4.text-light-blue.Poppins-SemiBold
+    img(src='/img/newIcons/filtrar-busqueda.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
+    | Filtrar búsqueda
+  .col-md-12.dividerFilter
+  
+  .col-md-12
+    #panelDemo1(ng-init="panelDemo1 = !docs.filter.active" style=" ")
+      .panel-heading.panel-heading-collapsed(ng-class="{'panel-heading-collapsed':panelDemo1}" style='')
+
+
+        .form-group
+          .col-md-12.Poppins-Medium
+
+            label.checkbox-inline.c-checkbox.text-light-blue
+              input#inlineCheckbox20(ng-click="docs.paginator.onFilter('needSign')",  ng-checked="docs.filter.getStatus('needSign')", type='checkbox')
+              span.fa.fa-check
+              | Requiere firma
+            label.checkbox-inline.c-checkbox.text-light-blue
+              input#inlineCheckbox30(ng-click="docs.paginator.onFilter('priority')",  ng-checked="docs.filter.getStatus('priority')", type='checkbox')
+              span.fa.fa-check
+              | Importantes
+
+
+            label.checkbox-inline.c-checkbox.text-light-blue
+              input#inlineCheckbox70(ng-click="docs.paginator.onFilter('notTurned')", ng-checked="docs.filter.getStatus('notTurned')",  type='checkbox')
+              span.fa.fa-check
+              | No turnados
+            label.checkbox-inline.c-checkbox.text-light-blue
+              input#inlineCheckbox70(ng-click="docs.paginator.onFilter('signed')", ng-checked="docs.filter.getStatus('signed')", type='checkbox')
+              span.fa.fa-check
+              | Firmados
+            button.btn.btn-default.pull-right(type='button' tool-collapse='Mostrar detalles' ng-click='panelDemo1 = !panelDemo1')
+              a(style="color: red;" )
+                em.fa.fa-plus.ng-no-animation(ng-show='panelDemo1' aria-hidden='false')
+                em.fa.fa-minus.ng-no-animation.ng-hide(ng-show='!panelDemo1' aria-hidden='true')
+            button.btn.btn-default.pull-right.Poppins-SemiBold.text-blue(type='button' ng-click="docs.paginator.cleanFilter()")
+              img(src='/img/newIcons/limpiar-filtros.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
+              | Limpiar filtros
+
+
+      .panel-wrapper.collapse(uib-collapse='panelDemo1' aria-expanded='false' aria-hidden='true')
+        .panel-body
+          .form-group(style=" margin-top: 10px;")
+            .col-md-12.dividerFilter
+
+            .col-md-12
+              .col-md-6
+                .input-group.col-md-12
+                  label.col-md-4.text-sm Fecha inicial:
+                  input.col-md-10.form-control(ng-model='docs.paginator.startDate', type='date',  max="{{mbc.paginator.today | date:'yyyy-MM-dd'}}")
+              .col-md-6
+                .input-group.col-md-12
+                  label.col-md-4.text-sm Fecha inicial:
+                  input.col-md-10.form-control(ng-model='docs.paginator.endDate', type='date',  max="{{mbc.paginator.today | date:'yyyy-MM-dd'}}")
+
+            .col-md-12.dividerFilter
+
+            .col-md-12.Poppins-Medium
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox10(ng-click="docs.paginator.onFilter('pending')", ng-checked="docs.filter.getStatus('pending')", type='checkbox')
+                span.fa.fa-check
+                | Pendientes
+
+
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox40(ng-click="docs.paginator.onFilter('unread')", ng-checked="docs.filter.getStatus('unread')", type='checkbox')
+                span.fa.fa-check
+                | Sin leer
+
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox50(ng-click="docs.paginator.onFilter('read')", ng-checked="docs.filter.getStatus('read')", type='checkbox')
+                span.fa.fa-check
+                | Leídos
+
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox60(ng-click="docs.paginator.onFilter('notSigned')", ng-checked="docs.filter.getStatus('notSigned')", type='checkbox')
+                span.fa.fa-check
+                | No firmados
+
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox70(ng-click="docs.paginator.onFilter('rejected')", ng-checked="docs.filter.getStatus('rejected')", type='checkbox')
+                span.fa.fa-check
+                | Rechazados
+              label.checkbox-inline.c-checkbox.text-light-blue
+                input#inlineCheckbox80(ng-click="docs.paginator.onFilter('confidential')", ng-checked="docs.filter.getStatus('confidential')", type='checkbox')
+                span.fa.fa-check
+                | Confidencial
+  .col-md-12.dividerFilter
+  .col-md-12
+    .input-group
+      input.form-control(type='text' ng-model="docs.paginator.searchQuery")
+      span.input-group-btn
+        button.btn.btn-secondary(type='button' ng-click="docs.paginator.onFilter('searchQuery')")
+          em.icon-magnifier.ng-no-animation(style='padding-right: 5px;')
+          | Filtrar

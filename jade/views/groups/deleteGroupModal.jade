@@ -1,0 +1,20 @@
+div(ng-controller= "deleteGroupComponentController as dgcmp")
+    .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true' ng-click='dgcmp.cancel()') ×
+        h4.modal-title Eliminar grupo
+    .modal-body
+        .panel-default(ng-if="dgcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+                .spinner
+                    .dot1
+                    .dot2
+        .panel-default(ng-if="!dgcmp.loading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.text-danger ¿Estás seguro de eliminar el grupo?
+                h4.text-center.Poppins-SemiBold.text-light-blue {{dgcmp.currentGroup.name}}
+
+    .modal-footer
+        button.btn.btn-primary(ng-click='dgcmp.ok()') Eliminar
+        button.btn.btn-secondary(ng-click='dgcmp.cancel()') Cancelar

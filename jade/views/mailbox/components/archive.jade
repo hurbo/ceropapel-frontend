@@ -1,0 +1,9 @@
+div(ng-if="!acmp.ViewFactory.loading()")
+  button.btn.btn-bm.btn-primary.viewMenuButton(ng-if = "!acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openArchive(\'lg\')')
+    | Archivar
+  button.btn.btn-bm.btn-secondary.viewMenuButton(ng-if = "acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openUnarchive(\'lg\')')
+    | Desarchivar
+
+
+
+

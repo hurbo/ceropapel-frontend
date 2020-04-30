@@ -1,0 +1,171 @@
+
+
+.div
+  .panel-default.detailsContainer
+    .panel-body
+
+      h4.text-blue Remitente
+
+      .row-md-12
+        .col-md-10
+          .pull-left
+            p.mb-sm
+              strong.text-blue Usuario:
+              small {{dcmp.document.from.name}} <{{dcmp.document.from.email}}>
+            p.mb-sm
+              strong.text-blue Certificado:
+              small(style='word-break: break-all;') {{dcmp.document.noCertificado}}
+            p.mb-sm
+              strong.text-blue Hash:
+              small(style='word-break: break-all;') {{dcmp.document.hash}}
+        .col-md-2
+          p.mb-sm.infoText.pull-left(ng-if="dcmp.totalRequireSign === 0")
+            strong No requiere firmas
+          br
+          .pull-right.label.label-signed(ng-if="dcmp.totalRequireSign !== 0") Firmados: {{dcmp.signsCount}} de {{dcmp.totalRequireSign}}
+          br
+          .pull-right.label.label-read Leídos: {{dcmp.readCount}} de {{dcmp.currentInvolveds.length}}
+
+.div.divider
+
+.div(ng-if="dcmp.currentInvolveds")
+  .panel-default.detailsContainer
+    .panel-body
+      h4.text-blue Destinatarios
+      .row-md-12.media-boxed(ng-repeat='item in dcmp.currentInvolveds | filter: {isTurned : 0}')
+        .col-md-10(style="padding-bottom: 1%;")
+          .div.divider
+          .pull-left
+            p.mb-sm
+              strong.text-blue Usuario:
+              small {{item.TUName}} <{{item.TUEmail}}>
+            p.mb-sm
+              strong.text-blue(style="font-size: smaller;") Área:
+              small {{item.TUSecName}}
+
+              strong.text-blue(style="font-size: smaller;") Puesto:
+              small {{item.TUJTName}}
+
+            p.mb-sm.dangerText(ng-if="item.needSign === 1 && !item.noCertificado")
+              strong No ha firmado
+            p.mb-sm.infoText(ng-if="item.needSign === 0 && !item.rejectMessage")
+              strong No requiere firma
+            p.mb-sm.infoText(ng-if="item.rejectMessage")
+              strong.text-blue Oficio rechazado
+              small.text-danger {{item.rejectMessage}}
+
+            p.mb-sm(ng-if="item.signBySecretary === 1")
+              strong.text-danger Firmado por asistente:
+            p.mb-sm(ng-if="item.signBySecretary === 1")
+              strong.text-blue Asistente:
+              small {{item.secretaryName}} <{{item.secretaryEmail}}>
+
+
+              
+
+            p.mb-sm(ng-if="item.needSign === 1 && item.noCertificado")
+              strong.text-blue Certificado:
+              small(style='word-break: break-all;') {{item.noCertificado || 'No ha firmado'}}
+            p.mb-sm(ng-if="item.needSign === 1 && item.noCertificado")
+              strong.text-blue Hash:
+              small(style='word-break: break-all;') {{item.hash || 'No ha firmado'}}
+
+
+
+        .col-md-2
+          p.mb-sm
+            strong.text-blue Leído:
+            small {{(item.readAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha leído'}}
+          p.mb-sm(ng-if="item.needSign === 1 && item.rejected !== 1")
+            strong.text-blue Firmado:
+            small {{(item.signedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+          p.mb-sm(ng-if="item.rejected === 1")
+            strong.text-blue Rechazado el:
+            small {{(item.rejectedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+          p.mb-sm.infoText(ng-if="item.needSign === 0 && !item.rejectMessage")
+            strong No requiere firma
+          p.mb-sm.infoText(ng-if="item.rejectMessage")
+            strong.text-blue Oficio rechazado
+            small.text-danger {{item.rejectMessage}}
+
+
+
+.div.divider
+.div(ng-if="dcmp.currentInvolveds && dcmp.haveTurnedInboxes")
+  .panel-default.detailsContainer
+    .panel-body
+      h4.text-blue Turnados
+      .row-md-12(ng-repeat='item in dcmp.currentInvolveds | filter: {isTurned : 1}')
+        .col-md-10
+          .div.divider
+          .pull-left
+            p.mb-sm
+              strong.text-blue Turnado a:
+              small {{item.TUName}} <{{item.TUEmail}}>
+            p.mb-sm
+              strong.text-blue(style="font-size: smaller;") Área:
+              small {{item.TUSecName}}
+              strong.text-blue(style="font-size: smaller;") Puesto:
+              small {{item.TUJTName}}
+            p.mb-sm
+              strong.text-blue(style="font-size: smaller;") Fecha de turnado:
+              small {{item.createdAt  | date:'dd-MM-yyyy h:mm a'}}
+            
+            p.mb-sm
+              strong.text-blue Turnado por:
+              small {{item.fromName}} <{{item.fromEmail}}>
+            p.mb-sm
+              strong.text-blue(style="font-size: smaller;") Área:
+              small {{item.FRUSecName}}
+              strong.text-blue(style="font-size: smaller;") Puesto:
+              small {{item.FRUJTName}}
+            p.mb-sm
+              strong.text-blue Tipo de turnado:
+              small {{item.trackingReason || 'Otro'}}
+
+            p.mb-sm(ng-if="item.signBySecretary === 1")
+              strong.text-danger Firmado por asistente:
+            p.mb-sm(ng-if="item.signBySecretary === 1")
+              strong.text-blue Asistente:
+              small {{item.secretaryName}} <{{item.secretaryEmail}}>
+            p.mb-sm(ng-if="item.needSign === 1 && item.rejected !== 1")
+              strong.text-blue Firmado:
+              small {{(item.signedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+            p.mb-sm(ng-if="item.rejected === 1")
+              strong.text-blue Rechazado el:
+              small {{(item.rejectedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+            p.mb-sm.infoText(ng-if="item.needSign === 0 && !item.rejectMessage")
+              strong No requiere firma
+            p.mb-sm.infoText(ng-if="item.rejectMessage")
+              strong.text-blue Oficio rechazado
+              small.text-danger {{item.rejectMessage}}
+
+            p.mb-sm(ng-if="item.needSign === 1")
+              strong.text-blue Certificado:
+              small(style='word-break: break-all;') {{item.noCertificado || 'No ha firmado'}}
+            p.mb-sm(ng-if="item.needSign === 1")
+              strong.text-blue Hash:
+              small(style='word-break: break-all;') {{item.hash || 'No ha firmado'}}
+
+
+
+        .col-md-2
+          p.mb-sm
+            strong.text-blue Leído:
+            small {{(item.readAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha leído'}}
+          p.mb-sm(ng-if="item.readAt")
+            strong.text-blue Estatus:
+            small {{(item.status)|| 'No ha leído'}}
+
+
+          p.mb-sm(ng-if="item.needSign === 1 && item.rejected !== 1")
+            strong.text-blue Firmado:
+            small {{(item.signedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+          p.mb-sm(ng-if="item.rejected === 1")
+            strong.text-blue Rechazado el:
+            small {{(item.rejectedAt  | date:'dd-MM-yyyy h:mm a')|| 'No ha firmado'}}
+          p.mb-sm.infoText(ng-if="item.needSign === 0 && !item.rejectMessage")
+            strong No requiere firma
+          p.mb-sm.infoText(ng-if="item.rejectMessage")
+            strong.text-blue Oficio rechazado
+            small.text-danger {{item.rejectMessage}}

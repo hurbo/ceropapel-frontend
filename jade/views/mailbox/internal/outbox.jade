@@ -1,0 +1,107 @@
+div(ui-view="")
+  div(ng-if="docs.filter.active || docs.paginator.items.length" ng-include="'/views/mailbox/general/filter.html'")
+  .row( ng-if="!docs.paginator.items.length" )
+    .col-lg-12( ng-if="!docs.filter.active" )
+      .panel-default
+        .panel-heading
+        .panel-body
+          .col-md-12
+            p.lead.text-center No hay oficios enviados
+            img.pull-center(src="/img/newIcons/no-hay-oficios.svg", alt="" style="height: 25em; padding-left: 40%;")
+
+    .col-lg-12( ng-if="docs.filter.active")
+      .panel-default
+        .panel-heading
+        .panel-body
+          .col-md-12
+            p.lead.text-center No se encontraron coincidencias
+            img.pull-center(src="/img/newIcons/no-hay-oficios.svg", alt="" style="height: 25em; padding-left: 40%;")
+
+  div(ng-if="docs.paginator.items.length")
+    div.container(style="padding-top: 10px")
+      .col-md-12.dividerMailbox
+      .col-md-12(style="padding-bottom: 10px; padding-top: 10px")
+        table
+          tr
+            td
+              multiple-turn-component()
+            td
+              multiple-archive-component()
+      .col-md-12
+        .col-md-1
+          .col-md-6(check-all='check-all')
+            .checkbox.c-checkbox
+              label
+                input(type='checkbox' ng-click="docs.paginator.selectedAll()" ng-model="docs.paginator.areSelectedAll" )
+                span.fa.fa-check
+          .col-md-6
+            h5.Poppins-SemiBold.text-light-blue #
+        .col-md-4
+          h5.Poppins-SemiBold.text-light-blue USUARIO
+        .col-md-5
+          h5.Poppins-SemiBold.text-light-blue ASUNTO
+        .col-md-2
+          h5.Poppins-SemiBold.text-light-blue FECHA DE RECIBIDO
+      .col-md-12.dividerMailbox
+      .col-md-12( ng-repeat="mail in docs.paginator.items")
+        .col-md-1(style="padding-top: 2%;")
+          .col-md-6
+            .checkbox.c-checkbox
+              label
+                input(type='checkbox' ng-model="mail.selected" )
+                span.fa.fa-check(ng-class="checked")
+          .col-md-6
+            h5 {{$index + 1}}
+        .col-md-4(ui-sref="app.mailbox.internal.out.view({mid: mail.documentID, inboxID:mail.id})")
+          .col-md-6
+            h6.text-light-blue.Poppins-SemiBold(style="text-transform: uppercase;") {{mail.TUSecName  | limitTo: 20}}
+            h4.text-blue.Poppins-Bold(style="text-transform: capitalize;") {{mail.TUName  | limitTo: 20 }}
+            h6.text-light-blue.Poppins-SemiBold(style="text-transform: uppercase;") {{mail.TUJTName |  limitTo: 20}}
+            p
+              | {{mail.privateMessage}}
+
+
+
+                        
+          .col-md-6(style="margin-top: 5px;")
+            .col-md-12(style="margin-top: 5px;")
+              .media.pull-right
+                span.label.label-notReadNew(ng-if='!mail.isRead') No leído
+                span.label.label-readNew(ng-if="mail.isRead  && !mail.signed && (mail.status === null || mail.status === 'read' || mail.status === 'Leído')") Leído
+                span.label.label-notSignedNew(ng-if='mail.isRead && !mail.signed && mail.needSign') No firmado
+                span.label.label-signedNew(ng-if="mail.signed") Firmado
+            .col-md-12(style="margin-top: 5px;")
+              .media.pull-right
+                span.label.label-enProcesoNew(ng-if="mail.status === 'En proceso' ") En proceso
+                span.label.label-recibidoNew(ng-if="mail.status === 'Recibido' ") Recibido
+                span.label.label-noProcedeNew(ng-if="mail.status === 'No procede' ") No procede
+                span.label.label-notSignedNew(ng-if="mail.rejected") Rechazado
+                span.label.label-canceledNew(ng-if='mail.cancelled') cancelado
+                span.label.label-deConocimintoNew(ng-if="mail.status === 'De conocimiento' ") De conocimiento
+                span.label.label-congeladoNew(ng-if="mail.status === 'Congelado' ") Congelado
+                span.label.label-atendidoSatisfactoriamenteNew(ng-if="mail.status && mail.status.indexOf('Atendido') != -1  ") Atendido
+
+
+
+
+
+
+
+
+
+        .col-md-5(ui-sref="app.mailbox.internal.out.view({mid: mail.documentID, inboxID:mail.id})")
+          h4.text-blue.Poppins-SemiBold {{mail.folio}}
+          p.subject.text-light-blue.Poppins-Regular(ng-if="mail.subject.length > 100") {{mail.subject | limitTo: 100}}...
+          p.subject.text-light-blue.Poppins-Regular(ng-if="mail.subject.length <= 100") {{mail.subject}}
+        .col-md-2(ui-sref="app.mailbox.internal.out.view({mid: mail.documentID, inboxID:mail.id})")
+          h5.text-muted {{mail.createdAt  | date:'dd-MM-yyyy h:mm a'}}
+            em.fa-2x.icon-speech.mr-2(ng-if="mail.needCancel || mail.needChanges")
+          .media.align-items-center(style="padding-top: 10px")
+            img(ng-if="mail.needCancel || mail.needChanges" src="/img/newIcons/requiere-cambios.svg", uib-tooltip="Requiere aprobación"  alt="" style="height: 25px;")
+            img(ng-if="mail.needSign" src="/img/newIcons/requiere-firma.svg", uib-tooltip="Requiere ser firmado" alt="" style="height: 25px;")
+            img(ng-if="mail.confidential" src="/img/newIcons/es-confidencial.svg", uib-tooltip="Es un oficio confidencial" alt="" style="height: 25px;")
+            img(ng-if="mail.hasAttachment" src="/img/newIcons/tiene-adjuntos.svg", uib-tooltip="El oficio contiene adjuntos"  alt="" style="height: 25px;")
+            img(ng-if="mail.priority" src="/img/newIcons/es-importante.svg", uib-tooltip="El oficio es importante" alt="" style="height: 25px;")
+            img(ng-if="mail.deadline" src="/img/newIcons/tiene-fecha-limite.svg", uib-tooltip="El oficio tiene fecha limite" alt="" style="height: 25px;")
+        .col-md-12.dividerMailbox
+      .col-md-12(ng-if='!docs.hidePaginate', ng-include="'/views/mailbox/general/paginate.html'")
