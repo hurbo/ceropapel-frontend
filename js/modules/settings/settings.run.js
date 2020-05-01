@@ -2,19 +2,19 @@
   'use strict';
 
   angular
-    .module('app.settings')
+    .module('app.settings', ['app.environment'])
     .run(settingsRun);
 
-  settingsRun.$inject = ['$rootScope', '$localStorage'];
+  settingsRun.$inject = ['$rootScope', '$localStorage', 'global'];
 
-  function settingsRun($rootScope, $localStorage) {
+  function settingsRun($rootScope, $localStorage, global) {
 
     // Global Settings
     // -----------------------------------
     $rootScope.app = {
-      name: 'Cero Papel',
-      description: 'Cero Papel',
-      version: 'v5.0.0',
+      name: global.name,
+      description: global.description,
+      version: global.version,
       year: ((new Date()).getFullYear()),
       layout: {
         isFixed: true,
@@ -52,7 +52,5 @@
       if (newValue === false)
         $rootScope.$broadcast('closeSidebarMenu');
     });
-
   }
-
 })();

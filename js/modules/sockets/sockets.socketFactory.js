@@ -5,14 +5,14 @@
     .module('app.sockets', ['app.environment'])
     .factory('socket', sockets);
 
-  sockets.$inject = ['$rootScope', 'API_URL'];
+  sockets.$inject = ['$rootScope', 'env'];
 
   /* @ngInject */
-  function sockets($rootScope, API_URL) {
+  function sockets($rootScope, env) {
     /*jshint -W117*/
     let retryAttempts = 5;
 
-    const socket = io.connect(API_URL, {
+    const socket = io.connect(env.API_URL, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,

@@ -12,3 +12,4 @@ test_reports/
 *.env
 /dist
 environment.module.json
+js/modules/environment/environment.module.js

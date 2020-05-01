@@ -1,8 +1,8 @@
 {
   "name": "cero-papel",
-  "version": "0.1.0",
-  "description": "Angle - Bootstrap Admin App + AngularJS",
-  "author": "@themicon_co",
+  "version": "5.0.0",
+  "description": "Cero Papel",
+  "author": "Quody",
   "scripts": {
     "prestart": "bower install",
     "start": "npm install",
