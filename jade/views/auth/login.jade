@@ -1,0 +1,46 @@
+div.containerForm
+  div(style ="background-color: #fff; height: -webkit-fill-available; border-radius: 10px; z-index: 9999999 !important;")
+    div(style="padding-top: 10%;")
+      .col-md-12
+        .col-md-4
+          img.img-responsive.center(src='/img/LogoAyto.png' style= "display: block; margin-left: auto; margin-right: auto;")
+        .col-md-4
+        .col-md-4
+          img.img-responsive.center(src='/img/logo-veracruz.png' style= "display: block; margin-left: auto; margin-right: auto;")
+      .col-md-12
+        .col-md-4
+        .col-md-4
+          img.img-responsive.center(src='/img/logo-byn.svg' style= "display: block; margin-left: auto; margin-right: auto;")
+        .col-md-4
+    div
+      h3.Poppins-Bold.textTitle Bienvenido a Cero Papel
+    //-   p.Poppins-Regular.textContentForm Sólo podrás iniciar con tu cuenta con los siguientes dominios:
+    //- div.badgeContentForm
+    //-   //- each domain in domains
+      //-   span.badge.badgeDomain.Poppins-Light #{domain}
+
+    div.textContentForm.buttonsContentLogin
+      .text-center(ng-if='auth.service.isAuthenticated()')
+        pre ({{auth.getUser()}})
+
+      a.btn.btn-default.btn-login(ng-if='auth.service.isAuthenticated()' ng-click="auth.service.logout()")
+        p(style="padding-top: 2%;") LOGOUT
+      br
+
+      a.btn.btn-default.btn-login(ng-if='!auth.service.isAuthenticated()' ng-click="auth.login()")
+        p(style="padding-top: 2%;") INICIAR SESIÓN
+      br
+      a.btn.btn-default.btn-verificar( href="/verificar-documento")
+        p(style="padding-top: 2%;") VERIFICAR DOCUMENTO
+      br
+      br
+      a(href="{{app.privacyDoc}}")
+        p.Poppins-Regular.textContentForm AVISO DE PRIVACIDAD
+
+    div(style="padding-top: 5%; text-align: center;")
+      span.error-login.Poppins-ExtraBold(style="color:#e96057") Cero papel está optimizado para funcionar en el navegador Google Chrome.
+    div(style="padding-top: 5%; text-align: center;")
+      if error
+        span.error-login.Poppins-ExtraBold Solo puedes iniciar con las cuentas permitidas
+
+

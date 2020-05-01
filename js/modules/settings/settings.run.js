@@ -5,9 +5,9 @@
     .module('app.settings', ['app.environment'])
     .run(settingsRun);
 
-  settingsRun.$inject = ['$rootScope', '$localStorage', 'global'];
+  settingsRun.$inject = ['$rootScope', '$localStorage', 'global', 'env'];
 
-  function settingsRun($rootScope, $localStorage, global) {
+  function settingsRun($rootScope, $localStorage, global, env) {
 
     // Global Settings
     // -----------------------------------
@@ -16,6 +16,7 @@
       description: global.description,
       version: global.version,
       year: ((new Date()).getFullYear()),
+      privacyDoc: env.PRIVACY_DOC,
       layout: {
         isFixed: true,
         isCollapsed: false,

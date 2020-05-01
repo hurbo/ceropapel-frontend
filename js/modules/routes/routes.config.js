@@ -15,22 +15,53 @@
   routesConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteHelpersProvider'];
 
   function routesConfig($stateProvider, $locationProvider, $urlRouterProvider, helper) {
-
     // Set the following to true to enable the HTML5 Mode
     // You may have to set <base> tag in index and a routing configuration in your server
     $locationProvider.html5Mode(false);
 
     // defaults to dashboard
-    $urlRouterProvider.otherwise('/app/mailbox/internal/in');
+    $urlRouterProvider.otherwise('/auth/login');
+    // $urlRouterProvider.otherwise('/app/mailbox/internal/in');
     $urlRouterProvider.when('/app', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox/internal', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox/external', '/app/mailbox/external/in/');
 
+    // Remove the ! from the hash so that
+    // auth0.js can properly parse it
+    $locationProvider.hashPrefix('');
+
     //
     // Application Routes
     // -----------------------------------
     $stateProvider
+      // Auth routes
+      // -----------------------------------
+      .state('auth', {
+        url: '/auth',
+        controller: 'AuthController',
+        controllerAs: 'aac',
+        templateUrl: helper.basepath('auth.html'),
+        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'oitozero.ngSweetAlert'),
+      })
+      .state('auth.login', {
+        url: '/login',
+        title: 'Iniciar sesión',
+        controller: 'AuthController',
+        controllerAs: 'auth',
+        templateUrl: helper.basepath('auth/login.html'),
+      })
+
+      .state('auth.callback', {
+        url: '/callback',
+        title: 'Iniciar sesión',
+        controller: 'AuthController',
+        controllerAs: 'auth',
+        templateUrl: helper.basepath('auth/login.html'),
+      })
+
+      // Main app routes
+      // -----------------------------------
       .state('app', {
         url: '/app',
         controller: 'AppController',
@@ -141,11 +172,6 @@
         templateUrl: helper.basepath('notifications.html')
       })
 
-
-
-
-
-
       .state('app.drafts', {
         url: '/drafts',
         title: 'Borradores',
@@ -153,10 +179,6 @@
         controllerAs: 'docs',
         templateUrl: helper.basepath('drafts.html')
       })
-
-
-
-
 
 
       .state('app.templates', {
@@ -403,16 +425,6 @@
         controllerAs: 'docs',
         templateUrl: helper.basepath('mailbox/internal/collaboration.html')
       })
-
-
-
-
-
-
-
-
-
-
       .state('app.mailbox.internal.drafts', {
         url: '/drafts',
         title: 'Borradores',
@@ -429,15 +441,6 @@
         templateUrl: helper.basepath('mailbox/internal/drafts.html')
       })
 
-
-
-
-
-
-
-
-
-
       .state('app.mailbox.internal.draft', {
         url: '/drafts/:id',
         title: 'Borrador',
@@ -446,23 +449,6 @@
         templateUrl: helper.basepath('mailbox/compose.html'),
         resolve: helper.resolveFor('ui.select')
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       .state('app.mailbox.internal.archived', {
         url: '/archived',
         title: 'Archivados',
@@ -519,86 +505,6 @@
         controllerAs: 'docs',
         templateUrl: helper.basepath('mailbox/internal/archived.html')
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       .state('app.mailbox.internal.archivedOut', {
         url: '/archivedOut',
         title: 'Archivados',
@@ -655,73 +561,6 @@
         controllerAs: 'docs',
         templateUrl: helper.basepath('mailbox/internal/archivedOut.html')
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       .state('app.mailbox.internal.elaborated', {
         url: '/elaborated',
@@ -809,11 +648,6 @@
       })
 
 
-
-
-
-
-
       .state('app.mailbox.external.turned', {
         url: '/turned/:jobTitle',
         title: 'Compartidos',
@@ -843,14 +677,6 @@
         templateUrl: helper.basepath('mailbox/external/externalTurned.html')
       })
 
-
-
-
-
-
-
-
-
       .state('app.mailbox.external.out', {
         url: '/out/:jobTitle',
         title: 'Compartidos',
@@ -879,15 +705,6 @@
         controllerAs: 'docs',
         templateUrl: helper.basepath('mailbox/external/outbox.html')
       })
-
-
-
-
-
-
-
-
-
 
       .state('app.mailbox.external.archived', {
         url: '/archived/:jobTitle',
@@ -954,16 +771,6 @@
         templateUrl: helper.basepath('mailbox/external/archived.html')
       })
 
-
-
-
-
-
-
-
-
-
-
       .state('app.mailbox.external.archivedOut', {
         url: '/archivedOut/:jobTitle',
         title: 'Compartidos',
@@ -1029,9 +836,6 @@
         templateUrl: helper.basepath('mailbox/external/archivedOut.html')
       })
 
-
-
-
       .state('app.chats', {
         url: '/chat',
         title: 'Chat',
@@ -1039,9 +843,6 @@
         controllerAs: 'chat',
         templateUrl: helper.basepath('chat/init.html')
       })
-
-
-
 
       .state('app.general_settings', {
         url: '/settings/general',
@@ -1051,16 +852,6 @@
         controllerAs: 'gs',
         resolve: helper.resolveFor('moment', 'moment-timezone')
       })
-
-
-
-
-
-
-
-
-
-
 
 
     //
