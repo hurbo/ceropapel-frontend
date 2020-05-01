@@ -20,8 +20,7 @@
     $locationProvider.html5Mode(false);
 
     // defaults to dashboard
-    $urlRouterProvider.otherwise('/auth/login');
-    // $urlRouterProvider.otherwise('/app/mailbox/internal/in');
+    $urlRouterProvider.otherwise('/app/mailbox/internal/in');
     $urlRouterProvider.when('/app', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox/internal', '/app/mailbox/internal/in');
@@ -43,21 +42,28 @@
         controllerAs: 'aac',
         templateUrl: helper.basepath('auth.html'),
         resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'oitozero.ngSweetAlert'),
+        isPublic: true
       })
       .state('auth.login', {
         url: '/login',
-        title: 'Iniciar sesión',
         controller: 'AuthController',
         controllerAs: 'auth',
         templateUrl: helper.basepath('auth/login.html'),
+        isPublic: true
+      })
+      .state('auth.logout', {
+        url: '/logout',
+        controller: 'AuthController',
+        controllerAs: 'auth',
+        isPublic: true
       })
 
       .state('auth.callback', {
         url: '/callback',
-        title: 'Iniciar sesión',
         controller: 'AuthController',
         controllerAs: 'auth',
         templateUrl: helper.basepath('auth/login.html'),
+        isPublic: true
       })
 
       // Main app routes

@@ -70,7 +70,7 @@
     KeepaliveProvider.interval(15 * 60);
   }
 
-  app.run(function ($rootScope, Idle, authService) {
+  app.run(function ($rootScope, Idle, authService, $transitions, $state) {
     Idle.watch();
 
     // Put the authService on $rootScope so its methods
@@ -84,6 +84,18 @@
     $rootScope.$on('IdleTimeout', function () {
       $rootScope.$broadcast('closeSesion');
       // end their session and redirect to login.
+    });
+
+    $transitions.onStart({
+      to: function (state) {
+        return !state.isPublic || state.isPublic !== true;
+      }
+    }, function () {
+      console.debug('Checking auth', $state.current.name);
+      if (!authService.isAuthenticated()) {
+        console.log('NOT-AUTH :>> ', $state);
+        return $state.go('auth.login');
+      }
     });
   });
 })();
