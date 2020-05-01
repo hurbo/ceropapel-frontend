@@ -369,7 +369,7 @@ gulp.task('templates:views', function () {
 
 // Environment config
 gulp.task('environment', function () {
-  log('[environment] Inyecting environment variables..');
+  log('[environment] Injecting environment variables..');
 
   gulp.src('environment.module.json')
   .pipe(gulpNgConfig('app.environment', {
