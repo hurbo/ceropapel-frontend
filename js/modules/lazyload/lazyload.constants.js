@@ -78,7 +78,7 @@
           '/morris.js/morris.css'
         ],
         'loaders.css': ['vendor/loaders.css/loaders.css'],
-        'spinkit': ['vendor/spinkit/spinkit.min.css']
+        'spinkit': ['vendor/spinkit/spinkit.min.css'],
       },
       // Angular based script (use the right module name)
       modules: [{
@@ -173,7 +173,7 @@
         {
           name: 'ui.grid',
           files: ['vendor/angular-ui-grid/ui-grid.min.css',
-            'vendor//angular-ui-grid/ui-grid.min.js'
+            'vendor/angular-ui-grid/ui-grid.min.js'
           ]
         },
         {
@@ -275,7 +275,20 @@
           files: ['vendor/angular-bootstrap-colorpicker/css/colorpicker.css',
             'vendor/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
           ]
-        }
+        },
+        {
+          name: 'auth0.auth0',
+          files: [
+            'vendor/auth0.js/build/auth0.min.js',
+            'vendor/angular-auth0/dist/angular-auth0.min.js'
+          ]
+        },
+        {
+          name: 'angular-jwt',
+          files: [
+            "vendor/angular-jwt/dist/angular-jwt.min.js"
+          ]
+        },
       ]
     });
 

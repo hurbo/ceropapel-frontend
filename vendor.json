@@ -101,7 +101,10 @@
   "bower_components/lodash/dist/lodash.min.js",
   "bower_components/nz-tour/dist/nz-tour.min.css",
   "bower_components/nz-tour/dist/nz-tour.min.js",
-  "bower_components/simple-line-icons/css/simple-line-icons.css"
+  "bower_components/simple-line-icons/css/simple-line-icons.css",
+  "bower_components/auth0.js/build/auth0.*.js",
+  "bower_components/angular-auth0/dist/angular-auth0.min.js",
+  "bower_components/angular-jwt/dist/angular-jwt.min.js"
 ]
 
 

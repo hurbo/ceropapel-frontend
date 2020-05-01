@@ -12,7 +12,6 @@
 // import * as Sentry from '@sentry/browser';
 // import * as Integrations from '@sentry/integrations';
 
-
 // Sentry.init({
 //     dsn: 'https://19b343fab6d7490296e2e8cf57d216ae@sentry.io/2015386',
 //     integrations: [
@@ -20,15 +19,15 @@
 //     ],
 //   });
 
-
-
-
 (function () {
   'use strict';
 
-  var myApp = angular.module('angle', [
+  var app = angular.module('angle', [
     'app.core',
     'app.routes',
+    'auth0.auth0',
+    'app.jwt',
+    'app.auth',
     'app.navbar',
     'app.sidebar',
     'app.preloader',
@@ -60,31 +59,31 @@
     'ng-nestable',
 
     'app.documentTypes'
-  ]);
+  ])
+  .config(config);
 
+  config.$inject = ['KeepaliveProvider', 'IdleProvider'];
 
-
-  myApp.config(['KeepaliveProvider', 'IdleProvider', function (KeepaliveProvider, IdleProvider) {
-    // IdleProvider.idle(10);
-    // IdleProvider.timeout(15);
-    // KeepaliveProvider.interval(15);
+  function config(KeepaliveProvider, IdleProvider) {
     IdleProvider.idle(15 * 60);
     IdleProvider.timeout(15 * 60);
     KeepaliveProvider.interval(15 * 60);
-  }]);
+  }
 
-  myApp.run(function ($rootScope, Idle) {
+  app.run(function ($rootScope, Idle, authService) {
     Idle.watch();
+
+    // Put the authService on $rootScope so its methods
+    // can be accessed from everywhere
+    $rootScope.auth = authService;
+
+    // Process the auth token if it exists and fetch the profile
+    // TODO: Create and get this to callback route
+    authService.handleParseHash();
+
     $rootScope.$on('IdleTimeout', function () {
       $rootScope.$broadcast('closeSesion');
       // end their session and redirect to login.
-
-
-
     });
   });
-
-
-
-
 })();
