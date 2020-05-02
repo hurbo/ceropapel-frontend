@@ -15,9 +15,13 @@
   routesConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteHelpersProvider'];
 
   function routesConfig($stateProvider, $locationProvider, $urlRouterProvider, helper) {
+    // Remove the ! from the hash so that
+    // auth0.js can properly parse it
+    $locationProvider.hashPrefix('');
+
     // Set the following to true to enable the HTML5 Mode
     // You may have to set <base> tag in index and a routing configuration in your server
-    $locationProvider.html5Mode(false);
+    $locationProvider.html5Mode(true);
 
     // defaults to dashboard
     $urlRouterProvider.otherwise('/app/mailbox/internal/in');
@@ -26,11 +30,6 @@
     $urlRouterProvider.when('/app/mailbox/internal', '/app/mailbox/internal/in');
     $urlRouterProvider.when('/app/mailbox/external', '/app/mailbox/external/in/');
 
-    // Remove the ! from the hash so that
-    // auth0.js can properly parse it
-    $locationProvider.hashPrefix('');
-
-    //
     // Application Routes
     // -----------------------------------
     $stateProvider
@@ -62,7 +61,7 @@
         url: '/callback',
         controller: 'AuthController',
         controllerAs: 'auth',
-        templateUrl: helper.basepath('auth/login.html'),
+        templateUrl: helper.basepath('auth/callback.html'),
         isPublic: true
       })
 

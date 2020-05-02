@@ -9,7 +9,8 @@ var args = require('yargs').argv,
   browserSync = require('browser-sync'),
   // reload = browserSync.reload,
   PluginError = $.util.PluginError,
-  del = require('del');
+  del = require('del'),
+  historyApiFallback = require('connect-history-api-fallback');
 
 // production mode (see build task)
 var isProduction = false;
@@ -402,7 +403,8 @@ gulp.task('browsersync', function () {
     notify: false,
     server: {
       baseDir: 'dist/'
-    }
+    },
+    middleware: [historyApiFallback()]
   });
 });
 
