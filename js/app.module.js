@@ -37,6 +37,7 @@
     'app.utils',
     'app.sockets',
     'app.general',
+    'oitozero.ngSweetAlert',
     'app.swal',
     'app.notifications',
     'app.profile',
@@ -51,13 +52,12 @@
     'app.groups',
     'app.mailbox',
     'app.chats',
+    // External Modules
     'ngIdle',
     'nzTour',
     'summernote',
     'ngTagsInput',
     'ngSanitize',
-    'ng-nestable',
-
     'app.documentTypes'
   ])
   .config(config);
