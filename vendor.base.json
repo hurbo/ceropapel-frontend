@@ -27,7 +27,6 @@
   "bower_components/angular-loading-bar/build/loading-bar.js",
   "bower_components/jquery.browser/dist/jquery.browser.js",
   "bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js",
-  "bower_components/matchMedia/matchMedia.js",
   "bower_components/angular-aria/angular-aria.js",
   "bower_components/angular-messages/angular-messages.js",
 
@@ -47,16 +46,11 @@
 
   "bower_components/socket.io-client/dist/socket.io.js",
 
-  "bower_components/ng-nestable/src/angular-nestable.js",
-  "bower_components/nestable/jquery.nestable.js",
-  "bower_components/push.js/bin/serviceWorker.min.js",
-  "bower_components/push.js/bin/push.min.js",
+  "bower_components/angular-nestable/src/angular-nestable.js",
   "bower_components/ng-idle/angular-idle.min.js",
   "bower_components/jszip/dist/jszip.min.js",
-  "bower_components/toastr/toastr.min.js",
   "bower_components/bootstrap/dist/js/bootstrap.min.js",
 
-  "bower_components/dom-to-image/dist/dom-to-image.min.js",
   "bower_components/lodash/dist/lodash.min.js",
   "bower_components/nz-tour/dist/nz-tour.min.css",
   "bower_components/nz-tour/dist/nz-tour.min.js"
