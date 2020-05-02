@@ -23,8 +23,11 @@
       modules: [{
           name: 'oitozero.ngSweetAlert',
           files: [
+            'vendor/sweetalert/dist/sweetalert.min.js',
+            'vendor/sweetalert/dist/sweetalert.css',
             'vendor/angular-sweetalert/SweetAlert.min.js'
           ],
+          serie: true
         },
         {
           name: 'angularBootstrapNavTree',
