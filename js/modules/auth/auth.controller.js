@@ -2,20 +2,12 @@
   'use strict';
 
   angular.module('app.auth').controller('AuthController', AuthController);
-  AuthController.$inject = ['$rootScope', '$location', 'authService'];
+  AuthController.$inject = ['$rootScope', '$state', '$location', 'authService'];
 
-  function AuthController($rootScope, $location, authService) {
+  function AuthController($rootScope, $state, $location, authService) {
     var vm = this;
     vm.service = authService;
     vm.error = null;
-
-    const parsedParams = parseHash();
-    if (parsedParams.error) {
-      vm.error = {
-        message: parsedParams.error,
-        desc: parsedParams.error_description,
-      }
-    }
 
     function parseHash() {
       let parsedParams = {}
@@ -27,10 +19,24 @@
       });
 
       return parsedParams;
-    }
+    };
 
     vm.login = function login() {
       vm.service.login();
+    }
+
+    vm.onCallbackInit = function() {
+      const parsedParams = parseHash();
+      if (parsedParams.error) {
+        vm.error = {
+          message: parsedParams.error,
+          desc: parsedParams.error_description,
+        }
+      } else {
+        setTimeout(() => {
+          $state.go('app');
+        }, 3000);
+      }
     }
 
     vm.getUser = function() {
