@@ -30,14 +30,13 @@
     'app.auth',
     'app.navbar',
     'app.sidebar',
-    'app.preloader',
+    // 'app.preloader',
     'app.loadingbar',
     'app.translate',
     'app.settings',
     'app.utils',
     'app.sockets',
     'app.general',
-    'oitozero.ngSweetAlert',
     'app.swal',
     'app.notifications',
     'app.profile',
@@ -91,9 +90,7 @@
         return !state.isPublic || state.isPublic !== true;
       }
     }, function () {
-      console.debug('Checking auth', $state.current.name);
       if (!authService.isAuthenticated()) {
-        console.log('NOT-AUTH :>> ', $state);
         return $state.go('auth.login');
       }
     });

@@ -14,30 +14,19 @@ div.containerForm
         .col-md-4
     div
       h3.Poppins-Bold.textTitle Bienvenido a Cero Papel
-    //-   p.Poppins-Regular.textContentForm Sólo podrás iniciar con tu cuenta con los siguientes dominios:
-    //- div.badgeContentForm
-    //-   //- each domain in domains
-      //-   span.badge.badgeDomain.Poppins-Light #{domain}
 
     div.textContentForm.buttonsContentLogin
-      a.btn.btn-default.btn-login(ng-if='auth.service.isAuthenticated()' ng-click="auth.service.logout()")
-        p(style="padding-top: 2%;") CERRAR SESIÓN
-      br
+      .text-center(ng-if='auth.service.isAuthenticated()')
+        h3.Poppins-Bold.textTitle Iniciando sesión...
 
-      a.btn.btn-default.btn-login(ng-if='!auth.service.isAuthenticated()' ng-click="auth.login()")
-        p(style="padding-top: 2%;") INICIAR SESIÓN
-      br
-      a.btn.btn-default.btn-verificar( href="/verificar-documento")
-        p(style="padding-top: 2%;") VERIFICAR DOCUMENTO
-      br
-      br
-      a(href="{{app.privacyDoc}}" target="_blank")
-        p.Poppins-Regular.textContentForm AVISO DE PRIVACIDAD
+    div(style="padding-top: 5%; text-align: center;" ng-if='auth.error')
+      h2.error-login.Poppins-ExtraBold {{auth.error.message}}
+      h4.error-login.Poppins-ExtraBold {{auth.error.desc}}
 
+      br
+      br
     div(style="padding-top: 5%; text-align: center;")
       span.error-login.Poppins-ExtraBold(style="color:#e96057") Cero papel está optimizado para funcionar en el navegador Google Chrome.
-    div(style="padding-top: 5%; text-align: center;")
-      if error
-        span.error-login.Poppins-ExtraBold Solo puedes iniciar con las cuentas permitidas
+    br
 
 
