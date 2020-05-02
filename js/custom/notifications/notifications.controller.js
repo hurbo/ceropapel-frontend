@@ -24,6 +24,7 @@
     vm.onInternalArchived = onInternalArchived;
     vm.onExternal = onExternal;
     vm.onHome = onHome;
+    vm.logOut = logOut;
 
     vm.getCurrentUser = getCurrentUser;
     vm.changeUser = changeUser;
@@ -36,6 +37,11 @@
     vm.setOrigin = false;
     vm.onSinaloa = false;
     vm.originSinaloa = originSinaloa;
+
+    function logOut() {
+      $rootScope.auth.logout();
+      $state.go('auth.login');
+    }
 
     function originSinaloa() {
       if (vm.setOrigin) {
