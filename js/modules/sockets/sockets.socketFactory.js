@@ -5,13 +5,13 @@
     .module('app.sockets', ['app.environment'])
     .factory('socket', sockets);
 
-  sockets.$inject = ['$rootScope', 'env'];
+  sockets.$inject = ['$rootScope', '$state', 'SweetAlert', 'env'];
 
   /* @ngInject */
-  function sockets($rootScope, env) {
+  function sockets($rootScope, $state, SweetAlert, env) {
     /*jshint -W117*/
     let retryAttempts = 5;
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(`${env.STORAGE_PREFIX}:access_token`);
 
     const socket = io.connect(env.API_URL, {
       reconnection: true,
@@ -40,7 +40,22 @@
     });
 
     socket.on('error', function (err) {
-      console.log(`%c Socket ERROR: ${err.message || err}`, 'background: black; color: red');
+      if (err.code === 'invalid_token' && err.message === 'jwt expired') {
+        SweetAlert.swal({
+          title: 'Tu sesión ha expirado',
+          type: 'warning',
+          showCancelButton: false,
+          confirmButtonText: 'Aceptar',
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        }, function () {
+          $rootScope.auth.logout();
+          return $state.go('auth.login');
+        })
+      } else {
+        console.log(`%c Socket ERROR: ${err.message || err}`, 'background: black; color: red');
+      }
+
     });
 
     socket.on('connect', function () {

@@ -5,9 +5,11 @@
     .module('app.auth')
     .service('authService', authService);
 
-  authService.$inject = ['$state', '$rootScope', 'angularAuth0', 'authManager', 'jwtHelper'];
+  authService.$inject = ['$state', '$rootScope', 'angularAuth0', 'authManager', 'jwtHelper', 'env'];
 
-  function authService($state, $rootScope, angularAuth0, authManager, jwtHelper) {
+  function authService($state, $rootScope, angularAuth0, authManager, jwtHelper, env) {
+    const { STORAGE_PREFIX } = env;
+
     // When a user calls the login function they will be redirected
     // to Auth0's hosted Lock and will provide their authentication
     // details.
@@ -36,8 +38,8 @@
     // This function will destroy the access_token and id_token
     // thus logging the user out.
     function logout() {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('id_token');
+      localStorage.removeItem(`${STORAGE_PREFIX}:access_token`);
+      localStorage.removeItem(`${STORAGE_PREFIX}:id_token`);
     }
 
     // This method will check to see if the user is logged in by
@@ -49,13 +51,17 @@
     // If we can successfuly parse the id_token and access_token
     // we wil store them in localStorage thus logging the user in
     function _setUser(authResult) {
-      localStorage.setItem('access_token', authResult.accessToken);
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem(`${STORAGE_PREFIX}:access_token`, authResult.accessToken);
+      localStorage.setItem(`${STORAGE_PREFIX}:id_token`, authResult.idToken);
+    }
+
+    function getIdToken() {
+      return authManager.getToken();
     }
 
     // Parse saved token
     function user() {
-      return jwtHelper.decodeToken(localStorage.getItem('id_token'));
+      return jwtHelper.decodeToken(localStorage.getItem(`${STORAGE_PREFIX}:id_token`));
     }
 
     return {
@@ -63,6 +69,7 @@
       handleParseHash,
       logout,
       isAuthenticated,
+      getIdToken,
       user,
     }
   }
