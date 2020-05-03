@@ -60,6 +60,7 @@
 
     socket.on('connect', function () {
       console.log('%c Socket CONNECTED!', 'background: black; color: cyan');
+      $rootScope.$broadcast('socket:connected');
     });
 
     return {

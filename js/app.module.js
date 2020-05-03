@@ -30,7 +30,7 @@
     'app.auth',
     'app.navbar',
     'app.sidebar',
-    // 'app.preloader',
+    'app.preloader',
     'app.loadingbar',
     'app.translate',
     'app.settings',

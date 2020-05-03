@@ -5,26 +5,20 @@
     .module('app.notifications')
     .factory('notificationsFactory', notificationsFactory);
 
-  notificationsFactory.$inject = ['$rootScope', 'socket', 'SweetAlert'];
+  notificationsFactory.$inject = ['$rootScope', '$state', 'socket', 'SweetAlert'];
 
-  function notificationsFactory($rootScope, socket, SweetAlert) {
+  function notificationsFactory($rootScope, $state, socket, SweetAlert) {
     var notifications;
 
-
     $rootScope.$on('closeSesion', function () {
-
       SweetAlert.swal({
         title: 'Tu sesión ha expirado',
         type: 'warning',
         showCancelButton: false,
         confirmButtonColor: '#DD2C57',
-
       });
-      setTimeout(function () {
-        window.location.href = '/logOut';
-      }, 1500);
-
-
+      $rootScope.auth.logout();
+      $state.go('auth.login');
     });
 
     return {
@@ -32,7 +26,6 @@
       get: get,
       flips: flips,
       onRecibeNotification: onRecibeNotification,
-
       onRefreshNotification: onRefreshNotification,
       markAsRead: markAsRead,
       getNotifications: getNotifications
@@ -57,17 +50,14 @@
       socket.on('notifications-' + profileJT, cb);
     }
 
-
-
     function onRefreshNotification(profile, cb) {
       socket.on('refresh-notifications-' + profile.jobTitleID, cb);
     }
 
     function markAsRead(_notifications, cb) {
-      var data = {
+      socket.emit('readMutipleNotifications', {
         notifications: _notifications
-      };
-      socket.emit('readMutipleNotifications', data, cb);
+      }, cb);
     }
 
     function getNotifications(cb) {

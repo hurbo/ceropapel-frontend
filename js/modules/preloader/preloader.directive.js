@@ -5,9 +5,9 @@
     .module('app.preloader')
     .directive('preloader', preloader);
 
-  preloader.$inject = ['$window', '$animate', '$timeout', '$q', 'profileFactory'];
+  preloader.$inject = ['$rootScope', '$window', '$animate', '$timeout', '$q', 'profileFactory'];
 
-  function preloader($window, $animate, $timeout, $q, Profile) {
+  function preloader($rootScope, $window, $animate, $timeout, $q, Profile) {
 
     var directive = {
       restrict: 'EAC',
@@ -15,14 +15,12 @@
         '<div class="preloader-progress-bar" ' +
         'ng-style="{width: loadCounter + \'%\'}"></div>' +
         '</div>',
-      link: link
+      link: link,
     };
     return directive;
 
     ///////
-
-    function link(scope, el) {
-
+    function link(scope, el, attr) {
       scope.loadCounter = 0;
 
       var counter = 0,
@@ -44,21 +42,16 @@
       timeout = $timeout(startCounter);
 
       ///////
-
       function startCounter() {
-
         var remaining = 100 - counter;
+
         counter = counter + (0.015 * Math.pow(1 - Math.sqrt(remaining), 2));
-
         scope.loadCounter = parseInt(counter, 10);
-
         timeout = $timeout(startCounter, 20);
       }
 
       function endCounter() {
-
         $timeout.cancel(timeout);
-
         scope.loadCounter = 100;
 
         $timeout(function () {
@@ -72,22 +65,12 @@
       function appReady() {
         var deferred = $q.defer();
         var viewsLoaded = 0;
-        // if this doesn't sync with the real app ready
-        // a custom event must be used instead
-        var off = scope.$on('$viewContentLoaded', function () {
-          viewsLoaded++;
-          // we know there are at least two views to be loaded
-          // before the app is ready (1-index.html 2-app*.html)
-          if (viewsLoaded === 2) {
-            // with resolve this fires only once
-            $timeout(function () {
-              deferred.resolve();
-            }, 3000);
 
-            off();
-
-          }
-
+        // Wait for app socket
+        scope.$on('socket:connected', () => {
+          $timeout(function () {
+            deferred.resolve();
+          }, 3000);
         });
 
         return deferred.promise;

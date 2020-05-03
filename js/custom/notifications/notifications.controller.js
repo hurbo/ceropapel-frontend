@@ -39,8 +39,7 @@
     vm.originSinaloa = originSinaloa;
 
     function logOut() {
-      $rootScope.auth.logout();
-      $state.go('auth.login');
+      $rootScope.$broadcast('closeSesion');
     }
 
     function originSinaloa() {
