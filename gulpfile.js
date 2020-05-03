@@ -385,6 +385,9 @@ gulp.task('environment', function () {
 // Rerun the task when a file changes
 gulp.task('watch', function () {
   log('Watching source files..');
+  gulp.watch('environment.module.json', ['environment']);
+  gulp.watch('vendor.base.json', ['vendor:base']);
+  gulp.watch('vendor.json', ['vendor:app']);
   gulp.watch(source.fonts, ['styles:fonts']);
   gulp.watch(source.i18n, ['app:i18n']);
 
