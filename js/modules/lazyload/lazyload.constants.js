@@ -9,7 +9,10 @@
         'moment': ['vendor/moment/min/moment-with-locales.min.js'],
         'modernizr': ['vendor/modernizr/modernizr.custom.js'],
         'animate': ['vendor/animate.css/animate.min.css'],
-        'icons': ['vendor/components-font-awesome/css/fontawesome.min.css', 'vendor/simple-line-icons/css/simple-line-icons.css'],
+        'icons': [
+          'vendor/components-font-awesome/css/all.min.css',
+          'vendor/simple-line-icons/css/simple-line-icons.css'
+        ],
         'screenfull': ['vendor/screenfull/dist/screenfull.js'],
         'inputmask': ['vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js'],
         'taginput': [
@@ -19,6 +22,7 @@
         'loaders.css': ['vendor/loaders.css/loaders.css'],
         'spinkit': ['vendor/spinkit/spinkit.min.css'],
       },
+
       // Angular based script (use the right module name)
       modules: [{
           name: 'oitozero.ngSweetAlert',

@@ -1,6 +1,6 @@
 [
   "bower_components/modernizr/modernizr.custom.js",
-  "bower_components/components-font-awesome/css/fontawesome.min.css",
+  "bower_components/components-font-awesome/css/all.min.css",
   "bower_components/components-font-awesome/webfonts/*",
   "bower_components/ngWig/dist/ng-wig.min.js",
   "bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
@@ -8,7 +8,6 @@
   "bower_components/angular-bootstrap-slider/slider.js",
   "bower_components/screenfull/dist/screenfull.js",
   "bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js",
-  "bower_components/moment/min/moment-with-locales.min.js",
   "bower_components/angularjs-toaster/toaster.js",
   "bower_components/angularjs-toaster/toaster.css",
   "bower_components/chosen_v1.2.0/chosen.jquery.min.js",
@@ -39,8 +38,6 @@
   "bower_components/bootstrap-tour/build/css/bootstrap-tour.css",
   "bower_components/bootstrap-tour/build/js/bootstrap-tour-standalone.js",
   "bower_components/angular-bootstrap-tour/dist/angular-bootstrap-tour.js",
-  "bower_components/angular-material/angular-material.js",
-  "bower_components/angular-material/angular-material.css",
   "bower_components/summernote/dist/summernote.min.js",
   "bower_components/summernote/dist/summernote.css",
   "bower_components/angular-summernote/dist/angular-summernote.min.js",
@@ -58,11 +55,5 @@
   "bower_components/nz-tour/dist/nz-tour.min.css",
   "bower_components/nz-tour/dist/nz-tour.min.js",
   "bower_components/simple-line-icons/css/simple-line-icons.css",
-  "bower_components/simple-line-icons/fonts/*",
-  "bower_components/auth0.js/dist/auth0.min.*",
-  "bower_components/angular-auth0/dist/angular-auth0.min.js",
-  "bower_components/angular-jwt/dist/angular-jwt.min.js"
+  "bower_components/simple-line-icons/fonts/*"
 ]
-
-
-
