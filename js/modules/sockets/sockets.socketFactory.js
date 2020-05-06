@@ -39,23 +39,28 @@
       console.log('%c Socket connection ERROR', 'background: black; color: red');
     });
 
+    function logout() {
+      SweetAlert.swal({
+        title: 'Tu sesión ha expirado',
+        type: 'warning',
+        showCancelButton: false,
+        confirmButtonText: 'Aceptar',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+      }, function () {
+        $rootScope.auth.logout();
+        return $state.go('auth.login');
+      })
+    }
+
     socket.on('error', function (err) {
-      if (err.code === 'invalid_token' && err.message === 'jwt expired') {
-        SweetAlert.swal({
-          title: 'Tu sesión ha expirado',
-          type: 'warning',
-          showCancelButton: false,
-          confirmButtonText: 'Aceptar',
-          allowOutsideClick: false,
-          allowEscapeKey: false
-        }, function () {
-          $rootScope.auth.logout();
-          return $state.go('auth.login');
-        })
+      if (err.type === 'UnauthorizedError') {
+        logout();
+      } else if (err.code === 'invalid_token' && err.message === 'jwt expired') {
+        logout();
       } else {
         console.log(`%c Socket ERROR: ${err.message || err}`, 'background: black; color: red');
       }
-
     });
 
     socket.on('connect', function () {
@@ -63,8 +68,13 @@
       $rootScope.$broadcast('socket:connected');
     });
 
+    socket.on('unauthorized', (reason) => {
+      console.log('Unauthorized:', reason);
+      socket.disconnect();
+    });
+
     return {
-      on: function (eventName, callback) {
+      on(eventName, callback) {
         socket.on(eventName, function () {
           var args = arguments;
           $rootScope.$apply(function () {
@@ -72,7 +82,7 @@
           });
         });
       },
-      emit: function (eventName, data, callback) {
+      emit(eventName, data, callback) {
         socket.emit(eventName, data, function () {
           var args = arguments;
           $rootScope.$apply(function () {

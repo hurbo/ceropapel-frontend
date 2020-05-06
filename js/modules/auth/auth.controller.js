@@ -35,7 +35,7 @@
       } else {
         setTimeout(() => {
           $state.go('app');
-        }, 3000);
+        }, 1500);
       }
     }
 

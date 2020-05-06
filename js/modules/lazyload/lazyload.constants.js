@@ -44,7 +44,7 @@
           name: 'ui.select',
           files: [
             'vendor/angular-ui-select/dist/select.js',
-            'vendor//angular-ui-select/dist/select.css'
+            'vendor/angular-ui-select/dist/select.css'
           ]
         },
       ]

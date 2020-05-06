@@ -17,6 +17,7 @@
         showCancelButton: false,
         confirmButtonColor: '#DD2C57',
       });
+      socket.emit('logout');
       $rootScope.auth.logout();
       $state.go('auth.login');
     });
