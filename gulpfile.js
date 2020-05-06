@@ -1,5 +1,6 @@
 var args = require('yargs').argv,
   path = require('path'),
+  fs = require('fs'),
   gulp = require('gulp'),
   rename = require("gulp-rename"),
   $ = require('gulp-load-plugins')(),
@@ -11,6 +12,8 @@ var args = require('yargs').argv,
   // reload = browserSync.reload,
   PluginError = $.util.PluginError,
   del = require('del'),
+  replace = require('gulp-string-replace'),
+  jsYaml = require('js-yaml'),
   historyApiFallback = require('connect-history-api-fallback');
 
 // production mode (see build task)
@@ -369,19 +372,47 @@ gulp.task('templates:views', function () {
   }
 });
 
+
+// Templates environment replacement
+gulp.task('templates:environment', function () {
+  log('[environment] Injecting environment variables..');
+  const environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
+
+  const compiledIndex = build.templates.index + 'index.html';
+  const options = {
+    logs: {
+      enabled: true
+    }
+  }
+  const src = fs.readFileSync('.env.yml')
+  const raw = jsYaml.safeLoad(src).env
+  const env = isProduction ? raw.production.env : raw.development.env
+
+  const findReplace = (_replacement) => {
+    const replacement = _replacement.replace(/%/g, '');
+    return env[replacement];
+  }
+
+  return gulp.src(compiledIndex)
+    .pipe(replace('%BASE_URL%', findReplace, options))
+    .pipe(replace('%ZENDESK_HOST%', findReplace, options))
+    .pipe(gulp.dest(build.templates.index))
+});
+
 // Environment config
 gulp.task('environment', function () {
   log('[environment] Injecting environment variables..');
   const environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
 
   gulp.src('.env.yml')
-  .pipe(gulpNgConfig('app.environment', {
-    environment,
-    parser: 'yml',
-    createModule: true
-  }))
-  .pipe(rename('environment.module.js'))
-  .pipe(gulp.dest('./js/modules/environment'))
+    .pipe(gulpNgConfig('app.environment', {
+      environment,
+      parser: 'yml',
+      pretty: 2,
+      createModule: true
+    }))
+    .pipe(rename('environment.module.js'))
+    .pipe(gulp.dest('./js/modules/environment'))
 });
 
 //---------------
@@ -408,7 +439,7 @@ gulp.task('browsersync', function () {
   log('Starting BrowserSync..');
 
   browserSync({
-    notify: false,
+    ui: false,
     server: {
       baseDir: 'dist/'
     },
@@ -459,7 +490,7 @@ gulp.task('build', gulpsync.sync([
   'prod',
   'environment',
   'vendor',
-  'assets'
+  'assets',
 ]));
 // build for staging (minify)
 gulp.task('build-dev', gulpsync.sync([
@@ -501,6 +532,7 @@ gulp.task('default', gulpsync.sync([
   'vendor',
   'environment',
   'assets',
+  'templates:environment',
   'watch'
 ]));
 
@@ -513,7 +545,7 @@ gulp.task('assets', [
   'assets:i18n',
   'assets:img',
   'templates:index',
-  'templates:views'
+  'templates:views',
 ]);
 
 

@@ -5,18 +5,21 @@
     .module('app.settings', ['app.environment'])
     .run(settingsRun);
 
-  settingsRun.$inject = ['$rootScope', '$localStorage', 'global', 'env'];
+  settingsRun.$inject = ['$rootScope', '$sce', '$localStorage', 'global', 'env'];
 
-  function settingsRun($rootScope, $localStorage, global, env) {
+  function settingsRun($rootScope, $sce, $localStorage, global, env) {
 
     // Global Settings
     // -----------------------------------
     $rootScope.app = {
+      baseUrl: env.BASE_URL,
       name: global.name,
       description: global.description,
       version: global.version,
       year: ((new Date()).getFullYear()),
       privacyDoc: env.PRIVACY_DOC,
+      zendeskHost: env.ZENDESK_HOST,
+      analyticsUrl: `https://www.googletagmanager.com/gtag/js?id=${env.ANALYTICS_CODE}`,
       layout: {
         isFixed: true,
         isCollapsed: false,
@@ -34,6 +37,10 @@
       asideToggled: false,
       viewAnimation: 'ng-fadeInUp'
     };
+
+    $rootScope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    }
 
     // Setup the layout mode
     $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
