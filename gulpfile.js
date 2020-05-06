@@ -14,6 +14,7 @@ var args = require('yargs').argv,
   del = require('del'),
   replace = require('gulp-string-replace'),
   jsYaml = require('js-yaml'),
+  parseArgs   = require('minimist'),
   historyApiFallback = require('connect-history-api-fallback');
 
 // production mode (see build task)
@@ -50,6 +51,8 @@ if (useSass) {
   paths.styles = 'sass/';
 }
 
+// Custom env configuration
+const { BUILD_ENV } = parseArgs(process.argv.slice(2));
 
 // VENDOR CONFIG
 var vendor = {
@@ -376,17 +379,17 @@ gulp.task('templates:views', function () {
 // Templates environment replacement
 gulp.task('templates:environment', function () {
   log('[environment] Injecting environment variables..');
-  const environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
 
   const compiledIndex = build.templates.index + 'index.html';
-  const options = {
-    logs: {
-      enabled: true
-    }
-  }
   const src = fs.readFileSync('.env.yml')
   const raw = jsYaml.safeLoad(src).env
-  const env = isProduction ? raw.production.env : raw.development.env
+
+  let env;
+  if (BUILD_ENV) {
+    env = raw[BUILD_ENV].env
+  } else {
+    env = isProduction ? raw.production.env : raw.development.env
+  }
 
   const findReplace = (_replacement) => {
     const replacement = _replacement.replace(/%/g, '');
@@ -394,15 +397,21 @@ gulp.task('templates:environment', function () {
   }
 
   return gulp.src(compiledIndex)
-    .pipe(replace('%BASE_URL%', findReplace, options))
-    .pipe(replace('%ZENDESK_HOST%', findReplace, options))
+    .pipe(replace('%BASE_URL%', findReplace, {}))
+    .pipe(replace('%ZENDESK_HOST%', findReplace, {}))
     .pipe(gulp.dest(build.templates.index))
 });
 
 // Environment config
 gulp.task('environment', function () {
   log('[environment] Injecting environment variables..');
-  const environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
+
+  let environment = BUILD_ENV;
+  if (BUILD_ENV) {
+    environment = [`env.${BUILD_ENV}`, `env.${BUILD_ENV}.global`]
+  } else {
+    environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
+  }
 
   gulp.src('.env.yml')
     .pipe(gulpNgConfig('app.environment', {
@@ -491,12 +500,9 @@ gulp.task('build', gulpsync.sync([
   'environment',
   'vendor',
   'assets',
+  'templates:environment',
 ]));
-// build for staging (minify)
-gulp.task('build-dev', gulpsync.sync([
-  'vendor',
-  'assets'
-]));
+
 // build for staging (minify)
 gulp.task('build-dev', gulpsync.sync([
   'vendor',
