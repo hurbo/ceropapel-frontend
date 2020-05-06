@@ -103,9 +103,9 @@ var build = {
   styles: paths.app + 'css',
   vendor: paths.app + 'vendor',
   assets: {
-    img: paths.app + 'img',
-    i18n: paths.app + 'i18n',
-    fonts: paths.app + 'fonts',
+    img: paths.app + '/assets/img',
+    i18n: paths.app + '/assets/i18n',
+    fonts: paths.app + '/assets/fonts',
   },
   templates: {
     index: paths.app,

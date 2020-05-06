@@ -8,9 +8,9 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
   .navbar-header
     a.navbar-brand(href='#/')
       .brand-logo
-        img(src="/img/logo-single.svg", alt="App Logo")
+        img(src="assets/img/logo-single.svg", alt="App Logo")
       .brand-logo-collapsed
-        img(src="/img/logo-single-short.svg", alt="App Logo")
+        img(src="assets/img/logo-single-short.svg", alt="App Logo")
 
 
   // END navbar header
@@ -23,31 +23,31 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.in.page({page:1})"  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.out.page({page:1})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.collaboration.page({page:1})")
-          img(src="/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil")
       //- li
       //-   a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.elaborated.page({page:1})")
-      //-     img(src="/img/newIcons/elaborados.svg", alt="icon-menu-retractil")
+      //-     img(src="assets/img/newIcons/elaborados.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.drafts")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil")
       li(ng-if="ntc.originSinaloa()")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.share")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil")
 
 
 
@@ -56,39 +56,39 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.in.page({page:1})"  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.out.page({page:1})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.collaboration.page({page:1})")
-          img(src="/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | En colaboración
       //- li
       //-   a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.elaborated.page({page:1})")
-      //-     img(src="/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+      //-     img(src="assets/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
       //-     | Elaborados
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.drafts")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Borradores
       li(ng-if="ntc.originSinaloa()")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.share")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Viaticos
 
 
@@ -101,43 +101,43 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.in.page({page:1})"  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.out.page({page:1})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.collaboration.page({page:1})")
-          img(src="/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | En colaboración
       //- li
       //-   a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.elaborated.page({page:1})")
-      //-     img(src="/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+      //-     img(src="assets/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
       //-     | Elaborados
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.drafts")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Borradores
 
       li(ng-if="ntc.originSinaloa()")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.share")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Viaticos
 
 
@@ -146,43 +146,43 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.in.page({page:1})"  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.out.page({page:1})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.collaboration.page({page:1})")
-          img(src="/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/en-colaboracion.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | En colaboración
       //- li
       //-   a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.elaborated.page({page:1})")
-      //-     img(src="/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+      //-     img(src="assets/img/newIcons/elaborados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
       //-     | Elaborados
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.drafts")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Borradores
       li(ng-if="ntc.originSinaloa()")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.share")
-          img(src="/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/borradores.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Viaticos
 
 
@@ -262,42 +262,42 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archived"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archivedOut")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
 
     // MENU SM INTERNAL INBOX
     ul.nav.navbar-nav.visible-sm(style="font-size: xx-small !important; ")
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archived"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archivedOut")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
 
     // MENU MD INTERNAL INBOX
@@ -305,18 +305,18 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
 
 
@@ -324,40 +324,40 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archived"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archivedOut")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
     // MENU LG INTERNAL INBOX
     ul.nav.navbar-nav.visible-lg(style="font-size: smaller;")
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archived"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.archivedOut")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
 
 
@@ -468,57 +468,57 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.out.page({page:1,jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.turned.page({page:1,jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/turnados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/turnados.svg", alt="icon-menu-retractil")
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados.svg", alt="icon-menu-retractil")
 
     // MENU SM INTERNAL INBOX
     ul.nav.navbar-nav.visible-sm(style="font-size: xx-small !important; ")
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.out.page({page:1,jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.turned.page({page:1,jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/turnados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/turnados.svg", alt="icon-menu-retractil")
           | Turnados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados.svg", alt="icon-menu-retractil")
           | Archivados
 
     // MENU MD INTERNAL INBOX
@@ -526,13 +526,13 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
@@ -540,19 +540,19 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.out.page({page:1,jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.turned.page({page:1,jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/turnados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/turnados.svg", alt="icon-menu-retractil")
           | Turnados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Archivados
 
 
@@ -563,13 +563,13 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
@@ -596,19 +596,19 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.out.page({page:1,jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.turned({jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/turnados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/turnados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Turnados
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Archivados
 
 
@@ -1063,42 +1063,42 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li
         a(ui-sref="app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})" style="font-weight: 600;")
-          img(src="/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archivedOut.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
 
     // MENU SM INTERNAL INBOX
     ul.nav.navbar-nav.visible-sm(style="font-size: xx-small !important; ")
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="width: 18em;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li
         a(ui-sref="app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})" style="font-weight: 600;")
-          img(src="/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Regresar
 
 
@@ -1121,11 +1121,11 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archivedOut.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil")
           | Enviados
 
     // MENU MD INTERNAL INBOX
@@ -1133,19 +1133,19 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="width: 18em;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li
         a(ui-sref="app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})" style="font-weight: 600;")
-          img(src="/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Regresar
 
       li.dropdown.dropdown-list.animated(uib-dropdown="")
@@ -1167,11 +1167,11 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archivedOut.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
 
 
@@ -1180,13 +1180,13 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="width: 18em;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
@@ -1194,7 +1194,7 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a(ui-sref="app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})" style="font-weight: 600;")
-          img(src="/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/regresar-compartidos.svg" alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Regresar
 
 
@@ -1218,11 +1218,11 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
-          img(src="/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-recibidos.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Recibidos
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archivedOut.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/archivados-enviados.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Enviados
 
 
@@ -1350,23 +1350,23 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.internal.in.page({page:1})'  )
-          img(src="/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil")
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/compartido-2.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/compartido-2.svg", alt="icon-menu-retractil")
       li
         //- a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.searchAdvanced")
-          img(src="/img/newIcons/consulta-2.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/consulta-2.svg", alt="icon-menu-retractil")
 
 
 
@@ -1375,28 +1375,28 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.internal.in.page({page:1})'  )
-          img(src="/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Portafolio
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.internal.in({jobTitle: ntc.currentUser.jobTitleID})")
-          img(src="/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Compartidos
       li
         //- a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})")
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.searchAdvanced" )
-          img(src="/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Consultas
 
 
@@ -1407,33 +1407,33 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
 
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.internal.in.page({page:1})'  )
-          img(src="/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Portafolio
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Compartidos
       li
         //- a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.searchAdvanced")
-          img(src="/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Consultas
       li
     // MENU LG INTERNAL INBOX
@@ -1441,35 +1441,35 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
 
 
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.internal.in.page({page:1})'  )
-          img(src="/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/portafolio-1.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Portafolio
       li
         a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref='app.mailbox.external.in.page({page:1, jobTitle: ntc.currentUser.jobTitleID})'  )
-          img(src="/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/compartido-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Compartidos
       li
         //- a.top-menu-new.animated.fadeIn( ui-sref-active="active" ui-sref="app.mailbox.external.archived.page({page:1, jobTitle: ntc.currentUser.jobTitleID})"  )
         a.top-menu-new.animated.fadeIn( ui-sref-active="active"  ui-sref="app.mailbox.searchAdvanced" )
-          img(src="/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
+          img(src="assets/img/newIcons/consulta-2.svg", alt="icon-menu-retractil" style="padding-right: 0.5em;")
           | Consultas
 
 
@@ -1566,13 +1566,13 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
 
 
@@ -1582,13 +1582,13 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
@@ -1599,18 +1599,18 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple).hidden-xs
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
 
     // MENU LG INTERNAL INBOX
@@ -1618,20 +1618,20 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
       li
         // Button used to collapse the left sidebar. Only visible on tablet and desktops
         a(ng-if="app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-open.svg", alt="icon-menu-retractil")
         a(ng-if="!app.layout.isCollapsed" id='closeSidebar' href='', trigger-resize="", ng-click="app.layout.isCollapsed = !app.layout.isCollapsed", md-ink-ripple)
-          img(src="/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-close.svg", alt="icon-menu-retractil")
         a(ng-if="!app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-open.svg", alt="icon-menu-retractil")
         a(ng-if="app.asideToggled" id='closeSidebar' href='', trigger-resize="", ng-click="app.asideToggled = !app.asideToggled", md-ink-ripple).visible-xs.sidebar-toggle
-          img(src="/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
+          img(src="assets/img/newIcons/menu-retractil-white-close.svg", alt="icon-menu-retractil")
 
       li(style="min-width: 18em; white-space: nowrap;")
         a#titleName(style="font-size: large; font-weight: 600;") {{ntc.currentPath}}
 
       li(style="padding-top: 1em;" ng-if="'app.mailbox.compose' !== $state.current.name")
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref="app.mailbox.compose" style="font-weight: 600;")
-          img(src="/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
+          img(src="assets/img/newIcons/crear-oficio.svg", alt="icon-menu-retractil" style="padding-right: 1em;")
           |  Crear oficio
     // START Right Navbar
     ul.nav.navbar-nav.navbar-right

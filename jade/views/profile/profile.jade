@@ -14,7 +14,7 @@
           form(action='')
             .col-md-2
               img.img-circle.thumb128(ng-src="{{pc.profile.avatar}}", alt="Avatar", title="{{pc.profile.email}}")
-              
+
             .col-md-6
 
               .form-group.fadeIn(ng-if="pc.needChanges")
@@ -28,32 +28,32 @@
 
                 .col-md-12(style="padding-top: 10px;")
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/rosa.png' " ng-src='/img/avatars/rosa.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/rosa.png' " ng-src='assets/img/avatars/rosa.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/cafe.png' " ng-src='/img/avatars/cafe.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/cafe.png' " ng-src='assets/img/avatars/cafe.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/largo.png' " ng-src='/img/avatars/largo.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/largo.png' " ng-src='assets/img/avatars/largo.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/china.png' " ng-src='/img/avatars/china.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/china.png' " ng-src='assets/img/avatars/china.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/Giada-Minotti.png' " ng-src='/img/avatars/Giada-Minotti.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/Giada-Minotti.png' " ng-src='assets/img/avatars/Giada-Minotti.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/rojo-2.png' " ng-src='/img/avatars/rojo-2.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/rojo-2.png' " ng-src='assets/img/avatars/rojo-2.png' alt='Image')
 
                 .col-md-12(style="padding-top: 10px;")
                   .col-md-2
-                    
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/barba.png' " ng-src='/img/avatars/barba.png' alt='Image')
+
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/barba.png' " ng-src='assets/img/avatars/barba.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/avatar-380.png' " ng-src='/img/avatars/avatar-380.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/avatar-380.png' " ng-src='assets/img/avatars/avatar-380.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/moreno.png' " ng-src='/img/avatars/moreno.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/moreno.png' " ng-src='assets/img/avatars/moreno.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/avatar-372.png' " ng-src='/img/avatars/avatar-372.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/avatar-372.png' " ng-src='assets/img/avatars/avatar-372.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/chino.png' " ng-src='/img/avatars/chino.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/chino.png' " ng-src='assets/img/avatars/chino.png' alt='Image')
                   .col-md-2
-                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = '/img/avatars/user-male.png' " ng-src='/img/avatars/user-male.png' alt='Image')
+                    img.media-object.img-circle.thumb48(ng-click="pc.profile.avatar = 'assets/img/avatars/user-male.png' " ng-src='assets/img/avatars/user-male.png' alt='Image')
 
               .form-group.fadeIn(ng-if="!pc.needChanges")
                 h5.text-light-blue.Poppins-Medium {{pc.profile.email}}
@@ -86,9 +86,9 @@
           h4.text-blue.Poppins-Bold Actualizado en
           h4.text-blue.Poppins-SemiBold(ng-if="pc.profile.cerUpdatedAt") {{pc.profile.cerUpdatedAt  | date:'dd-MM-yyyy h:mm a' || "No cuenta con archivo"}}
           h4.text-danger.Poppins-SemiBold(ng-if="!pc.profile.cerUpdatedAt") No cuenta con archivo
-    
-    
-    
+
+
+
     .col-md-6(style="padding-top: 3em;")
       .panel-default(style="border-style: solid;")
         .panel-heading(ng-if="!pc.showUploadFormKey")

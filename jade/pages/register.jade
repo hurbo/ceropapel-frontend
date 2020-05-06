@@ -3,7 +3,7 @@
   .panel.panel-inverse.panel-flat
     .panel-heading.text-center
       a(href="#")
-        img.block-center.img-rounded(src='/img/logo.png', alt='Image')
+        img.block-center.img-rounded(src='assets/img/logo.png', alt='Image')
     .panel-body
       p.text-center.pv SIGNUP TO GET INSTANT ACCESS.
       form.form-validate.mb-lg(role='form', name="reg.registerForm", novalidate='', ng-submit="reg.register()")
@@ -29,22 +29,22 @@
             label
               input(type='checkbox', required='', name="account_agreed", ng-model="reg.account.agreed")
               span.fa.fa-check
-              |  I agree with the 
+              |  I agree with the
               a(href="#") terms
         .text-danger(ng-if="reg.registerForm.account_agreed.$dirty && reg.registerForm.account_agreed.$error.required") You must agree the terms
-        
+
         button.btn.btn-block.btn-primary.mt-lg(type='submit') Create account
-      
-      .alert.alert-danger.text-center(ng-if='reg.authMsg') {{reg.authMsg}}      
-      
+
+      .alert.alert-danger.text-center(ng-if='reg.authMsg') {{reg.authMsg}}
+
       p.pt-lg.text-center Have an account?
       a(ui-sref="page.login").btn.btn-block.btn-default Signup
 
   // END panel
   .p-lg.text-center
-    span &copy; 
-    span(ng-bind="app.year") 
-    span  - 
+    span &copy;
+    span(ng-bind="app.year")
+    span  -
     span(ng-bind="app.name")
     br
     span(ng-bind="app.description")

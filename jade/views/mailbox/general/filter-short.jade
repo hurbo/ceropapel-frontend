@@ -3,10 +3,10 @@
 
 div.container.col-md-12
   h4.text-light-blue.Poppins-SemiBold
-    img(src='/img/newIcons/filtrar-busqueda.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
+    img(src='assets/img/newIcons/filtrar-busqueda.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
     | Filtrar búsqueda
   .col-md-12.dividerFilter
-  
+
   .col-md-12
     #panelDemo1(ng-init="panelDemo1 = !docs.filter.active" style=" ")
       .panel-heading.panel-heading-collapsed(ng-class="{'panel-heading-collapsed':panelDemo1}" style='')
@@ -38,7 +38,7 @@ div.container.col-md-12
                 em.fa.fa-plus.ng-no-animation(ng-show='panelDemo1' aria-hidden='false')
                 em.fa.fa-minus.ng-no-animation.ng-hide(ng-show='!panelDemo1' aria-hidden='true')
             button.btn.btn-default.pull-right.Poppins-SemiBold.text-blue(type='button' ng-click="docs.paginator.cleanFilter()")
-              img(src='/img/newIcons/limpiar-filtros.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
+              img(src='assets/img/newIcons/limpiar-filtros.svg' alt='icon-menu-retractil' style='padding-right: 0.5em;')
               | Limpiar filtros
 
 

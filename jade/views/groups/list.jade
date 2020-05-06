@@ -8,15 +8,15 @@
         h1.text-blue.Poppins-Bold(style="font-size: -webkit-xxx-large;") Bienvenido a los Grupos de trabajo de Cero Papel
         h4.text-blue.Poppins-SemiBold ¡Organízate! reduce tus tiempos de trabajo y aumenta tu productividad. ¡Te invitamos a crear tu primer grupo!
         button.btn.btn-secondary.btn-sm.pull-left.animated(ui-sref='app.groups.create')
-          img(src='/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+          img(src='assets/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
           | Crear grupo
     .col-md-6
-      img.center(src="/img/ilustracion-grupos.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;") 
+      img.center(src="assets/img/ilustracion-grupos.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;")
 
   .col-md-12( ng-if="gc.groups.length")
     .col-md-12(style="padding-top: 10px; padding-bottom: 10px;")
       button.btn.btn-secondary.btn-sm.pull-right.animated(ui-sref='app.groups.create')
-        img(src='/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+        img(src='assets/img/newIcons/grupos-light.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
         | Crear grupo
 
     .col-md-12(ng-repeat='group in gc.groups')

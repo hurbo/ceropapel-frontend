@@ -3,7 +3,7 @@
   .panel.panel-inverse.panel-flat
     .panel-heading.text-center
       a(href="#")
-        img.block-center.img-rounded(src='/img/logo.png', alt='Image')
+        img.block-center.img-rounded(src='assets/img/logo.png', alt='Image')
     .panel-body
       p.text-center.pv PASSWORD RESET
       form.form-validate(role='form', name="recoverForm", novalidate='')
@@ -15,12 +15,12 @@
           span.text-danger(ng-if="recoverForm.email.$dirty && recoverForm.email.$error.required") This field is required
           span.text-danger(ng-if="recoverForm.email.$dirty && recoverForm.email.$error.email") This field must be a valid email address
         button.btn.btn-secondary.btn-block(type='submit') Reset
-            
+
   // END panel
   .p-lg.text-center
-    span &copy; 
-    span(ng-bind="app.year") 
-    span  - 
+    span &copy;
+    span(ng-bind="app.year")
+    span  -
     span(ng-bind="app.name")
     br
     span(ng-bind="app.description")

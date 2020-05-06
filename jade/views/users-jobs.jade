@@ -10,7 +10,7 @@
         button.btn.btn-secondary.pull-right(ng-if="ujc.profile.roleID === 3"  style='margin: 15px;', type='button', data-toggle='modal', data-target='#modalCreateJob' ) Agregar área
 
     .col-md-6
-      img.center(src="/img/ilustracion-secretarias.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;") 
+      img.center(src="assets/img/ilustracion-secretarias.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;")
 
   .col-md-12( ng-if="ujc.secretariates.length" style="padding-top: 5em;")
     .col-md-12(ng-repeat='item in ujc.secretariates')
@@ -39,7 +39,7 @@
                 td
                   strong.text-light-blue.Poppins-SemiBold {{jobTitle.userName}}
                 td.text-light-blue.Poppins-Light {{jobTitle.rolName}}
-                td 
+                td
                   button.btn.btn-primary.pull-right(ng-if='jobTitle.userID', ng-click='ujc.changeRole(jobTitle)', style='margin:5px;')
                     i.fa.fa-user
                     span Cambiar rol

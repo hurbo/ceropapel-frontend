@@ -7,8 +7,8 @@
         button.btn.btn-primary(style="margin: 10px;" ng-if="mvc.isShowInAttachment('zip')" ng-href="{{mvc.document.fileURL}}", ng-click="mvc.showFiles()" )
             em.fa.fa-eye(style="margin-right: 10px;")
             | Ver archivos
-        
-        
+
+
 
 
         .col-md-12(ng-if="mvc.isShowInAttachment('loader')")
@@ -16,7 +16,7 @@
                 .panel-heading
                     h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
                 .panel-body.loader-demo.loader-demo-sk
- 
+
                     .spinner
                         .dot1
                         .dot2
@@ -70,10 +70,10 @@
                             td {{$index +1 }}
                             td
                                 .media
-                                    img.img-responsive(src='/img/pdf.png', alt="pdf.{{file.name}}" , title="pdf.{{file.name}}")
+                                    img.img-responsive(src='assets/img/pdf.png', alt="pdf.{{file.name}}" , title="pdf.{{file.name}}")
                             td {{file.name | limitTo: 20}}
-                            td 
-                                a(ng-click="mvc.showPDF(file)") 
+                            td
+                                a(ng-click="mvc.showPDF(file)")
                                     em.fa.fa-eye
                                     | Ver documento
 
@@ -102,9 +102,9 @@
                             td {{$index +1 }}
                             td
                                 .media
-                                    img.img-responsive(src='/img/newIcons/file.svg', alt="file.{{file.name}}" , title="file.{{file.name}}"  )
+                                    img.img-responsive(src='assets/img/newIcons/file.svg', alt="file.{{file.name}}" , title="file.{{file.name}}"  )
                             td {{file.name | limitTo: 20}}
-                            td 
+                            td
                                 a.text-muted No disponible
 
                             td

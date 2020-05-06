@@ -3,7 +3,7 @@
   .panel.panel-inverse.panel-flat
     .panel-heading.text-center
       a(href="#")
-        img.block-center.img-rounded(src='/img/logo.png', alt='Image')
+        img.block-center.img-rounded(src='assets/img/logo.png', alt='Image')
     .panel-body
       p.text-center.pv SIGN IN TO CONTINUE.
       form.form-validate(role='form', ng-submit="login.login()", name='login.loginForm', novalidate='').mb-lg
@@ -24,17 +24,17 @@
               |  Remember Me
           .pull-right
             a.text-muted(ui-sref="page.recover") Forgot your password?
-        
+
         button.btn.btn-block.btn-primary.mt-lg(type='submit') Login
-      
+
       .alert.alert-danger.text-center(ng-if='login.authMsg') {{login.authMsg}}
       p.pt-lg.text-center Need to Signup?
       a(ui-sref="page.register").btn.btn-block.btn-default Register Now
   // END panel
   .p-lg.text-center
-    span &copy; 
-    span(ng-bind="app.year") 
-    span  - 
+    span &copy;
+    span(ng-bind="app.year")
+    span  -
     span(ng-bind="app.name")
     br
     span(ng-bind="app.description")

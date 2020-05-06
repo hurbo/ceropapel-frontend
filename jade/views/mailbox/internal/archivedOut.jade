@@ -11,7 +11,7 @@ div.container(ui-view="")
 
       .btn-group.mb-sm.dropdown.open(uib-dropdown='dropdown' style='')
         button.btn.dropdown-toggle.btn-default(type='button' ng-disabled='disabled' uib-dropdown-toggle='' aria-haspopup='true' aria-expanded='true')
-          img(src='/img/newIcons/carpetas-favoritas.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+          img(src='assets/img/newIcons/carpetas-favoritas.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
           | Carpetas favoritas
           span.caret
         ul.dropdown-menu
@@ -24,7 +24,7 @@ div.container(ui-view="")
 
       .btn-group.mb-sm.dropdown.open(uib-dropdown='dropdown' style='')
         button.btn.dropdown-toggle.btn-default(type='button' ng-disabled='disabled' uib-dropdown-toggle='' aria-haspopup='true' aria-expanded='true')
-          img(src='/img/newIcons/carpeta.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+          img(src='assets/img/newIcons/carpeta.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
           | Carpetas
           span.caret
 
@@ -45,8 +45,8 @@ div.container(ui-view="")
       .col-md-12
         .btn-group.mb-sm.dropdown.open(uib-dropdown='dropdown' style='' ng-if="docs.internalFolders !== false" ng-repeat= "folder in docs.internalFolders")
           button.btn.dropdown-toggle.btn-default(type='button' ng-disabled='disabled' uib-dropdown-toggle='' aria-haspopup='true' aria-expanded='true')
-            img(ng-if = "folder.favorite === 1 " src='/img/newIcons/carpetas-favoritas.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
-            img(ng-if = "folder.favorite === 0 " src='/img/newIcons/carpeta.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+            img(ng-if = "folder.favorite === 1 " src='assets/img/newIcons/carpetas-favoritas.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
+            img(ng-if = "folder.favorite === 0 " src='assets/img/newIcons/carpeta.svg' alt='icon-menu-retractil' style='padding-right: 1em;')
             | {{folder.name}}
             span.caret
           ul.dropdown-menu
@@ -129,11 +129,11 @@ div.container(ui-view="")
           h5.text-muted {{mail.createdAt  | date:'dd-MM-yyyy h:mm a'}}
             em.fa-2x.icon-speech.mr-2(ng-if="mail.needCancel || mail.needChanges")
           .media.align-items-center(style="padding-top: 10px")
-            img(ng-if="mail.needCancel || mail.needChanges" src="/img/newIcons/requiere-cambios.svg", uib-tooltip="Requiere aprobación"  alt="" style="height: 25px;")
-            img(ng-if="mail.needSign" src="/img/newIcons/requiere-firma.svg", uib-tooltip="Requiere ser firmado" alt="" style="height: 25px;")
-            img(ng-if="mail.confidential" src="/img/newIcons/es-confidencial.svg", uib-tooltip="Es un oficio confidencial" alt="" style="height: 25px;")
-            img(ng-if="mail.hasAttachment" src="/img/newIcons/tiene-adjuntos.svg", uib-tooltip="El oficio contiene adjuntos"  alt="" style="height: 25px;")
-            img(ng-if="mail.priority" src="/img/newIcons/es-importante.svg", uib-tooltip="El oficio es importante" alt="" style="height: 25px;")
-            img(ng-if="mail.deadline" src="/img/newIcons/tiene-fecha-limite.svg", uib-tooltip="El oficio tiene fecha limite" alt="" style="height: 25px;")
+            img(ng-if="mail.needCancel || mail.needChanges" src="assets/img/newIcons/requiere-cambios.svg", uib-tooltip="Requiere aprobación"  alt="" style="height: 25px;")
+            img(ng-if="mail.needSign" src="assets/img/newIcons/requiere-firma.svg", uib-tooltip="Requiere ser firmado" alt="" style="height: 25px;")
+            img(ng-if="mail.confidential" src="assets/img/newIcons/es-confidencial.svg", uib-tooltip="Es un oficio confidencial" alt="" style="height: 25px;")
+            img(ng-if="mail.hasAttachment" src="assets/img/newIcons/tiene-adjuntos.svg", uib-tooltip="El oficio contiene adjuntos"  alt="" style="height: 25px;")
+            img(ng-if="mail.priority" src="assets/img/newIcons/es-importante.svg", uib-tooltip="El oficio es importante" alt="" style="height: 25px;")
+            img(ng-if="mail.deadline" src="assets/img/newIcons/tiene-fecha-limite.svg", uib-tooltip="El oficio tiene fecha limite" alt="" style="height: 25px;")
         .col-md-12.dividerMailbox
       .col-md-12(ng-if='!docs.hidePaginate', ng-include="'/views/mailbox/general/paginate.html'")
