@@ -4,11 +4,10 @@
   "description": "Cero Papel",
   "author": "Quody",
   "scripts": {
-    "prestart": "bower install",
-    "start": "npm install",
+    "preinstall": "bower install",
+    "start": "gulp serve",
     "build": "gulp build",
-    "dev": "gulp serve",
-    "poststart": "gulp"
+    "dev": "gulp serve"
   },
   "dependencies": {},
   "devDependencies": {

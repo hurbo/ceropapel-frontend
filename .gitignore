@@ -11,5 +11,5 @@ test_reports/
 .tmp/
 *.env
 /dist
-environment.module.json
+.env.yml
 js/modules/environment/environment.module.js

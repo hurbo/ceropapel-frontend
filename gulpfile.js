@@ -1,6 +1,7 @@
 var args = require('yargs').argv,
   path = require('path'),
   gulp = require('gulp'),
+  rename = require("gulp-rename"),
   $ = require('gulp-load-plugins')(),
   gulpsync = $.sync(gulp),
   uglify = require('gulp-terser'),
@@ -371,11 +372,15 @@ gulp.task('templates:views', function () {
 // Environment config
 gulp.task('environment', function () {
   log('[environment] Injecting environment variables..');
+  const environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
 
-  gulp.src('environment.module.json')
+  gulp.src('.env.yml')
   .pipe(gulpNgConfig('app.environment', {
+    environment,
+    parser: 'yml',
     createModule: true
   }))
+  .pipe(rename('environment.module.js'))
   .pipe(gulp.dest('./js/modules/environment'))
 });
 
@@ -385,7 +390,7 @@ gulp.task('environment', function () {
 // Rerun the task when a file changes
 gulp.task('watch', function () {
   log('Watching source files..');
-  gulp.watch('environment.module.json', ['environment']);
+  gulp.watch('.env.yml', ['environment']);
   gulp.watch('vendor.base.json', ['vendor:base']);
   gulp.watch('vendor.json', ['vendor:app']);
   gulp.watch(source.fonts, ['styles:fonts']);
