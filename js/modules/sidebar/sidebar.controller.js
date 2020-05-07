@@ -40,12 +40,13 @@
 
 
       var collapseList = [];
-      setTimeout(function () {
-        var e = document.getElementById('menuDocumentos');
-        e.onclick = function () {
-          window.open('/verificar-documento', '_blank');
-        };
-      }, 4000);
+      // Comentado mientras se analiza una mejor implementación
+      // setTimeout(function () {
+      //   var e = document.getElementById('menuDocumentos');
+      //   e.onclick = function () {
+      //     window.open('/verificar-documento', '_blank');
+      //   };
+      // }, 4000);
 
       // demo: when switch from collapse to hover, close all items
       $rootScope.$watch('app.layout.asideHover', function (oldVal, newVal) {
