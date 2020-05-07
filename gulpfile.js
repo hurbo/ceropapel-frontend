@@ -388,7 +388,7 @@ gulp.task('templates:environment', function () {
   if (BUILD_ENV) {
     env = raw[BUILD_ENV].env
   } else {
-    env = isProduction ? raw.production.env : raw.development.env
+    env = isProduction ? raw.production.env : raw.local.env
   }
 
   const findReplace = (_replacement) => {
@@ -410,7 +410,7 @@ gulp.task('environment', function () {
   if (BUILD_ENV) {
     environment = [`env.${BUILD_ENV}`, `env.${BUILD_ENV}.global`]
   } else {
-    environment = isProduction ? ['env.production', 'env.production.global'] : ['env.development', 'env.development.global'];
+    environment = isProduction ? ['env.production', 'env.production.global'] : ['env.local', 'env.local.global'];
   }
 
   gulp.src('.env.yml')
@@ -508,9 +508,9 @@ gulp.task('clean', async function (done) {
 
 gulp.task('build', gulpsync.sync([
   'prod',
+  'environment',
   'clean',
   'vendor',
-  'environment',
   'assets',
   'templates:environment',
 ]));
@@ -548,8 +548,8 @@ gulp.task('usesources', function () {
 // default (no minify)
 gulp.task('default', gulpsync.sync([
   'clean',
-  'vendor',
   'environment',
+  'vendor',
   'assets',
   'templates:environment',
   'watch'
