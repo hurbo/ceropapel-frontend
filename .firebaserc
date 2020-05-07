@@ -1,0 +1,23 @@
+{
+  "targets": {
+    "quody-cero-papel": {
+      "hosting": {
+        "development": [
+          "development-ceropapel"
+        ],
+        "staging": [
+          "staging-ceropapel"
+        ],
+        "master": [
+          "quody-cero-papel"
+        ],
+        "client_veracruz": [
+          "veracruz-ceropapel"
+        ],
+        "client_sinaloa": [
+          "sinaloa-ceropapel"
+        ]
+      }
+    }
+  }
+}

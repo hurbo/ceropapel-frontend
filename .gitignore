@@ -10,6 +10,7 @@ node_modules
 test_reports/
 .tmp/
 *.env
-/dist
+dist/
 .env.yml
 js/modules/environment/environment.module.js
+.firebase
