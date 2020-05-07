@@ -2,5 +2,5 @@
   'use strict';
 
   angular
-    .module('app.auth', ['angular-jwt.jwt']);
+    .module('app.auth', []);
 })();

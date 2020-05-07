@@ -25,8 +25,6 @@
   var app = angular.module('angle', [
     'app.core',
     'app.routes',
-    'auth0.auth0',
-    'app.jwt',
     'app.auth',
     'app.navbar',
     'app.sidebar',
@@ -85,8 +83,14 @@
       // end their session and redirect to login.
     });
 
+
     $transitions.onStart({
       to: function (state) {
+        const logged = authService.isAuthenticated();
+        if (logged && state.name == 'auth.login') {
+          return $state.go('app');
+        }
+
         return !state.isPublic || state.isPublic !== true;
       }
     }, function () {
