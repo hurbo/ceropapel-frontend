@@ -4,13 +4,14 @@
   "description": "Cero Papel",
   "author": "Quody",
   "scripts": {
-    "preinstall": "bower install",
+    "postinstall": "bower install --allow-root",
     "start": "gulp serve",
     "build": "gulp build",
     "dev": "gulp serve"
   },
   "dependencies": {},
   "devDependencies": {
+    "bower": "^1.8.8",
     "browser-sync": "2.11.0",
     "connect-history-api-fallback": "^1.6.0",
     "del": "5.1.0",
