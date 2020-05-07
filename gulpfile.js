@@ -415,6 +415,7 @@ gulp.task('environment', function () {
 
   gulp.src('.env.yml')
     .pipe(gulpNgConfig('app.environment', {
+      wrap:true,
       environment,
       parser: 'yml',
       pretty: 2,
@@ -449,6 +450,7 @@ gulp.task('browsersync', function () {
 
   browserSync({
     ui: false,
+    open: false,
     server: {
       baseDir: 'dist/'
     },
@@ -494,14 +496,25 @@ gulp.task('clean', async function (done) {
 //---------------
 
 // build for production (minify)
+// Disabled as we have minification problems
+// gulp.task('build', gulpsync.sync([
+//   'clean',
+//   'prod',
+//   'environment',
+//   'vendor',
+//   'assets',
+//   'templates:environment',
+// ]));
+
 gulp.task('build', gulpsync.sync([
-  'clean',
   'prod',
-  'environment',
+  'clean',
   'vendor',
+  'environment',
   'assets',
   'templates:environment',
 ]));
+
 
 // build for staging (minify)
 gulp.task('build-dev', gulpsync.sync([
