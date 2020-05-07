@@ -507,7 +507,6 @@ gulp.task('clean', async function (done) {
 // ]));
 
 gulp.task('build', gulpsync.sync([
-  'prod',
   'environment',
   'clean',
   'vendor',
