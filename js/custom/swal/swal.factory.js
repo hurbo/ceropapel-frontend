@@ -3,7 +3,7 @@
 
   angular.module('app.swal').factory('swalFactory', swalFactory);
 
-  swalFactory.$inject = ['SweetAlert'];
+  swalFactory.$inject = ['swangular'];
 
   function swalFactory(SweetAlert) {
     var service = {

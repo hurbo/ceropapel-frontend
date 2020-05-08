@@ -25,11 +25,13 @@
 
       // Angular based script (use the right module name)
       modules: [{
-          name: 'oitozero.ngSweetAlert',
+          name: 'swangular',
           files: [
-            'vendor/sweetalert/dist/sweetalert.min.js',
-            'vendor/sweetalert/dist/sweetalert.css',
-            'vendor/angular-sweetalert/SweetAlert.min.js'
+            // 'vendor/sweetalert/dist/sweetalert.min.js',
+            // 'vendor/sweetalert/dist/sweetalert.css',
+            "vendor/sweetalert2/dist/sweetalert2.min.js",
+            "vendor/sweetalert2/dist/sweetalert2.min.css",
+            'vendor/swangular/swangular.js'
           ],
           serie: true
         },

@@ -40,7 +40,7 @@
         controller: 'AuthController',
         controllerAs: 'aac',
         templateUrl: helper.basepath('auth.html'),
-        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'oitozero.ngSweetAlert'),
+        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'swangular'),
         isPublic: true
       })
       .state('auth.login', {
@@ -72,7 +72,7 @@
         controller: 'AppController',
         controllerAs: 'ac',
         templateUrl: helper.basepath('app.html'),
-        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'oitozero.ngSweetAlert'),
+        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'swangular'),
       })
 
       .state('app.profile', {

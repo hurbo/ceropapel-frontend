@@ -5,7 +5,7 @@
     .module('app.sockets', ['app.environment'])
     .factory('socket', sockets);
 
-  sockets.$inject = ['$rootScope', '$state', 'SweetAlert', 'env'];
+  sockets.$inject = ['$rootScope', '$state', 'swangular', 'env'];
 
   /* @ngInject */
   function sockets($rootScope, $state, SweetAlert, env) {

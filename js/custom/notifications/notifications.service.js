@@ -5,7 +5,7 @@
     .module('app.notifications')
     .factory('notificationsFactory', notificationsFactory);
 
-  notificationsFactory.$inject = ['$rootScope', '$state', 'socket', 'SweetAlert'];
+  notificationsFactory.$inject = ['$rootScope', '$state', 'socket', 'swangular'];
 
   function notificationsFactory($rootScope, $state, socket, SweetAlert) {
     var notifications;
