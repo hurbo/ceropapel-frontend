@@ -87,13 +87,13 @@
     "auth0-angular": "^4.2.7",
     "angular-jwt": "^0.1.11",
     "swangular": "^1.4.3",
-    "sweetalert2": "^9.10.12"
+    "sweetalert2": "6.9.1"
   },
   "resolutions": {
     "angular-ui-utils": "3.0.0",
     "angular": "1.7.9",
     "jquery": "3.4.1",
     "bootstrap": "3.3.7",
-    "sweetalert2": "7.1.*"
+    "sweetalert2": "6.9.1"
   }
 }
