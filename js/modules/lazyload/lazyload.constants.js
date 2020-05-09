@@ -10,7 +10,7 @@
         'modernizr': ['vendor/modernizr/modernizr.custom.js'],
         'animate': ['vendor/animate.css/animate.min.css'],
         'icons': [
-          'vendor/components-font-awesome/css/all.min.css',
+          'vendor/font-awesome/css/font-awesome.min.css',
           'vendor/simple-line-icons/css/simple-line-icons.css'
         ],
         'screenfull': ['vendor/screenfull/dist/screenfull.js'],

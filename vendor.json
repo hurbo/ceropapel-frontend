@@ -1,7 +1,7 @@
 [
   "bower_components/modernizr/modernizr.custom.js",
-  "bower_components/components-font-awesome/css/all.min.css",
-  "bower_components/components-font-awesome/webfonts/*",
+  "bower_components/font-awesome/css/font-awesome.min.css",
+  "bower_components/font-awesome/fonts/*",
   "bower_components/ngWig/dist/ng-wig.min.js",
   "bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css",
   "bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js",

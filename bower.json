@@ -77,7 +77,6 @@
     "jszip": "3.2.2",
     "angular-tooltips": "tooltips-angular#^1.0.5",
     "lodash": "^4.17.15",
-    "components-font-awesome": "5.11.2",
     "angular-ui-tour": "^0.9.4",
     "nz-tour": "^1.2.1",
     "simple-line-icons": "^2.4.1",
@@ -87,7 +86,8 @@
     "auth0-angular": "^4.2.7",
     "angular-jwt": "^0.1.11",
     "swangular": "^1.4.3",
-    "sweetalert2": "6.9.1"
+    "sweetalert2": "6.9.1",
+    "font-awesome": "fontawesome#4.5.0"
   },
   "resolutions": {
     "angular-ui-utils": "3.0.0",
