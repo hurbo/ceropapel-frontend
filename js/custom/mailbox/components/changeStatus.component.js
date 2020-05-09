@@ -16,7 +16,7 @@
   changeStatusComponentController.$inject = [
     '$q',
     'ViewDocumentFactory',
-    'SweetAlert',
+    'swangular',
     'inboxFactory',
     'DocumentFactory',
     '$rootScope',

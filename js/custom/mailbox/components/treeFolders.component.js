@@ -20,7 +20,7 @@
     'ViewDocumentFactory',
     '$uibModal',
     '$uibModalStack',
-    'SweetAlert',
+    'swangular',
     'folderFactory'
   ];
 

@@ -22,7 +22,7 @@
     'inboxFactory',
     '$uibModal',
     '$uibModalStack',
-    'SweetAlert',
+    'swangular',
     '$rootScope',
     'ExternalsFactory',
     'contactsService',

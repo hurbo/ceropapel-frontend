@@ -4,7 +4,7 @@
   DraftsController.$inject = [
     '$state',
     'templatesFactory',
-    'SweetAlert',
+    'swangular',
     'profileFactory',
     'draftsFactory'
   ];

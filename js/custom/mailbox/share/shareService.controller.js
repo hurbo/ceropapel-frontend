@@ -5,7 +5,7 @@
   angular.module('app.mailbox').controller('shareController', shareController);
 
 
-  shareController.$inject = ['shareTemplateBase', 'profileFactory', 'SweetAlert', '$state', 'shareFactory', 'swalFactory', 'templatesFactory', 'composeFactory'];
+  shareController.$inject = ['shareTemplateBase', 'profileFactory', 'swangular', '$state', 'shareFactory', 'swalFactory', 'templatesFactory', 'composeFactory'];
 
   function shareController(shareTemplateBase, Profile, SweetAlert, $state, shareFactory, swalFactory, templatesFactory, composeFactory) {
     var vm = this;

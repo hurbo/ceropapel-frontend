@@ -20,7 +20,7 @@
     'inboxFactory',
     '$uibModal',
     '$uibModalStack',
-    'SweetAlert',
+    'swangular',
     'paginatorFactory',
     'contactsService',
     'socket',

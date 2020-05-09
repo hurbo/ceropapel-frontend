@@ -8,7 +8,7 @@
       secretariatesCanceledDocsController
     );
   secretariatesCanceledDocsController.$inject = [
-    'SweetAlert',
+    'swangular',
     'CanceledDocuments',
     'profileFactory',
     '$state'

@@ -5,7 +5,7 @@
     .module('app.mailbox')
     .controller('ExternalMailboxController', ExternalMailboxController);
 
-  ExternalMailboxController.$inject = ['$state', 'ExternalsFactory', 'SweetAlert'];
+  ExternalMailboxController.$inject = ['$state', 'ExternalsFactory', 'swangular'];
 
   function ExternalMailboxController($state, Externals, SweetAlert) {
     var vm = this;

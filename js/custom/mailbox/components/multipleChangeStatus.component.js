@@ -18,7 +18,7 @@
 
 
   multipleChangeStatusComponentController.$inject = [
-    'SweetAlert',
+    'swangular',
     'inboxFactory',
     '$uibModal',
     '$uibModalStack',

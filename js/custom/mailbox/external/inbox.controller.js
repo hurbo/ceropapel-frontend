@@ -15,7 +15,7 @@
     'filterFactory',
     'profileFactory',
     'ExternalsFactory',
-    'SweetAlert'
+    'swangular'
   ];
 
   function externalInboxController(

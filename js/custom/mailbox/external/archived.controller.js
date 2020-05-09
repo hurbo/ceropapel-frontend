@@ -10,7 +10,7 @@
     .module('app.mailbox')
     .controller('externalArchivedController', externalArchivedController);
 
-  externalArchivedController.$inject = ['$rootScope', '$state', '$stateParams', 'ExternalsFactory', 'filterFactory', 'paginatorFactory', 'folderFactory', 'profileFactory', 'SweetAlert'];
+  externalArchivedController.$inject = ['$rootScope', '$state', '$stateParams', 'ExternalsFactory', 'filterFactory', 'paginatorFactory', 'folderFactory', 'profileFactory', 'swangular'];
 
   function externalArchivedController($rootScope, $state, $stateParams, Externals, filterFactory, paginatorFactory, Folder, Profile, SweetAlert) {
     var vm = this;

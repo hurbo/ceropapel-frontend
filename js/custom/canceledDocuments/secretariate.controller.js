@@ -11,7 +11,7 @@
     '$state',
     'CanceledDocuments',
     'profileFactory',
-    'SweetAlert'
+    'swangular'
   ];
 
   function secretariateCanceledDocsController(

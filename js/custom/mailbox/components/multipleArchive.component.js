@@ -19,7 +19,7 @@
 
   multipleArchiveComponentController.$inject = [
     '$state',
-    'SweetAlert',
+    'swangular',
     '$uibModal',
     '$uibModalStack',
     'paginatorFactory',
