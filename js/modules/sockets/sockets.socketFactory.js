@@ -47,10 +47,10 @@
         confirmButtonText: 'Aceptar',
         allowOutsideClick: false,
         allowEscapeKey: false
-      }, function () {
-        $rootScope.auth.logout();
-        return $state.go('auth.login');
-      })
+      });
+
+      $rootScope.auth.logout();
+      $state.go('auth.login');
     }
 
     socket.on('error', function (err) {
