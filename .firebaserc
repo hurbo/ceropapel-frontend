@@ -3,7 +3,7 @@
     "quody-cero-papel": {
       "hosting": {
         "development": [
-          "development-ceropapel"
+          "app-ceropapel"
         ],
         "staging": [
           "staging-ceropapel"
