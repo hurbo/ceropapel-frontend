@@ -6,7 +6,7 @@
     .controller('groupsCreateController', groupsCreateController);
   groupsCreateController.$inject = [
     '$rootScope',
-    'swangular',
+    'SweetAlert',
     'Groups',
     'JobTitles',
     '$state',
@@ -51,14 +51,16 @@
           if ($state.is('app.groups.create')) {
             vm.formTitle = 'Crear grupo';
           } else {
+            console.log("$state.params", parseInt( $state.params.id ));
             vm.formTitle = 'Editar grupo';
             Groups.getOne({
-                group: $state.params.id
+                group: parseInt( $state.params.id )
               },
               function (err, result) {
-                vm.groupID = result[0].groupID;
-                vm.name = result[0].groupName;
-                vm.members = result;
+                console.log("result", result);
+                vm.groupID = parseInt( $state.params.id );
+                vm.name = result.name;
+                vm.members = result.members;
               }
             );
           }
@@ -112,7 +114,8 @@
       }
       var group = {
         name: vm.name,
-        members: _getMembers()
+        members: _getMembers(),
+        groupID: parseInt( $state.params.id ) || null
       };
       _validateGroup(group);
     }
@@ -139,8 +142,10 @@
 
     function _getMembers() {
       var members = [];
+      console.log("members", vm.members);
       for (var i = 0; i < vm.members.length; i++) {
-        members.push(vm.members[i].userID);
+        console.log("members", vm.members[i]);
+        members.push(vm.members[i].jobTitleID);
       }
       return members;
     }
@@ -148,7 +153,7 @@
     function _validateGroup(group) {
       if (!group.name) return;
       if (group.members.length === 0) return;
-      $state.params.id ? _updateGroup(group) : _createGroup(group);
+      parseInt( $state.params.id ) ? _updateGroup(group) : _createGroup(group);
     }
 
     function _createGroup(group) {
@@ -216,7 +221,14 @@
         }
       }
 
-      Groups.update(group, function (err, resutl) {
+
+      var datos = {
+        id: parseInt($state.params.id),
+        members : _getMembers(),
+        name: vm.name
+      }
+
+      Groups.update(datos, function (err, resutl) {
         if (!err) {
           SweetAlert.swal({
             title: 'Hecho!',

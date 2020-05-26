@@ -55,5 +55,6 @@
   "bower_components/nz-tour/dist/nz-tour.min.css",
   "bower_components/nz-tour/dist/nz-tour.min.js",
   "bower_components/simple-line-icons/css/simple-line-icons.css",
-  "bower_components/simple-line-icons/fonts/*"
+  "bower_components/simple-line-icons/fonts/*",
+  "bower_components/dom-to-image/dist/dom-to-image.min.js"
 ]

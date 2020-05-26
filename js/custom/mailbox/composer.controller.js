@@ -12,32 +12,23 @@
     .controller('MailComposerController', MailComposerController);
 
   MailComposerController.$inject = [
-    '$rootScope',
     'swalFactory',
     '$state',
     'composeFactory',
-    'templatesFactory',
-    'profileFactory',
-    'paginatorFactory',
-    'socket'
+    'profileFactory'
   ];
 
-  function MailComposerController($rootScope, swalFactory, $state, composeFactory, templatesFactory, Profile, paginatorFactory, socket) {
+  function MailComposerController( swalFactory, $state, composeFactory, Profile) {
     var vm = this;
     vm.templates = false;
     vm.compose = composeFactory;
     vm.step = Step.FILL_DATA;
     vm.StepEnum = Step;
-    vm.selectTemplete = selectTemplete;
-    vm.showListTemplates = showListTemplates;
-    vm.closeListTemplates = closeListTemplates;
-    vm.secretariats = [];
     vm.getTour = getTour;
+    vm.setStep = setStep;
 
 
     function getTour() {
-
-
       if (vm.step === 'FILL_DATA' && (!vm.compose.variables || vm.compose.variables.length === 0)) {
         return 1
       } else if (vm.step === 'FILL_DATA') {
@@ -47,12 +38,7 @@
       } else if (vm.step === 'REVIEW_DATA') {
         return 4
       }
-
     }
-
-
-
-
 
     vm.summernoteOptions = {
       lang: 'es-MX',
@@ -99,64 +85,25 @@
     activate();
 
     function activate() {
-      socket.emit("getTemplates", {}, function (error, data) {
-        vm.templates = data;
-      });
-
-      vm.modalListTemplates = angular.element('#modalSelectTemplete').modal({ backdrop: true, show: false });
-
+      console.log("aqui estoy en el compose controller");
       Profile.getProfile().then(function (profile) {
         vm.profile = profile;
         if (!vm.profile.jobTitleID) {
           swalFactory.error('No puedes acceder al contenido');
-          $state.go('app.mailbox.internal.in');
+          $state.go('app.profile');
           return;
         }
-        vm.compose.init();
+          vm.compose.init();
       }, function (err) {
         console.error('Error addMember on getProfile', err);
       });
     }
-
-    function selectTemplete(id) {
-      templatesFactory.getTemplateById(id).then(function (solve) {
-        if (solve.content) {
-          vm.compose.setTemplate(solve);
-          // $('#botonCerrarSeleccionPlantilla').click();
-          closeListTemplates();
-          vm.selectedFormat = solve.fullContent;
-        }
-      });
-    }
-
-    function showListTemplates() {
-
-      selectTemplete(291);
-      vm.modalListTemplates.modal('show');
-
-      setTimeout(function () {
-        $('.modal-backdrop').remove();
-      }, 1000);
-    }
-
-    function closeListTemplates() {
-      vm.modalListTemplates.modal('hide');
-    }
-
-    vm.setStep = setStep;
-
     function setStep(step) {
       if (step === vm.StepEnum.FILL_SEND_DATA) {
         vm.compose.closePreviewTemplate();
       }
       vm.step = step;
     }
-
-
-
-
-
-
   }
 })();
 

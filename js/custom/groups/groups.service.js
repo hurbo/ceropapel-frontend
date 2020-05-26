@@ -21,7 +21,8 @@
       getCurrentGroup: getCurrentGroup,
       setCurrentGroup: setCurrentGroup,
       deleteGroup: deleteGroup,
-      getGroups: getGroups
+      getGroups: getGroups,
+      getById: getById
     };
 
     function subscribe() {
@@ -92,6 +93,9 @@
 
     function getOne(data, cb) {
       socket.emit('getGroup', data, cb);
+    }
+    function getById(data, cb) {
+      socket.emit('getById', data, cb);
     }
 
     function update(data, cb) {

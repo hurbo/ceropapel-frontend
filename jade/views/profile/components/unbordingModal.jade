@@ -1,0 +1,65 @@
+form.form-horizontal(ng-controller= "unbordingFormComponentController as ufcmp" name="form")
+    .modal-header
+        button.close(type='button', data-dismiss='modal' ng-click='ufcmp.cancel()' , aria-hidden='true') ×
+        h4.modal-title Bienvenido
+    .modal-body
+        .panel-default(ng-if="ufcmp.isLoading")
+            .panel-heading
+                h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+            .panel-body.loader-demo.loader-demo-sk
+                .spinner
+                    .dot1
+                    .dot2
+
+        .panel-default(ng-if="!ufcmp.isLoading")
+            .panel-heading
+                .form-horizontal(name="form")
+                    .form-group
+                        label.col-md-2.control-label Nombre
+                        .col-md-10
+                            input.form-control(type='text' placeholder='Nombre' ng-model ='ufcmp.unbordingForm.name')
+                    //- .form-group
+                    //-     label.col-md-2.control-label Area
+                    //-     .col-md-10
+                    //-         input.form-control(type='text' placeholder='Nombre' ng-model ='ufcmp.unbordingForm.area')
+                    //- .form-group
+                    //-     label.col-md-2.control-label Contraseña
+                    //-     .col-md-10
+                    //-         input.form-control(type='text' placeholder='Nombre' ng-model ='ufcmp.unbordingForm.pass')
+                    .form-group
+                        label.col-md-2.control-label RFC
+                        .col-md-10
+                            span.text-danger.Poppins-Bold(ng-if="ufcmp.unbordingForm.rfc.length <= 0") Su RFC es requerido
+                            span.text-danger.Poppins-Bold(ng-if="!form.inputRFC.$valid") El no cumple con el formato de RFC, favor de no incluir '-'
+                            input.form-control(ng-pattern="ufcmp.rfcPattern" name="inputRFC" type='text' placeholder='RFC' ng-model ='ufcmp.unbordingForm.rfc')
+
+
+
+
+
+
+
+
+                    .form-group
+                        label.col-md-2.control-label CER
+                        .col-md-10
+                            span.text-light-blue.Poppins-Bold(ng-if="ufcmp.unbordingForm.cerUpdatedAt") Actualizado en {{ufcmp.unbordingForm.cerUpdatedAt | date:'h:mm a dd-MM-yyyy' }}
+                            span.text-danger.Poppins-Bold(ng-if="!ufcmp.unbordingForm.cerUpdatedAt") Su archivo .CER es requerido
+                            input.form-control(ng-if="ufcmp.showCerInput" type='file', namde='cerFile' accept='.cer', required='', file-model="ufcmp.unbordingForm.cer")
+                            input.form-control(ng-if="!ufcmp.showCerInput" type='file', namde='cerFile' accept='.cer', file-model="ufcmp.unbordingForm.cer")
+
+                    .form-group
+                        label.col-md-2.control-label KEY
+                        .col-md-10
+                            span.text-light-blue.Poppins-Bold(ng-if="ufcmp.unbordingForm.keyUpdatedAt") Actualizado en {{ufcmp.unbordingForm.keyUpdatedAt | date:'h:mm a dd-MM-yyyy' }}
+                            span.text-danger.Poppins-Bold(ng-if="!ufcmp.unbordingForm.keyUpdatedAt") Su archivo .KEY es requerido
+                            input.form-control(ng-if="ufcmp.showKeyInput" type='file', namde='keyFile' accept='.key', required='', file-model="ufcmp.unbordingForm.key")
+                            input.form-control(ng-if="!ufcmp.showKeyInput" type='file', namde='keyFile' accept='.key', file-model="ufcmp.unbordingForm.key")
+
+
+
+
+    .modal-footer
+        button.btn.btn-primary(ng-click='ufcmp.updateForm()' ng-disabled="!ufcmp.unbordingForm.name || !ufcmp.unbordingForm.rfc || !form.inputRFC.$valid || (ufcmp.showCerInput && !pc.unbordingForm.cer)  || (ufcmp.showKeyInput && !pc.unbordingForm.key) ") Actualizar
+        button.btn.btn-secondary(ng-click='ufcmp.cancel()' ng-disabled="true") Cancel
+

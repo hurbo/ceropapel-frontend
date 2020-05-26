@@ -8,6 +8,10 @@
   function templatesFactory($q, $http, socket) {
     var selectedTemplate = null;
     var service = {
+
+
+
+
       getTemplates: getTemplates,
 
       getTemplatesPag: getTemplatesPag,
@@ -23,7 +27,8 @@
       getVariableTypes: getVariableTypes,
       incrementUsedCounter: incrementUsedCounter,
       setCurrentTemplate: setCurrentTemplate,
-      getCurrentTemplate: getCurrentTemplate
+      getCurrentTemplate: getCurrentTemplate,
+      deleteTemplate: deleteTemplate
     };
     return service;
 
@@ -100,6 +105,10 @@
     function getVariableTypes(cb) {
 
       socket.emit('getVariableTypes', {}, cb);
+    }
+    function deleteTemplate(template, cb) {
+      console.log("deleteTemplate factory", template);
+      socket.emit('deleteTemplate', template, cb);
     }
 
     function getListOfTemplates() {

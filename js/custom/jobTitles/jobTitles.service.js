@@ -56,9 +56,9 @@
     }
 
     function getSecretariates(profile, cb) {
-      if (secretariates) {
-        return cb(null, secretariates);
-      } else {
+
+
+
         socket.emit('getSecretariates', profile, function (err, data) {
           if (profile.roleID === 2 && profile.secretariateID) {
             for (let i = 0; i < data.length; i++) {
@@ -76,18 +76,18 @@
           }
 
         });
-      }
+
     }
 
     function getSecretariatesGroup(profile, cb) {
-      if (secretariatesGroup) {
-        return cb(null, secretariatesGroup);
-      } else {
+
+
+
         socket.emit('getSecretariates', profile, function (err, data) {
           secretariatesGroup = data;
           return cb(err, secretariatesGroup);
         });
-      }
+
     }
 
     function reloadSecretariates(profile, cb) {

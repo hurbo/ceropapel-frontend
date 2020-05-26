@@ -1,0 +1,11 @@
+.row(ng-if='docs.loading')
+  .col-md-12
+    .panel-default
+        .panel-heading
+            h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+        .panel-body.loader-demo.loader-demo-sk
+            .spinner
+                .dot1
+                .dot2
+
+.row(ng-if='!docs.loading')

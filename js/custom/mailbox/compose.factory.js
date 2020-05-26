@@ -170,6 +170,7 @@
     };
 
     function init(draft) {
+      console.log("porno     function init");
       compose.templateLoaded = false;
       compose.originalContent = '';
       compose.variableValues = {};
@@ -259,6 +260,7 @@
 
 
     function getFullSize() {
+      console.log("porno     function getFullSize");
       var size = 0;
 
 
@@ -285,6 +287,7 @@
 
 
     function NOW() {
+      console.log("porno     function NOW");
 
       var date = new Date();
       var aaaa = date.getFullYear();
@@ -317,12 +320,23 @@
   }
 
     function onRemoveTo(item, model) {
+      console.log("porno     function onRemoveTo");
       compose.contacts.push(item);
       _removeFromListRecipients(item);
       _removeFromPrivateMessages(item);
     }
 
     function onSelectTo(item, model) {
+      console.log("porno     function onSelectTo");
+      console.log("onSelectTo", item);
+
+      if(!item.email){
+        console.log("Es de los nuevos");
+        item = {
+          name: '',
+          email: item
+        }
+      }
       var flag = 0;
       for (var i = 0; i < compose.selectedTo.length; i++) {
         if (item.email === compose.selectedTo[i].email) {
@@ -364,6 +378,7 @@
       }
 
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
+        console.log("findEmailInContacts", item);
         if (!contact) {
           for (var i = 0; i < compose.selectedTo.length; i++) {
             if (item.email === compose.selectedTo[i].email) {
@@ -371,8 +386,9 @@
               break;
             }
           }
-          swalFactory.error(item.email + " no puede recibir oficios");
-          return;
+          console.log("Esto es unn usuario nuevo", item);
+          // swalFactory.error(item.email + " no puede recibir oficios");
+          // return;
         }
 
         if (_isEmail(item.email)) {
@@ -402,6 +418,8 @@
     }
 
     function onSelectToCc(item, model) {
+      console.log("porno     function onSelectToCc");
+      console.log("onSelectToCc", item);
       var flag = 0;
       for (var i = 0; i < compose.selectedTo.length; i++) {
         if (item.email === compose.selectedTo[i].email) {
@@ -480,6 +498,8 @@
     }
 
     function onSelectGroup(item, model) {
+      console.log("porno     function onSelectGroup");
+console.log("onSelectGroup");
       if (item.id) {
         socket.emit('getMembersOfGroupForCompose', {
           group: item.id
@@ -520,10 +540,12 @@
     }
 
     function toggleSignatureRequirement(recipient) {
+      console.log("porno     function toggleSignatureRequirement");
       recipient.needSign = !recipient.needSign;
     }
 
     function createDocument() {
+      console.log("porno     function createDocument");
       if (compose.prossesing) {
         return;
       };
@@ -710,6 +732,7 @@
     }
 
     function _removeFromPrivateMessages(item) {
+      console.log("porno     function _removeFromPrivateMessages");
       compose.listToPrivateMessages.splice(
         compose.listToPrivateMessages.indexOf(item),
         1
@@ -727,10 +750,12 @@
     }
 
     function _removeFromListRecipients(item) {
+      console.log("porno     function _removeFromListRecipients");
       compose.recipients.splice(compose.recipients.indexOf(item), 1);
     }
 
     function _deleteDraft() {
+      console.log("porno     function _deleteDraft");
       compose.prossesingDeleteDraft = true;
       socket.emit("deleteDraft", draftID, function (error, flag) {
         compose.prossesingDeleteDraft = false;
@@ -740,6 +765,7 @@
     }
 
     function setTemplate(template) {
+      console.log("porno     function setTemplate");
       compose.loading = true;
 
       templatesFactory.getTemplateById(template.id).then(function (solve) {
@@ -761,6 +787,7 @@
     }
 
     function setInitialVariableValues() {
+      console.log("porno     function setInitialVariableValues");
       compose.variables.map(function (variable, index) {
         if (variable.type === 'folio') {
           var secretariateData = compose.secretariats.find(function (secretaria) {
@@ -798,6 +825,7 @@
     }
 
     function onChangeVariable(variableChanged) {
+      console.log("porno     function onChangeVariable");
       var newContent = compose.originalContent;
       compose.variables.map(function (variable) {
         var variableKey = variable.variable;
@@ -826,6 +854,7 @@
     }
 
     function getVariableTableContent(variable) {
+      console.log("porno     function getVariableTableContent");
       var variableKey = variable.variable;
       // var value = [rowIndex][columnIndex] || variableKey;
       return '<table class="table table-bordered">' +
@@ -840,18 +869,21 @@
     }
 
     function areAllVariablesFilled () {
+      console.log("porno     function areAllVariablesFilled");
       return (compose.variables || []).every(function (variable) {
         return !!compose.variableValues[variable.variable];
       });
     }
 
     function initModalPreviewTemplate() {
+      console.log("porno     function initModalPreviewTemplate");
       if (!angular.element('#modalPreviewTemplate').modal) {
         angular.element('#modalPreviewTemplate').modal({ backdrop: true, show: false });
       }
     }
 
     function showPreviewTemplate() {
+      console.log("porno     function showPreviewTemplate");
       compose.originalContent = compose.templateFullContent;
       initModalPreviewTemplate();
       compose.onChangeVariable();
@@ -865,6 +897,7 @@
     }
 
     function getRawDocumentElements() {
+      console.log("porno     function getRawDocumentElements");
       var $documentPreview = $('.document-preview');
       var headerElement = {};
       var footerElement = {};
@@ -896,17 +929,20 @@
     }
 
     function processSheets(header, footer, elements) {
+      console.log("porno     function processSheets");
       var SHEET_HEIGHT = 800;
       var sheets = [];
       var sheet = { sections: [], height: 0 };
       var workingSheet = Object.assign({}, sheet);
 
       function addSection(section) {
+        console.log("porno     function addSection", section);
         workingSheet.sections.push(section);
         workingSheet.height += section.height;
       }
 
       function saveSheet(sheetToSave) {
+        console.log("porno     function saveSheet", sheetToSave);
         sheets.push(Object.assign({}, sheetToSave));
         workingSheet = { sections: [], height: 0 };
       }
@@ -936,15 +972,18 @@
     }
 
     function printDocument() {
+      console.log("porno     function printDocument");
       $('.process-document').print();
     }
 
     function closePreviewTemplate() {
+      console.log("porno     function closePreviewTemplate");
       initModalPreviewTemplate();
       angular.element('#modalPreviewTemplate').modal('hide');
     }
 
     function onAddTableRow (variable) {
+      console.log("porno     function onAddTableRow");
       compose.variableValues[variable.variable].push((variable.tableColumns || []).map(function (column) { return {
         name: '',
         width: column.width
@@ -954,29 +993,34 @@
     }
 
     function onRemoveTableRow (variable) {
+      console.log("porno     function onRemoveTableRow");
       compose.variableValues[variable.variable].pop();
       onChangeVariable(variable);
       // variable.tableColumns.pop();
     }
 
     function isDateVariable(variable) {
+      console.log("porno     function isDateVariable");
       return variable.type === 'date_ddmmyyyy_slash' || variable.type === 'date_ddmonthnameyyyy' || variable.type === 'date_extended';
     }
 
     function isCurrentDateVariable(variable) {
+      console.log("porno     function isCurrentDateVariable");
       return variable.type === 'current_date_ddmmyyyy_slash' || variable.type === 'current_date_ddmonthnameyyyy' || variable.type === 'current_date_extended';
     }
 
     function tagTransform(newEmail) {
+      console.log("porno     function tagTransform");
+      console.log("tag transform ", newEmail);
       var item = {
         name: newEmail,
         email: newEmail
-        // email: _cleanEmail(newEmail),
       };
       return item;
     }
 
     function tagTransformSecretariat(newEmail) {
+      console.log("porno     function tagTransformSecretariat");
       var item = {
         name: newEmail,
         email: newEmail
@@ -986,6 +1030,7 @@
     }
 
     function tagTransformGroup(newGroup) {
+      console.log("porno     function tagTransformGroup");
       var item = {
         name: newGroup
         // email: _cleanEmail(newEmail),
@@ -994,6 +1039,7 @@
     }
 
     function onRemoveColaboration(item, model) {
+      console.log("porno     function onRemoveColaboration");
       compose.canAddGroup = false;
       var targen = -1;
       for (var i = 0; i < compose.listColaborators.length; i++) {
@@ -1008,6 +1054,8 @@
     }
 
     function onSelectColaboration(item, model) {
+      console.log("porno     function onSelectColaboration");
+      console.log("onSelectColaboration");
       var flag = 0;
       for (var i = 0; i < compose.selectedTo.length; i++) {
         if (item.email === compose.selectedTo[i].email) {
@@ -1044,7 +1092,12 @@
         }
       }
 
+
+
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
+        console.log("findEmailInContacts item", item);
+
+
         if (!contact) {
           for (var i = 0; i < compose.selectedColaborators.length; i++) {
             if (item.email === compose.selectedColaborators[i].email) {
@@ -1084,6 +1137,7 @@
     }
 
     function onRemoveGroup(item, model) {
+      console.log("porno     function onRemoveGroup");
       var targen = -1;
       for (var i = 0; i < compose.listColaborators.length; i++) {
         if (item._id === compose.listColaborators[i].item._id) {
@@ -1098,6 +1152,7 @@
 
 
     function onSelectDraftTo(item) {
+      console.log("porno     function onSelectDraftTo");
       var flag = 0;
       for (var i = 0; i < compose.draftTo.length; i++) {
         if (item.email === compose.draftTo[i].email) {
@@ -1147,12 +1202,14 @@
     }
 
     function removeFile(file) {
+      console.log("porno     function removeFile");
       compose.editedAttachments = true;
       compose.fileList.removeItem(file);
       // compose.files.splice(compose.files.indexOf(file), 1);
     }
 
     function showUploadFiles() {
+      console.log("porno     function showUploadFiles");
       if (compose.fileURL) {
         return compose.isUnzipFiles;
       }
@@ -1162,6 +1219,7 @@
     }
 
     function unzipFiles() {
+      console.log("porno     function unzipFiles");
       compose.blockDownload = true;
       // vm.showAttachementSection = "loader";
       var url = compose.fileURL;
@@ -1178,6 +1236,7 @@
     }
 
     function addMessage() {
+      console.log("porno     function addMessage");
       if (compose.privateMessageContent === "") {
         swalFactory.error("Agrega contenido");
         compose.error = "Agrega contenido";
@@ -1202,6 +1261,7 @@
     }
 
     function setEmails(emails) {
+      console.log("porno     function setEmails");
 
       var items = [];
       compose.showTo = false;
@@ -1227,6 +1287,7 @@
     }
 
     function saveDraft() {
+      console.log("porno     function saveDraft");
       userAction = true;
       compose.isDraft = true;
       if (compose.prossesing) return;
@@ -1380,6 +1441,7 @@
 
 
     function _getFiles() {
+      console.log("porno     function _getFiles");
       var items = compose.fileList.getItems();
       var files = null;
       if (compose.editedAttachments || items.length !== attachmentCount) {
@@ -1396,6 +1458,7 @@
     }
 
     function _cleanEmail(email) {
+      console.log("porno     function _cleanEmail");
       var parts = email.split("@");
       if (parts.length >= 2) {
         email = parts[0] + "@" + parts[1];
@@ -1406,6 +1469,7 @@
     }
 
     function _getDate(date) {
+      console.log("porno     function _getDate");
       var mm = date.getMonth() + 1; // getMonth() is zero-based
       var dd = date.getDate();
       var yy = date.getFullYear();
@@ -1419,6 +1483,7 @@
     }
 
     function _verifyPass() {
+      console.log("porno     function _verifyPass");
       compose.prossesing = true;
       if (compose.password === "") {
         swalFactory.error("Ingresa tu contraseña");
@@ -1433,6 +1498,7 @@
           password: compose.password
         },
         function (err, result) {
+          console.log("porno     function (err");
           console.error('ERR',err);
           console.error('result',result);
           if (err) {
@@ -1450,16 +1516,19 @@
     }
 
     function _validateInstitucional(email) {
+      console.log("porno     function _validateInstitucional");
 
       return true;
     }
 
     function _isEmail(email) {
+      console.log("porno     function _isEmail");
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     }
 
     function _getContacts(cb) {
+      console.log("porno     function _getContacts");
       socket.emit("getContacts", {}, function (err, data) {
         compose.contacts = err ? [] : data;
         compose.contacts.sort();
@@ -1468,6 +1537,7 @@
     }
 
     function _findEmailInDocument(email) {
+      console.log("porno     function _findEmailInDocument");
       var profile = Profile.getEmail();
       if (email === profile) {
         return;
@@ -1485,6 +1555,7 @@
     }
 
     function _findEmailInList(email, list) {
+      console.log("porno     function _findEmailInList");
       var index = -1;
       try {
         for (var i = 0; i < list.length; i++) {
@@ -1502,6 +1573,7 @@
     }
 
     function _setupDraft(draft) {
+      console.log("porno     function _setupDraft");
       Profile.get(function (error, profile) {
 
         if (draft.authorID !== profile.id && draft.draftTo !== profile.jobTitleID) {

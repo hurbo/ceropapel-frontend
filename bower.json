@@ -87,7 +87,8 @@
     "angular-jwt": "^0.1.11",
     "swangular": "^1.4.3",
     "sweetalert2": "6.9.1",
-    "font-awesome": "fontawesome#4.5.0"
+    "font-awesome": "fontawesome#4.5.0",
+    "dom-to-image": "^2.6.0"
   },
   "resolutions": {
     "angular-ui-utils": "3.0.0",

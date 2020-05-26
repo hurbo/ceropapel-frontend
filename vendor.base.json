@@ -57,7 +57,8 @@
   "bower_components/moment/min/moment-with-locales.min.js",
   "bower_components/auth0.js/dist/auth0.min.js",
   "bower_components/angular-auth0/dist/angular-auth0.min.js",
-  "bower_components/angular-jwt/dist/angular-jwt.min.js"
+  "bower_components/angular-jwt/dist/angular-jwt.min.js",
+  "bower_components/dom-to-image/dist/dom-to-image.min.js"
 ]
 
 

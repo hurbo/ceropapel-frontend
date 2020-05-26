@@ -110,7 +110,7 @@
       });
     }
 
- 
+
     function activate() {
       vm._isLoading = false;
       vm.secretariates = [];
@@ -278,7 +278,7 @@
 
     function createTemplate() {
       if (vm.profile.roleID === Roles.NORMAL) {
-        vm.template.private = 0;
+        vm.template.private = 1;
       }
 
       return new Promise(function (resolve, reject) {
@@ -580,6 +580,7 @@
     }
 
     function showPreviewTemplate() {
+      console.log("showPreviewTemplate");
       vm.template.fullContent = '<header>' + vm.template.header + '</header>' +
         '<body>' + vm.template.content + '</body>' +
         '<footer>' + vm.template.footer + '</footer>';
@@ -594,6 +595,9 @@
 
 
     function replaceVariableInContent(previousVariable, newVariable) {
+      console.log("replaceVariableInContent");
+
+
       vm.template.header = vm.template.header.split(previousVariable).join(newVariable);
       vm.template.content = vm.template.content.split(previousVariable).join(newVariable);
       vm.template.footer = vm.template.footer.split(previousVariable).join(newVariable);

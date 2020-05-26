@@ -258,7 +258,7 @@
             .process-document(ng-if="docs.compose.document.sheets")
               .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
                 div(ng-repeat="section in sheet.sections")
-                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0; left: 0;")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
                   div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
           .col-md-2
 
@@ -322,7 +322,7 @@
                 h4.text-danger Orden de colaboración.
                 div#orden(ng-nestable ng-model='docs.compose.listColaborators')
                   div(ng-if="$item")
-                    strong {{docs.getPossition($item)}} 
+                    strong {{docs.getPossition($item)}}
                     img.img-circle(style="height: 30px; padding-right: 10px; padding-left: 10px; " ng-src="{{$item.avatar}}", alt="To Avatar")
                     | {{$item.name}} < {{$item.email}} >
                 hr(style="margin: 30px 0")
@@ -615,7 +615,7 @@
 #modalPreviewTemplate.modal.fade(role='dialog', style="background: rgba(0, 0,0, .75);overflow-y: auto;")
   .modal-dialog.modal-lg
     .modal-content
-      .modal-header 
+      .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
         h4.modal-title Vista previa
       .modal-body
@@ -626,7 +626,7 @@
             .process-document
               .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
                 div(ng-repeat="section in sheet.sections")
-                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0; left: 0;")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
                   div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
 
 

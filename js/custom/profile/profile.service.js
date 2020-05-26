@@ -115,7 +115,7 @@
           } else {
             profile = data;
             if (!profile.jobTitleID) {
-              $state.go('app.profile');
+              // $state.go('app.profile');
 
             }
             defer.resolve(data);
@@ -124,7 +124,7 @@
       } else {
 
         if (!profile.jobTitleID) {
-          $state.go('app.profile');
+          // $state.go('app.profile');
 
         }
         defer.resolve(profile);

@@ -306,6 +306,24 @@
 
 
 
+
+
+
+      .state('app.mailbox.newCompose', {
+        url: '/newCompose',
+        title: 'Documentos',
+        controller: 'NewMailComposerController',
+        controllerAs: 'docs',
+        templateUrl: helper.basepath('newMailbox/compose.html'),
+        resolve: helper.resolveFor('ui.select')
+      })
+
+
+
+
+
+
+
       .state('app.mailbox.compose', {
         url: '/compose',
         title: 'Documentos',

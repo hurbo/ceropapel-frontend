@@ -9,11 +9,11 @@ aside.offsidebar(ng-include="'/views/partials/offsidebar.html'")
 
 // Main section
 section
-  // Pre-loader / splash screen
-  div(data-preloader)
 
   // Page content
-  .div(ui-view="", autoscroll="false", ng-class="app.viewAnimation")
+  unbording-component()
+
+
 
 // Page footer
 footer(ng-include="'/views/partials/footer.html'")

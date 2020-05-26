@@ -1,0 +1,14 @@
+
+
+
+.div( ng-if="!ucmp.isLoading && ucmp.profile && ucmp.profile" ui-view="", autoscroll="false", ng-class="app.viewAnimation")
+
+
+
+.panel-default(ng-if="ucmp.isLoading")
+    .panel-heading
+        h3.text-center.Poppins-SemiBold.primaryTextBlue Cargando
+    .panel-body.loader-demo.loader-demo-sk
+        .spinner
+            .dot1
+            .dot2
