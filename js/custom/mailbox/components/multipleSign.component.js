@@ -25,7 +25,8 @@
     'paginatorFactory',
     'socket',
     '$state',
-    'ExternalsFactory'
+    'ExternalsFactory',
+    'profileFactory'
   ];
 
 
@@ -38,7 +39,8 @@
     paginatorFactory,
     socket,
     $state,
-    Externals
+    Externals,
+    profileFactory
   ) {
     var vm = this;
     vm.templateUrl = 'views/mailbox/components/multipleSign.html';
@@ -93,30 +95,36 @@
 
     function _activate() {
 
-      if ($state.current.name.indexOf('app.mailbox.internal') !== -1) {
-        vm.active = true;
-        vm.internal = true;
-        if ($state.current.name.indexOf('archivedOut') !== -1) {
-          vm.itsInbox = false;
-        } else {
-          vm.itsInbox = true;
-        }
-      } else {
-        Externals.validatePermision('sign').then(function (can) {
-          if (can) {
-            vm.active = true;
-            vm.currentBoss = Externals.getCurrentUser();
-            vm.internal = false;
-            if ($state.current.name.indexOf('archivedOut') !== -1) {
-              vm.itsInbox = false;
-            } else {
-              vm.itsInbox = true;
-            }
+      profileFactory.getProfile()
+      .then(profile => {
+        vm.profile = profile;
+        if ($state.current.name.indexOf('app.mailbox.internal') !== -1) {
+          vm.active = true;
+          vm.internal = true;
+          if ($state.current.name.indexOf('archivedOut') !== -1) {
+            vm.itsInbox = false;
           } else {
-            vm.active = false;
+            vm.itsInbox = true;
           }
-        });
-      }
+        } else {
+          Externals.validatePermision('sign').then(function (can) {
+            if (can) {
+              vm.active = true;
+              vm.currentBoss = Externals.getCurrentUser();
+              vm.internal = false;
+              if ($state.current.name.indexOf('archivedOut') !== -1) {
+                vm.itsInbox = false;
+              } else {
+                vm.itsInbox = true;
+              }
+            } else {
+              vm.active = false;
+            }
+          });
+        }
+      })
+
+
     }
 
 

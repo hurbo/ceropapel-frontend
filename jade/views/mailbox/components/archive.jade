@@ -1,7 +1,7 @@
 div(ng-if="!acmp.ViewFactory.loading()")
-  button.btn.btn-bm.btn-primary.viewMenuButton(ng-if = "!acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openArchive(\'lg\')')
+  button.btn.btn-bm.btn-primary.viewMenuButton(ng-disabled="acmp.profile.roleID === 5" ng-if = "!acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openArchive(\'lg\')')
     | Archivar
-  button.btn.btn-bm.btn-secondary.viewMenuButton(ng-if = "acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openUnarchive(\'lg\')')
+  button.btn.btn-bm.btn-secondary.viewMenuButton(ng-disabled="acmp.profile.roleID === 5" ng-if = "acmp.ViewFactory.showArchive()" type='button' ng-click='acmp.openUnarchive(\'lg\')')
     | Desarchivar
 
 

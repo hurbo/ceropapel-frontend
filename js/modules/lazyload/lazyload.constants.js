@@ -21,6 +21,7 @@
         ],
         'loaders.css': ['vendor/loaders.css/loaders.css'],
         'spinkit': ['vendor/spinkit/spinkit.min.css'],
+        'ngMaterial' : ['vendor/angular-material/angular-material.min.css']
       },
 
       // Angular based script (use the right module name)
@@ -35,6 +36,14 @@
           ],
           serie: true
         },
+
+        {
+          name: 'ng-nestable',
+          files: ['vendor/ng-nestable/src/angular-nestable.js',
+            'vendor/nestable/jquery.nestable.js'
+          ]
+        },
+
         {
           name: 'angularBootstrapNavTree',
           files: [
@@ -49,6 +58,14 @@
             'vendor/angular-ui-select/dist/select.css'
           ]
         },
+        {
+          name: 'bm.bsTour',
+          files: [
+            'vendor/bootstrap-tour/build/css/bootstrap-tour.min.css',
+            'vendor/bootstrap-tour/build/js/bootstrap-tour.min.js',
+          ],
+          serie: true
+        }
       ]
     });
 

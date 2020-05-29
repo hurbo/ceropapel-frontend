@@ -170,7 +170,7 @@
     };
 
     function init(draft) {
-      console.log("porno     function init");
+
       compose.templateLoaded = false;
       compose.originalContent = '';
       compose.variableValues = {};
@@ -236,11 +236,18 @@
       compose.loading = false;
 
       if (draft && draft.templateVariableValues) {
-        var templateData = JSON.parse(draft.templateVariableValues);
+        console.log("draft.templateVariableValues",draft.templateVariableValues);
+        console.log("draft",draft);
 
-        compose.templateFullContent = templateData.templateFullContent;
-        compose.variableValues = templateData.variableValues;
-        compose.variables = templateData.variables;
+        var templateData = JSON.parse(draft.templateVariableValues);
+        console.log("verga madre que pedo con esta mierda", templateData);
+        console.log("verga madre que pedo con esta mierda [//FOLIO//]", templateData['[//FOLIO//]']);
+
+        compose.templateFullContent = draft.template.fullContent;
+        compose.variableValues = templateData;
+        compose.variables = draft.template.variables;
+        compose.templateId = draft.template.id;
+        compose.draftID = draft.id;
       }
 
       _getContacts(function () {
@@ -250,17 +257,13 @@
 
         if (draft) {
           _setupDraft(draft);
-        } else {
-
-          compose.document.subject = 'Guardado automatico ' + NOW();
-          // _authoSaveDraft(false, null);
         }
       });
     }
 
 
     function getFullSize() {
-      console.log("porno     function getFullSize");
+
       var size = 0;
 
 
@@ -287,7 +290,7 @@
 
 
     function NOW() {
-      console.log("porno     function NOW");
+
 
       var date = new Date();
       var aaaa = date.getFullYear();
@@ -320,18 +323,18 @@
   }
 
     function onRemoveTo(item, model) {
-      console.log("porno     function onRemoveTo");
+
       compose.contacts.push(item);
       _removeFromListRecipients(item);
       _removeFromPrivateMessages(item);
     }
 
     function onSelectTo(item, model) {
-      console.log("porno     function onSelectTo");
-      console.log("onSelectTo", item);
+
+
 
       if(!item.email){
-        console.log("Es de los nuevos");
+
         item = {
           name: '',
           email: item
@@ -378,39 +381,40 @@
       }
 
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
-        console.log("findEmailInContacts", item);
+
         if (!contact) {
-          for (var i = 0; i < compose.selectedTo.length; i++) {
-            if (item.email === compose.selectedTo[i].email) {
-              compose.selectedTo.splice(i, 1);
-              break;
-            }
-          }
-          console.log("Esto es unn usuario nuevo", item);
-          // swalFactory.error(item.email + " no puede recibir oficios");
-          // return;
+          console.log("Es uno nuevo onSelectTo");
+        } else {
+          console.log("No es nuevo onSelectTo");
+          item = contact;
         }
 
         if (_isEmail(item.email)) {
-          if (_validateInstitucional(item.email)) {
+
             _findEmailInDocument(item.email);
             var index = _findEmailInList(item.email, compose.contacts);
-            if (index >= 0) {
-              compose.contacts.splice(index, 1);
-            }
+            console.error("_findEmailInList 1",index);
+
             compose.listToPrivateMessages.push(item);
-            // item.needSign = false;
-            item.needSign = item.needSign ? true : false;
+            item.needSign = true;
             compose.recipients.push(item);
-          } else {
-            swalFactory.error("Solo se permiten correos institucionales");
-            compose.error = "Solo se permiten correos institucionales";
-            var index = compose.selectedTo.indexOf(item);
-            if (index >= 0) compose.selectedTo.splice(index, 1);
-          }
+
+
+            if (index >= 0) {
+              item.isNew = false;
+              compose.contacts.splice(index, 1);
+            } else {
+              item.isNew = true;
+            }
+
+
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
           compose.error = "Ingresa un correo electrónico válido";
+
+
+
+
           var index = compose.selectedTo.indexOf(item);
           if (index >= 0) compose.selectedTo.splice(index, 1);
         }
@@ -418,8 +422,8 @@
     }
 
     function onSelectToCc(item, model) {
-      console.log("porno     function onSelectToCc");
-      console.log("onSelectToCc", item);
+
+
       var flag = 0;
       for (var i = 0; i < compose.selectedTo.length; i++) {
         if (item.email === compose.selectedTo[i].email) {
@@ -462,32 +466,24 @@
 
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
         if (!contact) {
-          for (var i = 0; i < compose.selectedToCc.length; i++) {
-            if (item.email === compose.selectedToCc[i].email) {
-              compose.selectedTo.splice(i, 1);
-              break;
-            }
-          }
-          swalFactory.error(item.email + " no puede recibir oficios");
-          return;
+          console.log("Es uno nuevo onSelectToCc");
+        } else {
+          console.log("No es nuevo onSelectToCc");
+          item = contact;
         }
 
         if (_isEmail(item.email)) {
-          if (_validateInstitucional(item.email)) {
+
             _findEmailInDocument(item.email);
             var index = _findEmailInList(item.email, compose.contacts);
+            console.error("_findEmailInList 2", index);
             if (index >= 0) {
               compose.contacts.splice(index, 1);
             }
             compose.listToPrivateMessages.push(item);
             item.needSign = false;
             compose.recipients.push(item);
-          } else {
-            swalFactory.error("Solo se permiten correos institucionales");
-            compose.error = "Solo se permiten correos institucionales";
-            var index = compose.selectedToCc.indexOf(item);
-            if (index >= 0) compose.selectedToCc.splice(index, 1);
-          }
+
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
           compose.error = "Ingresa un correo electrónico válido";
@@ -498,8 +494,8 @@
     }
 
     function onSelectGroup(item, model) {
-      console.log("porno     function onSelectGroup");
-console.log("onSelectGroup");
+
+
       if (item.id) {
         socket.emit('getMembersOfGroupForCompose', {
           group: item.id
@@ -507,6 +503,7 @@ console.log("onSelectGroup");
           for (var i = 0; i < member.length; i++) {
             if (!_findEmailInDocument(member[i].userEmail)) {
               var index = _findEmailInList(member[i].userEmail, compose.contacts);
+              console.error("_findEmailInList 3", index);
               if (index >= 0) {
 
                 var auxItem = {
@@ -540,12 +537,12 @@ console.log("onSelectGroup");
     }
 
     function toggleSignatureRequirement(recipient) {
-      console.log("porno     function toggleSignatureRequirement");
+
       recipient.needSign = !recipient.needSign;
     }
 
     function createDocument() {
-      console.log("porno     function createDocument");
+
       if (compose.prossesing) {
         return;
       };
@@ -606,6 +603,9 @@ console.log("onSelectGroup");
         }
       }
       var auxTo = [];
+
+      var auxFT = [];
+      var auxCC = [];
       userAction = true;
 
       Profile.get(function (error, profile) {
@@ -624,7 +624,7 @@ console.log("onSelectGroup");
               jobTitleID: compose.listColaborators[i].item.jobTitleID,
               email: compose.listColaborators[i].item.email.toLowerCase(),
               name:
-                compose.listColaborators[i].item.name.toLowerCase() ||
+              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
                 'Nombre pendiente',
               privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
               colaboration: true,
@@ -635,16 +635,54 @@ console.log("onSelectGroup");
               fromJT: profile.jobTitle._id,
               toJT: compose.listColaborators[i].item.jobTitle
             });
+            auxFT.push({
+              id: compose.listColaborators[i].item.id,
+              jobTitleID: compose.listColaborators[i].item.jobTitleID,
+
+              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID? false : true,
+
+              email: compose.listColaborators[i].item.email.toLowerCase(),
+              name:
+              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                'Nombre pendiente',
+              privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
+              colaboration: true,
+              inColaboration: true,
+              type: compose.document.type || '',
+              confidential: compose.isConfidential,
+              deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+              fromJT: profile.jobTitle._id,
+              toJT: compose.listColaborators[i].item.jobTitle
+            });
+
           }
         }
 
         for (var i = 0; i < compose.recipients.length; i++) {
+          console.log("compose.recipients[i]",compose.recipients[i]);
+          auxCC.push({
+            id: compose.recipients[i].id,
+            jobTitleID: compose.recipients[i].jobTitleID,
+            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID? false : true,
+            email: compose.recipients[i].email.toLowerCase(),
+            name:
+            compose.recipients[i].name? compose.recipients[i].name.toLowerCase(): 'Nombre pendiente',
+            privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
+            colaboration: compose.colaboration || false,
+            inColaboration: false,
+            type: compose.document.type || '',
+            confidential: compose.isConfidential,
+            deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+            fromJT: profile.jobTitle._id,
+            toJT: compose.recipients[i].jobTitle,
+            needSign: compose.recipients[i].needSign
+          });
           auxTo.push({
             id: compose.recipients[i].id,
             jobTitleID: compose.recipients[i].jobTitleID,
             email: compose.recipients[i].email.toLowerCase(),
             name:
-              compose.recipients[i].name.toLowerCase() || 'Nombre pendiente',
+            compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
             privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
             colaboration: compose.colaboration || false,
             inColaboration: false,
@@ -659,6 +697,23 @@ console.log("onSelectGroup");
 
         if (compose.havePrivateMessages) {
           for (var i = 0; i < compose.listPrivateMessages.length; i++) {
+
+            for (var j = 0; j < auxFT.length; j++) {
+              if (auxFT[j].email === compose.listPrivateMessages[i].to.email) {
+                auxFT[j].privateMessage =
+                  compose.listPrivateMessages[i].content;
+                break;
+              }
+            }
+            for (var j = 0; j < auxCC.length; j++) {
+              if (auxCC[j].email === compose.listPrivateMessages[i].to.email) {
+                auxCC[j].privateMessage =
+                  compose.listPrivateMessages[i].content;
+                break;
+              }
+            }
+
+
             for (var j = 0; j < auxTo.length; j++) {
               if (auxTo[j].email === compose.listPrivateMessages[i].to.email) {
                 auxTo[j].privateMessage =
@@ -677,6 +732,8 @@ console.log("onSelectGroup");
           readed: false
         };
 
+        compose.document.auxFT = auxFT;
+        compose.document.auxCC = auxCC;
         compose.document.to = auxTo;
         compose.document.ft = compose.colaboration;
         compose.document.priority = compose.havePriority;
@@ -694,6 +751,10 @@ console.log("onSelectGroup");
 
         if (draftID) data.id = draftID;
 
+
+
+        console.log("manda a crear con ", data);
+
         Doc.create(data, function (error, doc) {
           if (error) {
             compose.prossesing = false;
@@ -706,7 +767,8 @@ console.log("onSelectGroup");
               templateId: compose.templateId,
               userId: compose.profile.id,
               roleId: compose.profile.roleID,
-              secretariateId: compose.profile.secretariateID
+              secretariateId: compose.profile.secretariateID,
+              documentID: doc.id
             });
             Doc.getSignatures({ uuid: doc.uuid }, function (err, signatures) {
               var editData = {
@@ -732,7 +794,7 @@ console.log("onSelectGroup");
     }
 
     function _removeFromPrivateMessages(item) {
-      console.log("porno     function _removeFromPrivateMessages");
+
       compose.listToPrivateMessages.splice(
         compose.listToPrivateMessages.indexOf(item),
         1
@@ -750,12 +812,12 @@ console.log("onSelectGroup");
     }
 
     function _removeFromListRecipients(item) {
-      console.log("porno     function _removeFromListRecipients");
+
       compose.recipients.splice(compose.recipients.indexOf(item), 1);
     }
 
     function _deleteDraft() {
-      console.log("porno     function _deleteDraft");
+
       compose.prossesingDeleteDraft = true;
       socket.emit("deleteDraft", draftID, function (error, flag) {
         compose.prossesingDeleteDraft = false;
@@ -765,7 +827,7 @@ console.log("onSelectGroup");
     }
 
     function setTemplate(template) {
-      console.log("porno     function setTemplate");
+
       compose.loading = true;
 
       templatesFactory.getTemplateById(template.id).then(function (solve) {
@@ -787,7 +849,7 @@ console.log("onSelectGroup");
     }
 
     function setInitialVariableValues() {
-      console.log("porno     function setInitialVariableValues");
+
       compose.variables.map(function (variable, index) {
         if (variable.type === 'folio') {
           var secretariateData = compose.secretariats.find(function (secretaria) {
@@ -825,7 +887,7 @@ console.log("onSelectGroup");
     }
 
     function onChangeVariable(variableChanged) {
-      console.log("porno     function onChangeVariable");
+
       var newContent = compose.originalContent;
       compose.variables.map(function (variable) {
         var variableKey = variable.variable;
@@ -854,7 +916,7 @@ console.log("onSelectGroup");
     }
 
     function getVariableTableContent(variable) {
-      console.log("porno     function getVariableTableContent");
+
       var variableKey = variable.variable;
       // var value = [rowIndex][columnIndex] || variableKey;
       return '<table class="table table-bordered">' +
@@ -869,21 +931,21 @@ console.log("onSelectGroup");
     }
 
     function areAllVariablesFilled () {
-      console.log("porno     function areAllVariablesFilled");
+
       return (compose.variables || []).every(function (variable) {
         return !!compose.variableValues[variable.variable];
       });
     }
 
     function initModalPreviewTemplate() {
-      console.log("porno     function initModalPreviewTemplate");
+
       if (!angular.element('#modalPreviewTemplate').modal) {
         angular.element('#modalPreviewTemplate').modal({ backdrop: true, show: false });
       }
     }
 
     function showPreviewTemplate() {
-      console.log("porno     function showPreviewTemplate");
+
       compose.originalContent = compose.templateFullContent;
       initModalPreviewTemplate();
       compose.onChangeVariable();
@@ -897,7 +959,7 @@ console.log("onSelectGroup");
     }
 
     function getRawDocumentElements() {
-      console.log("porno     function getRawDocumentElements");
+
       var $documentPreview = $('.document-preview');
       var headerElement = {};
       var footerElement = {};
@@ -929,20 +991,20 @@ console.log("onSelectGroup");
     }
 
     function processSheets(header, footer, elements) {
-      console.log("porno     function processSheets");
+
       var SHEET_HEIGHT = 800;
       var sheets = [];
       var sheet = { sections: [], height: 0 };
       var workingSheet = Object.assign({}, sheet);
 
       function addSection(section) {
-        console.log("porno     function addSection", section);
+
         workingSheet.sections.push(section);
         workingSheet.height += section.height;
       }
 
       function saveSheet(sheetToSave) {
-        console.log("porno     function saveSheet", sheetToSave);
+
         sheets.push(Object.assign({}, sheetToSave));
         workingSheet = { sections: [], height: 0 };
       }
@@ -972,18 +1034,18 @@ console.log("onSelectGroup");
     }
 
     function printDocument() {
-      console.log("porno     function printDocument");
+
       $('.process-document').print();
     }
 
     function closePreviewTemplate() {
-      console.log("porno     function closePreviewTemplate");
+
       initModalPreviewTemplate();
       angular.element('#modalPreviewTemplate').modal('hide');
     }
 
     function onAddTableRow (variable) {
-      console.log("porno     function onAddTableRow");
+
       compose.variableValues[variable.variable].push((variable.tableColumns || []).map(function (column) { return {
         name: '',
         width: column.width
@@ -993,34 +1055,34 @@ console.log("onSelectGroup");
     }
 
     function onRemoveTableRow (variable) {
-      console.log("porno     function onRemoveTableRow");
+
       compose.variableValues[variable.variable].pop();
       onChangeVariable(variable);
       // variable.tableColumns.pop();
     }
 
     function isDateVariable(variable) {
-      console.log("porno     function isDateVariable");
+
       return variable.type === 'date_ddmmyyyy_slash' || variable.type === 'date_ddmonthnameyyyy' || variable.type === 'date_extended';
     }
 
     function isCurrentDateVariable(variable) {
-      console.log("porno     function isCurrentDateVariable");
+
       return variable.type === 'current_date_ddmmyyyy_slash' || variable.type === 'current_date_ddmonthnameyyyy' || variable.type === 'current_date_extended';
     }
 
     function tagTransform(newEmail) {
-      console.log("porno     function tagTransform");
-      console.log("tag transform ", newEmail);
+
+
       var item = {
         name: newEmail,
-        email: newEmail
+        email: _cleanEmail(newEmail),
       };
       return item;
     }
 
     function tagTransformSecretariat(newEmail) {
-      console.log("porno     function tagTransformSecretariat");
+
       var item = {
         name: newEmail,
         email: newEmail
@@ -1030,7 +1092,7 @@ console.log("onSelectGroup");
     }
 
     function tagTransformGroup(newGroup) {
-      console.log("porno     function tagTransformGroup");
+
       var item = {
         name: newGroup
         // email: _cleanEmail(newEmail),
@@ -1039,7 +1101,7 @@ console.log("onSelectGroup");
     }
 
     function onRemoveColaboration(item, model) {
-      console.log("porno     function onRemoveColaboration");
+
       compose.canAddGroup = false;
       var targen = -1;
       for (var i = 0; i < compose.listColaborators.length; i++) {
@@ -1054,8 +1116,8 @@ console.log("onSelectGroup");
     }
 
     function onSelectColaboration(item, model) {
-      console.log("porno     function onSelectColaboration");
-      console.log("onSelectColaboration");
+
+
       var flag = 0;
       for (var i = 0; i < compose.selectedTo.length; i++) {
         if (item.email === compose.selectedTo[i].email) {
@@ -1095,41 +1157,38 @@ console.log("onSelectGroup");
 
 
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
-        console.log("findEmailInContacts item", item);
-
 
         if (!contact) {
-          for (var i = 0; i < compose.selectedColaborators.length; i++) {
-            if (item.email === compose.selectedColaborators[i].email) {
-              compose.selectedColaborators.splice(i, 1);
-              break;
-            }
-          }
-          swalFactory.error(item.email + " no puede recibir oficios");
-          return;
+          console.log("Es uno nuevo onSelectColaboration");
+        } else {
+          console.log("No es nuevo onSelectColaboration");
+          item = contact;
         }
 
+
         if (_isEmail(item.email)) {
-          if (_validateInstitucional(item.email)) {
+
             _findEmailInDocument(item.email);
 
             var index = _findEmailInList(item.email, compose.contacts);
+            console.error("_findEmailInList 4", index);
             if (index >= 0) {
               compose.contacts.splice(index, 1);
+              item.isNew = false;
+            } else {
+              item.isNew = true;
             }
             compose.listColaborators.push({
               item: item
             });
             compose.listToPrivateMessages.push(item);
-          } else {
-            swalFactory.error("Solo se permiten correos institucionales");
-            compose.error = "Solo se permiten correos institucionales";
-            var index = compose.selectedTo.indexOf(item);
-            if (index >= 0) compose.selectedTo.splice(index, 1);
-          }
+
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
           compose.error = "Ingresa un correo electrónico válido";
+
+
+
           var index = compose.selectedTo.indexOf(item);
           if (index >= 0) compose.selectedTo.splice(index, 1);
         }
@@ -1137,7 +1196,7 @@ console.log("onSelectGroup");
     }
 
     function onRemoveGroup(item, model) {
-      console.log("porno     function onRemoveGroup");
+
       var targen = -1;
       for (var i = 0; i < compose.listColaborators.length; i++) {
         if (item._id === compose.listColaborators[i].item._id) {
@@ -1152,7 +1211,7 @@ console.log("onSelectGroup");
 
 
     function onSelectDraftTo(item) {
-      console.log("porno     function onSelectDraftTo");
+
       var flag = 0;
       for (var i = 0; i < compose.draftTo.length; i++) {
         if (item.email === compose.draftTo[i].email) {
@@ -1168,17 +1227,13 @@ console.log("onSelectGroup");
 
       socket.emit('findEmailInContacts', item.email, function (err, contact) {
         if (!contact) {
-          for (var i = 0; i < compose.draftTo.length; i++) {
-            if (item.email === compose.draftTo[i].email) {
-              compose.draftTo.splice(i, 1);
-              break;
-            }
-          }
-          swalFactory.error(item.email + " no puede recibir oficios");
-          return;
+          console.log("Es uno nuevo onSelectDraftTo");
+        } else {
+          console.log("No es nuevo onSelectDraftTo");
+          item = contact;
         }
         if (_isEmail(item.email)) {
-          if (_validateInstitucional(item.email)) {
+
             // var index = _findEmailInList(item.email, compose.contacts);
             if (compose.draftTo.length > 1) {
               swalFactory.error("Solo se permite seleccionar un correo");
@@ -1186,12 +1241,7 @@ console.log("onSelectGroup");
               var index = compose.draftTo.indexOf(item);
               compose.draftTo.splice(index, 1);
             }
-          } else {
-            swalFactory.error("Solo se permiten correos institucionales");
-            compose.error = "Solo se permiten correos institucionales";
-            var index = compose.draftTo.indexOf(item);
-            if (index >= 0) compose.draftTo.splice(index, 1);
-          }
+
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
           compose.error = "Ingresa un correo electrónico válido";
@@ -1202,14 +1252,14 @@ console.log("onSelectGroup");
     }
 
     function removeFile(file) {
-      console.log("porno     function removeFile");
+
       compose.editedAttachments = true;
       compose.fileList.removeItem(file);
       // compose.files.splice(compose.files.indexOf(file), 1);
     }
 
     function showUploadFiles() {
-      console.log("porno     function showUploadFiles");
+
       if (compose.fileURL) {
         return compose.isUnzipFiles;
       }
@@ -1219,7 +1269,7 @@ console.log("onSelectGroup");
     }
 
     function unzipFiles() {
-      console.log("porno     function unzipFiles");
+
       compose.blockDownload = true;
       // vm.showAttachementSection = "loader";
       var url = compose.fileURL;
@@ -1236,7 +1286,7 @@ console.log("onSelectGroup");
     }
 
     function addMessage() {
-      console.log("porno     function addMessage");
+
       if (compose.privateMessageContent === "") {
         swalFactory.error("Agrega contenido");
         compose.error = "Agrega contenido";
@@ -1261,23 +1311,28 @@ console.log("onSelectGroup");
     }
 
     function setEmails(emails) {
-      console.log("porno     function setEmails");
+
 
       var items = [];
       compose.showTo = false;
 
       _getContacts(function () {
+
         for (var i = 0; i < emails.length; i++) {
           var item = emails[i];
           item.name = item.name ? item.name : item.email;
+          console.error("_findEmailInList 6");
           if (_findEmailInList(item.email, compose.contacts) === -1) {
+
             compose.contacts.push(item);
           }
 
           if (item.inColaboration) {
+
             compose.selectedColaborators.push(item);
             onSelectColaboration(item);
           } else {
+
             compose.selectedTo.push(item);
             onSelectTo(item);
           }
@@ -1287,7 +1342,7 @@ console.log("onSelectGroup");
     }
 
     function saveDraft() {
-      console.log("porno     function saveDraft");
+
       userAction = true;
       compose.isDraft = true;
       if (compose.prossesing) return;
@@ -1333,45 +1388,183 @@ console.log("onSelectGroup");
         var ft = compose.colaboration;
         var auxTo = [];
 
-        for (var i = 0; i < compose.listColaborators.length; i++) {
-          auxTo.push({
-            id: compose.listColaborators[i].item.id,
-            jobTitleID: compose.listColaborators[i].item.jobTitleID,
-            email: compose.listColaborators[i].item.email.toLowerCase(),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var auxFT = [];
+        var auxCC = [];
+        var auxTo = [];
+        if (compose.colaboration) {
+          for (var i = 0; i < compose.listColaborators.length; i++) {
+            auxTo.push({
+              id: compose.listColaborators[i].item.id,
+              jobTitleID: compose.listColaborators[i].item.jobTitleID,
+              email: compose.listColaborators[i].item.email.toLowerCase(),
+              name:
+              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                'Nombre pendiente',
+              privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
+              colaboration: true,
+              inColaboration: true,
+              type: compose.document.type || '',
+              confidential: compose.isConfidential,
+              deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+              fromJT: profile.jobTitle._id,
+              toJT: compose.listColaborators[i].item.jobTitle
+            });
+            auxFT.push({
+              id: compose.listColaborators[i].item.id,
+              jobTitleID: compose.listColaborators[i].item.jobTitleID,
+
+              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID? false : true,
+
+              email: compose.listColaborators[i].item.email.toLowerCase(),
+              name:
+              compose.listColaborators[i].item.name? compose.listColaborators[i].item.name.toLowerCase() :
+                'Nombre pendiente',
+              privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
+              colaboration: true,
+              inColaboration: true,
+              type: compose.document.type || '',
+              confidential: compose.isConfidential,
+              deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+              fromJT: profile.jobTitle._id,
+              toJT: compose.listColaborators[i].item.jobTitle
+            });
+
+          }
+        }
+
+        for (var i = 0; i < compose.recipients.length; i++) {
+          auxCC.push({
+            id: compose.recipients[i].id,
+            jobTitleID: compose.recipients[i].jobTitleID,
+            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID? false : true,
+            email: compose.recipients[i].email.toLowerCase(),
             name:
-              compose.listColaborators[i].item.name.toLowerCase() ||
-              "Nombre pendiente",
-            privateMessage: "",
-            turnMessage: "",
-            read: false,
-            readAt: "",
-            signed: false,
-            signedAt: "",
-            state: "unread",
-            colaboration: ft,
-            inColaboration: true
+            compose.recipients[i].name? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
+            privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
+            colaboration: compose.colaboration || false,
+            inColaboration: false,
+            type: compose.document.type || '',
+            confidential: compose.isConfidential,
+            deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+            fromJT: profile.jobTitle._id,
+            toJT: compose.recipients[i].jobTitle,
+            needSign: compose.recipients[i].needSign
           });
-        }
-
-        for (var i = 0; i < compose.selectedTo.length; i++) {
           auxTo.push({
-            id: compose.selectedTo[i].id,
-            jobTitleID: compose.selectedTo[i].jobTitleID,
-            email: compose.selectedTo[i].email.toLowerCase(),
-            name: compose.selectedTo[i].name.toLowerCase() || "Nombre pendiente",
-            needSign: compose.selectedTo[i].needSign,
-            privateMessage: "",
-            turnMessage: "",
-            read: false,
-            readAt: "",
-            signed: false,
-            signedAt: "",
-            state: "unread",
-            colaboration: ft,
-            inColaboration: false
+            id: compose.recipients[i].id,
+            jobTitleID: compose.recipients[i].jobTitleID,
+            email: compose.recipients[i].email.toLowerCase(),
+            name:
+            compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
+            privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
+            colaboration: compose.colaboration || false,
+            inColaboration: false,
+            type: compose.document.type || '',
+            confidential: compose.isConfidential,
+            deadline: compose.haveDeadline ? compose.deadline.getTime() : '',
+            fromJT: profile.jobTitle._id,
+            toJT: compose.recipients[i].jobTitle,
+            needSign: compose.recipients[i].needSign
           });
         }
 
+        if (compose.havePrivateMessages) {
+          for (var i = 0; i < compose.listPrivateMessages.length; i++) {
+
+            for (var j = 0; j < auxFT.length; j++) {
+              if (auxFT[j].email === compose.listPrivateMessages[i].to.email) {
+                auxFT[j].privateMessage =
+                  compose.listPrivateMessages[i].content;
+                break;
+              }
+            }
+            for (var j = 0; j < auxCC.length; j++) {
+              if (auxCC[j].email === compose.listPrivateMessages[i].to.email) {
+                auxCC[j].privateMessage =
+                  compose.listPrivateMessages[i].content;
+                break;
+              }
+            }
+
+
+            for (var j = 0; j < auxTo.length; j++) {
+              if (auxTo[j].email === compose.listPrivateMessages[i].to.email) {
+                auxTo[j].privateMessage =
+                  compose.listPrivateMessages[i].content;
+                break;
+              }
+            }
+          }
+        }
+
+
+
+
+
+
+        // for (var i = 0; i < compose.listColaborators.length; i++) {
+        //   auxTo.push({
+        //     id: compose.listColaborators[i].item.id,
+        //     jobTitleID: compose.listColaborators[i].item.jobTitleID,
+        //     email: compose.listColaborators[i].item.email.toLowerCase(),
+        //     name:
+        //       compose.listColaborators[i].item.name.toLowerCase() ||
+        //       "Nombre pendiente",
+        //     privateMessage: "",
+        //     turnMessage: "",
+        //     read: false,
+        //     readAt: "",
+        //     signed: false,
+        //     signedAt: "",
+        //     state: "unread",
+        //     colaboration: ft,
+        //     inColaboration: true
+        //   });
+        // }
+
+        // for (var i = 0; i < compose.selectedTo.length; i++) {
+        //   auxTo.push({
+        //     id: compose.selectedTo[i].id,
+        //     jobTitleID: compose.selectedTo[i].jobTitleID,
+        //     email: compose.selectedTo[i].email.toLowerCase(),
+        //     name: compose.selectedTo[i].name.toLowerCase() || "Nombre pendiente",
+        //     needSign: compose.selectedTo[i].needSign,
+        //     privateMessage: "",
+        //     turnMessage: "",
+        //     read: false,
+        //     readAt: "",
+        //     signed: false,
+        //     signedAt: "",
+        //     state: "unread",
+        //     colaboration: ft,
+        //     inColaboration: false
+        //   });
+        // }
+
+        compose.document.auxFT = auxFT;
+        compose.document.auxCC = auxCC;
         var draftTo = null;
         if (compose.draftTo && compose.draftTo.length > 0) {
           draftTo = {
@@ -1385,6 +1578,7 @@ console.log("onSelectGroup");
         }
 
         var newDoc = {
+          variables: compose.variables,
           from: {
             email: profile.email,
             name: profile.name,
@@ -1404,8 +1598,13 @@ console.log("onSelectGroup");
           currentTemplateData: {
             templateFullContent: compose.templateFullContent,
             variableValues: compose.variableValues,
-            variables: compose.variables
-          }
+            variables: compose.variables,
+            templateId: compose.templateId
+          },
+          templateId: compose.templateId,
+          auxCC: auxCC,
+          auxTo: auxTo,
+          auxFT: auxFT
         };
 
         newDoc.deadline = compose.haveDeadline ? compose.deadline.getTime() : "";
@@ -1419,9 +1618,12 @@ console.log("onSelectGroup");
         if (draftID) data.id = draftID;
         if (compose.editedAttachments) data.deleteFiles = true;
 
+
+
+        console.log("manda a acrear el borrador con", data);
+
         socket.emit('saveDraft', data, function (err, result) {
-          console.log(" saveDraft err ", err);
-          console.log(" saveDraft result ", result);
+
 
           if (err) {
             if (!err.message) err['message'] = 'Ocurrio un error en el proceso';
@@ -1441,7 +1643,7 @@ console.log("onSelectGroup");
 
 
     function _getFiles() {
-      console.log("porno     function _getFiles");
+
       var items = compose.fileList.getItems();
       var files = null;
       if (compose.editedAttachments || items.length !== attachmentCount) {
@@ -1458,18 +1660,18 @@ console.log("onSelectGroup");
     }
 
     function _cleanEmail(email) {
-      console.log("porno     function _cleanEmail");
+
       var parts = email.split("@");
       if (parts.length >= 2) {
         email = parts[0] + "@" + parts[1];
       } else {
-        email = email + "@sinaloa.gob.mx";
+        email = email + "@gmail.com";
       }
       return email.toLowerCase();
     }
 
     function _getDate(date) {
-      console.log("porno     function _getDate");
+
       var mm = date.getMonth() + 1; // getMonth() is zero-based
       var dd = date.getDate();
       var yy = date.getFullYear();
@@ -1483,7 +1685,7 @@ console.log("onSelectGroup");
     }
 
     function _verifyPass() {
-      console.log("porno     function _verifyPass");
+
       compose.prossesing = true;
       if (compose.password === "") {
         swalFactory.error("Ingresa tu contraseña");
@@ -1498,7 +1700,7 @@ console.log("onSelectGroup");
           password: compose.password
         },
         function (err, result) {
-          console.log("porno     function (err");
+
           console.error('ERR',err);
           console.error('result',result);
           if (err) {
@@ -1515,20 +1717,16 @@ console.log("onSelectGroup");
       );
     }
 
-    function _validateInstitucional(email) {
-      console.log("porno     function _validateInstitucional");
 
-      return true;
-    }
 
     function _isEmail(email) {
-      console.log("porno     function _isEmail");
+
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     }
 
     function _getContacts(cb) {
-      console.log("porno     function _getContacts");
+
       socket.emit("getContacts", {}, function (err, data) {
         compose.contacts = err ? [] : data;
         compose.contacts.sort();
@@ -1537,7 +1735,7 @@ console.log("onSelectGroup");
     }
 
     function _findEmailInDocument(email) {
-      console.log("porno     function _findEmailInDocument");
+
       var profile = Profile.getEmail();
       if (email === profile) {
         return;
@@ -1555,73 +1753,79 @@ console.log("onSelectGroup");
     }
 
     function _findEmailInList(email, list) {
-      console.log("porno     function _findEmailInList");
+
+
+
+
       var index = -1;
-      try {
+
         for (var i = 0; i < list.length; i++) {
           if (email === list[i].email) {
             index = i;
             break;
           }
         }
-        return index;
-      } catch (e) {
-        return index;
-      }
 
-      return index;
+        return index;
+
     }
 
     function _setupDraft(draft) {
-      console.log("porno     function _setupDraft");
+      console.log("aqui es donde debo hacer los cambios perrones");
+      console.log("draft", draft);
       Profile.get(function (error, profile) {
 
         if (draft.authorID !== profile.id && draft.draftTo !== profile.jobTitleID) {
-          console.log("No eres el author");
+
           swalFactory.error('No puedes acceder al contenido');
           $state.go('app.mailbox.internal.drafts');
           return;
+        } else {
+          setTemplate(draft.templateID);
+
+
+            draftID = draft.id;
+            compose.external = draft.external;
+
+            compose.document.content = draft.content;
+            compose.isDraft = true;
+            compose.colaboration = draft.ft;
+
+            if (draft.priority === 1){
+              compose.havePriority = true;
+            } else {
+              compose.havePriority = false;
+            }
+            if (draft.confidential === 1){
+              compose.isConfidential = true;
+            } else {
+              compose.isConfidential = false;
+            }
+
+
+
+
+
+            compose.document.subject = draft.subject.indexOf('Guardado automatico ') === -1 ? draft.subject : '';
+            compose.fileURL = draft.fileURL;
+            if (draft.deadline !== "" && draft.deadline !== null) {
+              compose.haveDeadline = true;
+              compose.deadline = new Date(draft.deadline);
+            }
+
+            setEmails(draft.to);
+
+            if (draft.draftToUser) {
+              compose.draftTo.push(draft.draftToUser);
+            }
+
+
         }
 
       });
 
 
-      draftID = draft.id;
-      compose.external = draft.external;
-      if (compose.external) {
-        console.log("Este oficio es externo y borrador, falta informacion");
-      }
-      compose.document.content = draft.content;
-      compose.isDraft = true;
-      compose.colaboration = draft.ft;
 
-      if (draft.priority === 1){
-        compose.havePriority = true;
-      } else {
-        compose.havePriority = false;
-      }
-      if (draft.confidential === 1){
-        compose.isConfidential = true;
-      } else {
-        compose.isConfidential = false;
-      }
-
-console.log("compose.havePriority", compose.havePriority);
-console.log("compose.isConfidential", compose.isConfidential);
-
-
-      compose.document.subject = draft.subject.indexOf('Guardado automatico ') === -1 ? draft.subject : '';
-      compose.fileURL = draft.fileURL;
-      if (draft.deadline !== "" && draft.deadline !== null) {
-        compose.haveDeadline = true;
-        compose.deadline = new Date(draft.deadline);
-      }
-
-      setEmails(draft.to);
-
-      if (draft.draftToUser) {
-        compose.draftTo.push(draft.draftToUser);
-      }
     }
 
 

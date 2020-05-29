@@ -40,7 +40,7 @@
         controller: 'AuthController',
         controllerAs: 'aac',
         templateUrl: helper.basepath('auth.html'),
-        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'swangular'),
+        resolve: helper.resolveFor('swangular', 'ngMaterial'),
         isPublic: true
       })
       .state('auth.login', {
@@ -72,7 +72,7 @@
         controller: 'AppController',
         controllerAs: 'ac',
         templateUrl: helper.basepath('app.html'),
-        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'swangular'),
+        resolve: helper.resolveFor('modernizr', 'icons', 'loaders.css', 'spinkit',  'swangular', 'bm.bsTour', 'ngMaterial'),
       })
 
       .state('app.profile', {
@@ -306,17 +306,6 @@
 
 
 
-
-
-
-      .state('app.mailbox.newCompose', {
-        url: '/newCompose',
-        title: 'Documentos',
-        controller: 'NewMailComposerController',
-        controllerAs: 'docs',
-        templateUrl: helper.basepath('newMailbox/compose.html'),
-        resolve: helper.resolveFor('ui.select')
-      })
 
 
 

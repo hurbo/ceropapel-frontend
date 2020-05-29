@@ -194,6 +194,7 @@
     }
 
     function create(data, cb) {
+      console.log("Manda a crear el documento al socket", data);
       socket.emit('createDocument', data, cb);
     }
 

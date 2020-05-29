@@ -85,7 +85,7 @@
     activate();
 
     function activate() {
-      console.log("aqui estoy en el compose controller");
+
       Profile.getProfile().then(function (profile) {
         vm.profile = profile;
         if (!vm.profile.jobTitleID) {

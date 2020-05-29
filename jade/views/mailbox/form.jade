@@ -1,9 +1,4 @@
 
-
-
-
-
-
 .row(style="background-color: #c5c8ca" ng-if="docs.compose.variables.length  >= 1")
   .col-md-12
     .panel-default
@@ -33,13 +28,6 @@
               button.btn.btn-sm(type='button', style='background-color: #e96057; color: white;', ng-click='docs.setStep(docs.StepEnum.REVIEW_DATA);')
                 | CONTINUAR&nbsp;
                 i.fa.fa-arrow-right
-
-            .pull-right(ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
-              button.btn.btn-sm(type='button', style='background-color: #e96057; color: white;', ng-click='!docs.compose.isDraft ? docs.compose.createDocument() : docs.compose.saveDraft()')
-                | {{!docs.compose.isDraft ? 'ENVIAR OFICIO' : 'GUARDAR OFICIO'}}&nbsp;
-                i.fa.fa-arrow-right
-
-
 
 
 
@@ -254,17 +242,260 @@
 
 
           .col-md-2
-          .col-md-8(style="background-color: #c5c8ca; height: 1000px; overflow: scroll; padding: 50px;" )
-            .process-document(ng-if="docs.compose.document.sheets")
+          .col-md-8(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
+            .process-document(ng-if="docs.compose.document.sheets" )
               .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
                 div(ng-repeat="section in sheet.sections")
-                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
-                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="width: auto; position: absolute; bottom: 0; margin-right: 3%;")
+
+
+
+                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted" tyle="width: auto; margin-right: 3%;")
           .col-md-2
 
 
         // END row
-    .panel-default(style="background-color: #fff")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .panel-default(style="background-color: #fff" ng-if="docs.profile.roleID === 5")
+      .panel-heading Personal involucrado
+      .panel-body
+        legend.pull-right.text-danger {{docs.compose.error}}
+        .row
+          .col-md-6
+            .col-md-12(ng-if="docs.compose.external")
+              .form-group
+                label Comisionado a:
+                ui-select( multiple='false',   tagging-tokens=',|/', ng-model='docs.externalInfo.commissioned', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar comisionado')
+                  ui-select-match(placeholder='Agregar comisionado') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in [] | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12(ng-if="docs.compose.external")
+              .form-group
+                label Con copia para:
+                ui-select( multiple='' tagging='docs.compose.tagTransform'  tagging-tokens=',|/', ng-model='docs.compose.externalInfo.cc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar copia para')
+                  ui-select-match(placeholder='Agregar copia para') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in [] | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12
+              .form-group
+                label Para:
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform'  multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedTo', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                  ui-select-match(placeholder='Agregar destinatario')
+                    div {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in [] | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+
+
+
+
+
+
+
+
+
+
+
+            .col-md-12
+              .form-group
+                .checkbox.c-checkbox
+                  label
+                    input(type='checkbox', ng-model="docs.compose.colaboration")
+                    span.fa.fa-check
+                    |  Este oficio requiere colaboración
+            .col-md-12(ng-if="docs.compose.colaboration")
+              .form-group
+                label Colaborador:
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform' multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedColaborators', on-remove="docs.compose.onRemoveColaboration($item, $model)", on-select="docs.compose.onSelectColaboration($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar colaborador')
+                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in [] | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+              .col-md-12
+                hr(style="margin: 30px 0")
+                h4.text-danger Orden de colaboración.
+                div#orden(ng-nestable ng-model='docs.compose.listColaborators')
+                  div(ng-if="$item")
+                    strong {{docs.getPossition($item)}}
+                    img.img-circle(style="height: 30px; padding-right: 10px; padding-left: 10px; " ng-src="{{$item.avatar}}", alt="To Avatar")
+                    | {{$item.name}} < {{$item.email}} >
+                hr(style="margin: 30px 0")
+            .col-md-12
+              .form-group
+                label Copia para:
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform' multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedToCc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectToCc($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                  ui-select-choices(repeat='person in [] | propsFilter: {name: $select.search, email: $select.search}')
+                    div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
+                    small
+                      | email: {{person.email}}
+            .col-md-12
+              .form-group
+                label Grupo:
+                ui-select(ng-if="docs.compose.showTo" multiple='',  tagging-tokens=',|/', ng-model='docs.compose.selectedGroup' on-select="docs.compose.onSelectGroup($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar grupo')
+                  ui-select-match(placeholder='Agregar grupo') {{$item.name}} <{{$item.name}}>
+                  ui-select-choices(repeat='group in docs.compose.groups | propsFilter: {name: $select.search, name: $select.search}')
+                    div(ng-if='group.isTag', ng-bind-html="group.name + ' ' + $select.taggingLabel | highlight: $select.search")
+                    div(ng-if='!group.isTag', ng-bind-html='group.name| highlight: $select.search')
+                    small
+                      | Nombre del grupo: {{group.name}}
+
+            .col-md-12(ng-if="docs.compose.recipients.length > 0")
+              br
+              .form-group
+                label Listado destinatarios
+                table.table.table-striped.table-bordered
+                  thead.bg-blue-primary
+                    tr
+                      th
+                        dt.text-center.text-white Destinario
+                      th
+                        dt.text-center.text-white Requiere firmar
+
+                  tbody
+                    tr(ng-repeat="recipient in docs.compose.recipients")
+                      td.text-primary
+                        strong {{recipient.name}}
+                        span {{recipient.email}}
+                      td.text-primary.text-center
+                        button.btn(ng-click="docs.compose.toggleSignatureRequirement(recipient)", ng-class="recipient.needSign? 'btn-primary' : 'btn-defualt'") {{recipient.needSign? 'Si' : 'No'}}
+
+
+
+          .col-md-6
+            .col-md-12(ng-if="!docs.compose.isDraft")
+              label.col-sm-3.control-label Mensajes personales
+              .col-sm-9
+                .checkbox.c-checkbox
+                  label
+                    input(ng-disabled="!docs.compose.listToPrivateMessages.length" type='checkbox' ng-model="docs.compose.havePrivateMessages")
+                    span.fa.fa-check
+                    |  Selecciona este campo para enviar correos personales
+            fieldset
+            .col-md-12(ng-if="!docs.compose.isDraft")
+
+
+
+              .panel-default(ng-if="docs.compose.havePrivateMessages")
+                .panel-heading.principal
+                  .panel-title(style="color: #fafafa") Mensajes personales
+                .panel-default
+                  .panel-body
+
+
+
+                    form(name="privateMessages", novalidate)
+
+                      .form-group
+                        .row
+                          .col-md-3
+                            label  Correo electrónico
+                          .col-md-9
+                            select.form-control(ng-model='docs.compose.privateMessageTo', ng-options='person.name for person in docs.compose.listToPrivateMessages')
+                      .form-group
+                        .row
+                          .col-md-3
+                            label Contenido
+                          .col-md-12
+                            textarea.form-control(type='text', placeholder='Mensaje personal' ng-model="docs.compose.privateMessageContent")
+                      .form-group.col-md-12
+                        button.btn.btn-signed.pull-right(ng-click="docs.compose.addMessage()" ng-disabled="!docs.compose.privateMessageTo") Agregar
+
+            .col-md-12(ng-if="docs.compose.listPrivateMessages.length")
+              .list-group
+                // START list group item
+                a.list-group-item
+                  .media-box
+                    .media-box-body.clearfix(ng-repeat="message in docs.compose.listPrivateMessages")
+                      strong.media-box-heading.text-primary
+                        | {{message.to.name}} <{{message.to.email}}>
+                      p.mb-sm {{message.content}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .panel-default(style="background-color: #fff" ng-if="docs.profile.roleID !== 5")
       .panel-heading Personal involucrado
       .panel-body
         legend.pull-right.text-danger {{docs.compose.error}}
@@ -283,7 +514,7 @@
             .col-md-12(ng-if="docs.compose.external")
               .form-group
                 label Con copia para:
-                ui-select( multiple='false',   tagging-tokens=',|/', ng-model='docs.compose.externalInfo.cc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar copia para')
+                ui-select( multiple='' tagging='docs.compose.tagTransform'  tagging-tokens=',|/', ng-model='docs.compose.externalInfo.cc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar copia para')
                   ui-select-match(placeholder='Agregar copia para') {{$item.name}} <{{$item.email}}>
                   ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                     div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
@@ -293,13 +524,25 @@
             .col-md-12
               .form-group
                 label Para:
-                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedTo', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
-                  ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform'  multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedTo', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectTo($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                  ui-select-match(placeholder='Agregar destinatario')
+                    div {{$item.name}} <{{$item.email}}>
                   ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                     div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
                     div(ng-if='!person.isTag', ng-bind-html='person.name| highlight: $select.search')
                     small
                       | email: {{person.email}}
+
+
+
+
+
+
+
+
+
+
+
             .col-md-12
               .form-group
                 .checkbox.c-checkbox
@@ -310,7 +553,7 @@
             .col-md-12(ng-if="docs.compose.colaboration")
               .form-group
                 label Colaborador:
-                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedColaborators', on-remove="docs.compose.onRemoveColaboration($item, $model)", on-select="docs.compose.onSelectColaboration($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar colaborador')
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform' multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedColaborators', on-remove="docs.compose.onRemoveColaboration($item, $model)", on-select="docs.compose.onSelectColaboration($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar colaborador')
                   ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
                   ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                     div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
@@ -329,7 +572,7 @@
             .col-md-12
               .form-group
                 label Copia para:
-                ui-select(ng-if="docs.compose.showTo" multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedToCc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectToCc($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+                ui-select(ng-if="docs.compose.showTo" tagging='docs.compose.tagTransform' multiple='',   tagging-tokens=',|/', ng-model='docs.compose.selectedToCc', on-remove="docs.compose.onRemoveTo($item, $model)", on-select="docs.compose.onSelectToCc($item, $model)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
                   ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
                   ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                     div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
@@ -417,6 +660,179 @@
                       strong.media-box-heading.text-primary
                         | {{message.to.name}} <{{message.to.email}}>
                       p.mb-sm {{message.content}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .panel-default(style="background-color: #fff")
       .panel-heading Enviar
       .panel-body
@@ -428,20 +844,11 @@
                 label
                   input(type='checkbox', ng-model="docs.compose.isDraft" ng-disabled = "docs.compose.truncateDraft")
                   span.fa.fa-check
-                  |  Enviar como borrador
-
-            .col-md-4
-
-        div(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft")
-          .input-group.form-group
-            span.input-group-addon.text-sm Contraseña:
-            input.form-control(type='password' ng-model ='docs.compose.password')
-          .mb-editor
-          button(type="button" ng-click="docs.compose.createDocument()").btn.btn-primary.btn-sm.mb Enviar
+                  |  Guardar como borrador
         div(ng-if="docs.compose.isDraft || docs.compose.truncateDraft")
           .input-group.form-group
-            span.input-group-addon.text-sm Borrador para:
-            ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
+            span.input-group-addon.text-sm Compartir borrador con:
+            ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled || docs.profile.roleID == 5', title='Agregar destinatario')
               ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
               ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                 div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
@@ -492,7 +899,22 @@
 .row(style="background-color: #eceded" ng-if="docs.step === docs.StepEnum.REVIEW_DATA")
   .col-md-12
     .panel-heading
-      button.btn.btn-md.btn-primary.pull-right(type='button', ng-click='docs.compose.showPreviewTemplate()') Visualizar documento
+      .form-group.row
+        label.col-md-2.col-form-label(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft") Contraseña
+        label.col-md-2.col-form-label(ng-if="docs.compose.isDraft && docs.compose.truncateDraft") Borrador
+        .col-md-10
+          .row
+            .col-lg-8
+              input.form-control(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft" type='password' placeholder='Contraseña' ng-model ='docs.compose.password')
+            .col-lg-4(style="display: flex; flex-direction: row; justify-content: space-between;")
+              button.btn.btn-md.btn-primary(type='button', ng-click='docs.compose.showPreviewTemplate()') Visualizar documento
+              button.btn.btn-md(type='button', style='background-color: #e96057; color: white;', ng-click='!docs.compose.isDraft ? docs.compose.createDocument() : docs.compose.saveDraft()')
+                | {{!docs.compose.isDraft ? 'ENVIAR DOCUMENTO' : 'GUARDAR BORRADOR'}}&nbsp;
+                i.fa.fa-arrow-right
+
+
+
+
     .panel-default
         .panel-body(style=" margin-top: 20px;")
 

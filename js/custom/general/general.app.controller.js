@@ -12,7 +12,8 @@
     function activate() {
       var section = angular.element('.wrapper > section');
       section.css({
-        position: 'static'
+        position: 'static',
+        height: 'auto'
       });
       // finally restore on destroy and reuse the value declared in stylesheet
       $scope.$on('$destroy', function () {

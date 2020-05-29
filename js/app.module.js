@@ -20,46 +20,47 @@
 //   });
 
 (function () {
-  'use strict';
+  "use strict";
 
-  var app = angular.module('angle', [
-    'app.core',
-    'app.routes',
-    'app.auth',
-    'app.navbar',
-    'app.sidebar',
-    'app.preloader',
-    'app.loadingbar',
-    'app.translate',
-    'app.settings',
-    'app.utils',
-    'app.sockets',
-    'app.general',
-    'app.swal',
-    'app.notifications',
-    'app.profile',
-    'app.templates',
-    'app.info',
-    'app.secretariats',
-    'app.jobTitles',
-    'app.usersJobs',
-    'app.canceledDocuments',
-    'app.drafts',
-    // 'app.develop',
-    'app.groups',
-    'app.mailbox',
-    'app.chats',
-    // External Modules
-    'ngIdle',
-    'nzTour',
-    'summernote',
-    'ngTagsInput',
-    'ngSanitize',
-    'app.documentTypes'
-  ])
-  .config(config);
+  var app = angular
+    .module("angle", [
+      "app.core",
+      "app.routes",
+      "app.auth",
+      "app.navbar",
+      "app.sidebar",
+      "app.preloader",
+      "app.loadingbar",
+      "app.translate",
+      "app.settings",
+      "app.utils",
+      "app.sockets",
+      "app.general",
+      "app.swal",
+      "app.notifications",
+      "app.profile",
+      "app.templates",
+      "app.info",
+      "app.secretariats",
+      "app.jobTitles",
+      "app.usersJobs",
+      "app.canceledDocuments",
+      "app.drafts",
+      // 'app.develop',
+      "app.groups",
+      "app.mailbox",
+      "app.chats",
+      // External Modules
+      "ngIdle",
+      "nzTour",
+      "summernote",
+      "ngTagsInput",
+      "ngSanitize",
+      "app.documentTypes",
+    ])
+    .config(config);
 
-  config.$inject = ['KeepaliveProvider', 'IdleProvider'];
+  config.$inject = ["KeepaliveProvider", "IdleProvider"];
 
   function config(KeepaliveProvider, IdleProvider) {
     IdleProvider.idle(15 * 60);
@@ -78,25 +79,27 @@
     // TODO: Create and get this to callback route
     authService.handleParseHash();
 
-    $rootScope.$on('IdleTimeout', function () {
-      $rootScope.$broadcast('closeSesion');
+    $rootScope.$on("IdleTimeout", function () {
+      $rootScope.$broadcast("closeSesion");
       // end their session and redirect to login.
     });
 
+    $transitions.onStart(
+      {
+        to: function (state) {
+          const logged = authService.isAuthenticated();
+          if (logged && state.name == "auth.login") {
+            return $state.go("app");
+          }
 
-    $transitions.onStart({
-      to: function (state) {
-        const logged = authService.isAuthenticated();
-        if (logged && state.name == 'auth.login') {
-          return $state.go('app');
+          return !state.isPublic || state.isPublic !== true;
+        },
+      },
+      function () {
+        if (!authService.isAuthenticated()) {
+          return $state.go("auth.login");
         }
-
-        return !state.isPublic || state.isPublic !== true;
       }
-    }, function () {
-      if (!authService.isAuthenticated()) {
-        return $state.go('auth.login');
-      }
-    });
+    );
   });
 })();

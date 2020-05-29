@@ -20,7 +20,8 @@
     '$uibModal',
     '$uibModalStack',
     'swangular',
-    'folderFactory'
+    'folderFactory',
+    'profileFactory'
   ];
 
   function archiveComponentController(
@@ -29,7 +30,8 @@
     $uibModal,
     $uibModalStack,
     SweetAlert,
-    Folder
+    Folder,
+    profileFactory
   ) {
     var vm = this;
     vm.inbox = null;
@@ -199,27 +201,32 @@
 
       let defer = $q.defer();
 
-      vm.ViewFactory = ViewDocumentFactory;
+      profileFactory.getProfile().then(profile => {
+        vm.profile = profile;
+        vm.ViewFactory = ViewDocumentFactory;
 
-      vm.profile = vm.ViewFactory.getProfile();
-      vm.currentDocument = vm.ViewFactory.getDocument();
-      vm.ViewFactory.getInbox().then(function (inbox) {
-        vm.ViewFactory.getBox().then(function (box) {
-          vm.currentBox = box;
-          vm.itsOutbox = vm.currentBox === 'externalOut' || vm.currentBox === 'internalOut';
 
-          vm.inbox = inbox;
-          vm.fallUpon = vm.ViewFactory.fallUpon;
-          defer.resolve();
+        vm.currentDocument = vm.ViewFactory.getDocument();
+        vm.ViewFactory.getInbox().then(function (inbox) {
+          vm.ViewFactory.getBox().then(function (box) {
+            vm.currentBox = box;
+            vm.itsOutbox = vm.currentBox === 'externalOut' || vm.currentBox === 'internalOut';
+
+            vm.inbox = inbox;
+            vm.fallUpon = vm.ViewFactory.fallUpon;
+            defer.resolve();
+          }, function (err) {
+            console.error('Error al obtener el box en archiveComponent');
+            console.error(err);
+          });
+
         }, function (err) {
-          console.error('Error al obtener el box en archiveComponent');
+          console.error('Error al obtener el inbox en archiveComponent');
           console.error(err);
         });
+      })
 
-      }, function (err) {
-        console.error('Error al obtener el inbox en archiveComponent');
-        console.error(err);
-      });
+
 
 
       return defer.promise;

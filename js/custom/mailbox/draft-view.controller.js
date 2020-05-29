@@ -11,9 +11,12 @@
     '$rootScope',
     'composeFactory',
     'templatesFactory',
-    'swalFactory'
+    'swalFactory',
+    'profileFactory'
 
   ];
+
+
 
   function draftViewController(
     $state,
@@ -21,16 +24,49 @@
     $rootScope,
     composeFactory,
     templatesFactory,
-    swalFactory
+    swalFactory,
+    profileFactory
   ) {
     var vm = this;
 
+    var Step = {
+      FILL_DATA: 'FILL_DATA',
+      FILL_SEND_DATA: 'FILL_SEND_DATA',
+      REVIEW_DATA: 'REVIEW_DATA'
+    };
+
+    vm.StepEnum = Step;
     vm.templates = false;
+    vm.profile = null;
 
 
     vm.selectTemplete = selectTemplete;
     vm.showListTemplates = showListTemplates;
     vm.closeListTemplates = closeListTemplates;
+
+    vm.getTour = getTour;
+    vm.setStep = setStep;
+
+    function setStep(step) {
+      if (step === vm.StepEnum.FILL_SEND_DATA) {
+        vm.compose.closePreviewTemplate();
+      }
+      vm.step = step;
+    }
+
+    function getTour() {
+      if (vm.step === 'FILL_DATA' && (!vm.compose.variables || vm.compose.variables.length === 0)) {
+        return 1
+      } else if (vm.step === 'FILL_DATA') {
+        return 2
+      } else if (vm.step === 'FILL_SEND_DATA') {
+        return 3
+      } else if (vm.step === 'REVIEW_DATA') {
+        return 4
+      }
+    }
+
+
 
     vm.summernoteOptions = {
       lang: 'es-MX',
@@ -77,6 +113,14 @@
 
 
     function _getDraft() {
+
+
+
+
+
+
+
+
       socket.on('draft-remove-' + $state.params.id, function () {
         $state.go('app.mailbox.internal.drafts');
       });
@@ -85,18 +129,31 @@
           _id: $state.params.id
         },
         function (err, draft) {
-          vm.compose = composeFactory;
 
-          if (err) {
-            swalFactory.error('Error iniesperado');
-            $state.go('app.mailbox.internal.drafts');
-          }
-          if (draft) {
-            vm.compose.init(draft);
-          } else {
-            swalFactory.error('No se encontro el borrador');
-            $state.go('app.mailbox.internal.drafts');
-          }
+          templatesFactory.getTemplateById(draft.templateID).then(function (template) {
+
+            draft.template = template;
+            vm.compose = composeFactory;
+            if (err) {
+              swalFactory.error('Error iniesperado');
+              $state.go('app.mailbox.internal.drafts');
+            }
+            if (draft) {
+              vm.compose.init(draft);
+              vm.step = 'FILL_DATA';
+            } else {
+              swalFactory.error('No se encontro el borrador');
+              $state.go('app.mailbox.internal.drafts');
+            }
+
+
+
+
+          });
+
+
+
+
         }
       );
     }
@@ -124,20 +181,12 @@
 
 
     function activate() {
+      profileFactory.getProfile().then(profile => {
+        vm.profile = profile;
+        _getDraft();
+        $rootScope.app.layout.isCollapsed = true;
+      })
 
-      socket.emit('getTemplates', {}, function (error, data) {
-
-        vm.templates = data;
-      });
-
-
-      vm.modalListTemplates = angular.element('#modalSelectTemplete').modal({
-        backdrop: true,
-        show: false
-      });
-
-      _getDraft();
-      $rootScope.app.layout.isCollapsed = true;
     }
   }
 })();

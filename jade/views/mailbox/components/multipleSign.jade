@@ -1,2 +1,2 @@
-button.btn(ng-if="mscmp.active" ng-class= "mscmp.haveInboxesMarked()? 'btn-primary' : 'btn-secondary' " ng-disabled="!mscmp.haveInboxesMarked()" type='button' ng-click='mscmp.open(\'lg\')') Firmar
+button.btn(ng-if="mscmp.active" ng-class= "mscmp.haveInboxesMarked()? 'btn-primary' : 'btn-secondary' " ng-disabled="!mscmp.haveInboxesMarked() || mscmp.profile.roleID === 5 " type='button' ng-click='mscmp.open(\'lg\')') Firmar
 

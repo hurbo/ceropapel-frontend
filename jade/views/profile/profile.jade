@@ -106,7 +106,7 @@
           h4.text-blue.Poppins-SemiBold(ng-if="pc.profile.keyUpdatedAt")  {{pc.profile.keyUpdatedAt  | date:'dd-MM-yyyy h:mm a'}}
           h4.text-danger.Poppins-SemiBold(ng-if="!pc.profile.keyUpdatedAt") No cuenta con archivo
 
-    .col-md-12(style="padding-top: 3em;")
+    .col-md-12(style="padding-top: 3em;" ng-if="pc.profile.roleID !== 5")
       .panel-default(style="border-style: solid;")
         .panel-heading
           h4.text-light-blue.Poppins-Bold Administrar permisos

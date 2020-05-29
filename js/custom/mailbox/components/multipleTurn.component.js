@@ -172,25 +172,31 @@
 
     function init() {
 
-      vm.isOnExternal = null;
-      vm.currentBoss = null;
-      _activate();
-      if ($state.current.name.indexOf('app.mailbox.external') !== -1) {
-        vm.currentBoss = ExternalsFactory.getCurrentUser();
-        vm.isOnExternal = true;
-      } else {
-        vm.isOnExternal = false;
-      }
 
-      profileFactory.getProfile().then(function (profile) {
-
+      profileFactory.getProfile().then(profile => {
         vm.profile = profile;
-        contactsService.getContacts(function (err, solve) {
-          vm.steep = 1;
-          vm.contacts = solve;
+        vm.isOnExternal = null;
+        vm.currentBoss = null;
+        _activate();
+        if ($state.current.name.indexOf('app.mailbox.external') !== -1) {
+          vm.currentBoss = ExternalsFactory.getCurrentUser();
+          vm.isOnExternal = true;
+        } else {
+          vm.isOnExternal = false;
+        }
 
+        profileFactory.getProfile().then(function (profile) {
+
+          vm.profile = profile;
+          contactsService.getContacts(function (err, solve) {
+            vm.steep = 1;
+            vm.contacts = solve;
+
+          });
         });
-      });
+      })
+
+
 
     }
 

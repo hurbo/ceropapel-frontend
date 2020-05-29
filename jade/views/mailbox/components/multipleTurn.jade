@@ -1,2 +1,1 @@
-button.btn( ng-if="mtcmp.active"  ng-class= "mtcmp.haveInboxesMarked() && mtcmp.validateSigns() ? 'btn-primary' : 'btn-secondary' " ng-disabled="!mtcmp.haveInboxesMarked() || !mtcmp.validateSigns()" ng-click="mtcmp.open(\'lg\')") Turnar
-  
+button.btn( ng-if="mtcmp.active"  ng-class= "mtcmp.haveInboxesMarked() && mtcmp.validateSigns() ? 'btn-primary' : 'btn-secondary' " ng-disabled="!mtcmp.haveInboxesMarked() || !mtcmp.validateSigns() || mtcmp.profile.roleID === 5 " ng-click="mtcmp.open(\'lg\')") Turnar
