@@ -156,7 +156,7 @@
         h3 Formato
       .panel-body
 
-      
+
         .pantallaSummerPlantilla.realWidth(ng-if="!tc.isOnComposeFunction()")
           div(ng-bind-html="tc.previewTemplate | trusted")
         .pantallaSummerPlantilla(ng-if="tc.isOnComposeFunction()")
@@ -182,13 +182,13 @@
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-        h4.modal-title Guardar plantilla 
+        h4.modal-title Guardar plantilla
       .modal-body
 
         .row
           .col-md-12
             .form-group#name
-              p 
+              p
                 label.control-label(style="margin-right: 10px;") Nombre de plantilla:
                 | {{tc.template.name}}
           .col-md-12(style="padding-left: 30px; padding-right: 30px;")

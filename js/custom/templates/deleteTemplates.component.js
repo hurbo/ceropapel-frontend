@@ -88,6 +88,10 @@
         vm.currentTemplate = templatesFactory.getCurrentTemplate();
         vm.profile = profile;
         vm.canDelete = false;
+
+        if (vm.profile.roleID === 5 && vm.currentTemplate && vm.currentTemplate.jobTitleID === vm.profile.jobTitleID) {
+          vm.canDelete = true;
+        }
         if (vm.profile.roleID === 3 && vm.currentTemplate) {
           vm.canDelete = true;
         } else if (vm.currentTemplate && vm.profile.roleID === 2 && vm.currentTemplate.secretariateID === vm.profile.secretariateID) {

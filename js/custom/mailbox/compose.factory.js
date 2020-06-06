@@ -239,7 +239,7 @@
         console.log("draft.templateVariableValues",draft.templateVariableValues);
         console.log("draft",draft);
 
-        var templateData = JSON.parse(draft.templateVariableValues);
+        var templateData = draft.templateVariableValues;
         console.log("verga madre que pedo con esta mierda", templateData);
         console.log("verga madre que pedo con esta mierda [//FOLIO//]", templateData['[//FOLIO//]']);
 

@@ -133,8 +133,8 @@ console.log("deleteTemplate", id);
     vm.isLoading = isLoading;
     vm.selectTemplateToDelete = selectTemplateToDelete;
     vm.editTemplate = editTemplate;
+    vm.viewTemplate = viewTemplate;
     vm.goToPage = goToPage;
-
 
 
 
@@ -143,6 +143,9 @@ console.log("deleteTemplate", id);
     }
     function editTemplate(id) {
       $location.path('/app/templates/edit/' + id);
+    }
+    function viewTemplate(id) {
+      $location.path('/app/templates/show/' + id);
     }
 
 

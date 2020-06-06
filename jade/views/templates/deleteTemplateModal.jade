@@ -13,7 +13,8 @@ div(ng-controller= "deleteTemplateComponentController as dtcmp")
                     .dot2
         .panel-default(ng-if="!dtcmp.loading")
             .panel-heading
-                h3.text-center.Poppins-SemiBold.text-danger ¿Estás seguro de eliminar la plantilla?
+                h3.text-center.Poppins-SemiBold.text-danger(ng-if="!dtcmp.canDelete") No puedes eliminar esta plantilla
+                h3.text-center.Poppins-SemiBold.text-danger(ng-if="dtcmp.canDelete") ¿Estás seguro de eliminar la plantilla?
                 h4.text-center.Poppins-SemiBold.text-light-blue {{dtcmp.currentTemplate.name}}
 
     .modal-footer

@@ -63,11 +63,11 @@ div(ui-view="")
             p No hay imagen previa
 
 
-            
+
           .col-md-12.animated.fadeIn(ng-if="docs.isTemplateHovered(template)" ng-mouseleave="docs.clearHoveredTemplate()" style="padding-top: 20%; padding-bottom: 20%; position: absolute; width: 248px;background: rgba(0,0,0,0.7); height: 300px; text-align: center; display: flex; flex-direction: column; justify-content: space-around;")
 
             h5(style="color: #fff") {{template.name}}
-            button.btn(style="width: 100%;"  type='button' ng-if="docs.canEdit(template)" ng-click="docs.editTemplate(template._id)") Ver
+            button.btn(style="width: 100%;"  type='button' ng-if="docs.canEdit(template)" ng-click="docs.viewTemplate(template._id)") Ver
 
             button.btn.btn-secondary(style="width: 100%;"  type='button' ng-if="docs.canEdit(template)" ng-click="docs.editTemplate(template._id)")
                 em.fa.fa-pencil(style= "padding-right: 10px;")

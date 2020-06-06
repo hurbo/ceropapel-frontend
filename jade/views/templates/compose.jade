@@ -42,33 +42,42 @@
                         select.form-control(ng-model='tc.template.type' ng-options="item.id as item.name for item in tc.documentTypes", style="border-radius: 7px;", required)
                           option(value="", selected=true)
                             | Selecciona una opción
-                  .col-md-2
+                  //- .col-md-2
+                  //-   .form-group
+                  //-     label.col-md-6.control-label Requiere firma
+                  //-     .col-md-6
+                  //-       .clearfix.pull-left
+                  //-         .pull-right
+                  //-           label.switch
+                  //-             input(type='checkbox', ng-model="tc.template.signatureRequiered")
+                  //-             span
+                  .col-md-2(ng-init="tc.teplate.private = true" ng-if="!tc.template.private && (tc.profile.roleID !== 1 && tc.profile.roleID !== 5)")
                     .form-group
-                      label.col-md-6.control-label Requiere firma
+                      label.col-md-6.control-label Privada
                       .col-md-6
                         .clearfix.pull-left
                           .pull-right
                             label.switch
-                              input(type='checkbox', ng-model="tc.template.signatureRequiered")
+                              input(type='checkbox',ng-click="tc.template.private = true"  ng-model="!tc.template.private")
                               span
-                  .col-md-2
+                  .col-md-2(ng-init="tc.teplate.fullPublic" ng-if="tc.template.private")
                     .form-group
                       label.col-md-6.control-label Compartir
                       .col-md-6
                         .clearfix.pull-left
                           .pull-right
                             label.switch
-                              input(type='checkbox', ng-model="tc.template.private")
+                              input(type='checkbox',ng-click="tc.template.private = false" ng-model="tc.template.private")
                               span
-                  .col-md-2
-                    .form-group
-                      label.col-md-6.control-label Servicio en linea
-                      .col-md-6
-                        .clearfix.pull-left
-                          .pull-right
-                            label.switch
-                              input(type='checkbox', ng-model="tc.template.externalService")
-                              span
+                  //- .col-md-2
+                  //-   .form-group
+                  //-     label.col-md-6.control-label Servicio en linea
+                  //-     .col-md-6
+                  //-       .clearfix.pull-left
+                  //-         .pull-right
+                  //-           label.switch
+                  //-             input(type='checkbox', ng-model="tc.template.externalService")
+                  //-             span
 
 
                 .col-md-12.animated( ng-class= "tc.template.private ? 'fadeIn': 'fadeOut'"  ng-if="tc.template.private" style="background-color: #c5c8ca; border-radius: 5px;padding-top: 10px;margin-top: 15px;")
@@ -160,7 +169,7 @@
         h3 Formato
       .panel-body
 
-      
+
         .pantallaSummerPlantilla.realWidth(ng-if="!tc.isOnComposeFunction()")
           div(ng-bind-html="tc.previewTemplate | trusted")
         .pantallaSummerPlantilla(ng-if="tc.isOnComposeFunction()")
@@ -186,13 +195,13 @@
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-        h4.modal-title Guardar plantilla 
+        h4.modal-title Guardar plantilla
       .modal-body
 
         .row
           .col-md-12
             .form-group#name
-              p 
+              p
                 label.control-label(style="margin-right: 10px;") Nombre de plantilla:
                 | {{tc.template.name}}
           .col-md-12(style="padding-left: 30px; padding-right: 30px;")

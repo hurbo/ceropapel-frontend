@@ -31,6 +31,17 @@
       TABLE: 'table'
     };
 
+
+    vm.onCompose = onCompose;
+
+function onCompose(){
+  console.log('a orale');
+  return false;
+}
+
+
+
+
     function getCommonTemplateOptions() {
       return {
         lang: 'es-MX',
@@ -116,6 +127,7 @@
       vm.secretariates = [];
       vm.documentTypes = [];
       templatesFactory.getDocumentTypes(function (err, documentTypes) {
+        console.log('document typES = ', documentTypes);
         vm.documentTypes = documentTypes ? documentTypes : [];
       });
 
@@ -219,6 +231,7 @@
 
           vm.template = templateData;
           vm.private = vm.template.private;
+
           vm.variables = [].concat(concatFixedVariables, vm.template.variables);
           if (_isOnPreview()) {
             vm.previewTemplate = vm.getTemplatePreview();
@@ -280,6 +293,7 @@
       if (vm.profile.roleID === Roles.NORMAL) {
         vm.template.private = 1;
       }
+
 
       return new Promise(function (resolve, reject) {
         templatesFactory.createTemplate(vm.template, function (error, template) {
