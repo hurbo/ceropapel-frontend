@@ -36,7 +36,7 @@
   .col-md-12(style="background-color: #eceded" ng-if="docs.compose.variables.length === 0")
     select-template-component
   .col-md-12(ng-if="docs.compose.variables.length >= 1")
-    .col-md-7(style="background-color: #fff")
+    .col-md-4(style="background-color: #fff")
       .panel-default
           .panel-heading
               h3.Poppins-SemiBold.primaryTextBlue Listado de variables
@@ -124,7 +124,7 @@
                               div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1; margin-bottom: 5px;")
                                 input.form-control(ng-model='tableValues[$index].name', type='text', placeholder="Ingresar valor", style="border-radius: 7px;", required, ng-change='docs.compose.onChangeVariable(variable, $parent.$index, $index)')
 
-    .col-md-5(style="background-color: #eceded")
+    .col-md-8(style="background-color: #eceded")
       .panel-default
           .panel-heading
               h3.Poppins-SemiBold.primaryTextBlue Vista previa
@@ -830,10 +830,7 @@
 
 
 
-
-
-
-    .panel-default(style="background-color: #fff")
+    .panel-default(style="background-color: white")
       .panel-heading Enviar
       .panel-body
         legend.pull-right.text-danger {{docs.compose.error}}
@@ -844,11 +841,20 @@
                 label
                   input(type='checkbox', ng-model="docs.compose.isDraft" ng-disabled = "docs.compose.truncateDraft")
                   span.fa.fa-check
-                  |  Guardar como borrador
+                  |  Enviar como borrador
+
+            .col-md-4
+
+        div(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft")
+          .input-group.form-group
+            span.input-group-addon.text-sm Contraseña:
+            input.form-control(type='password' ng-model ='docs.compose.password')
+          .mb-editor
+          button(type="button" ng-click="docs.compose.createDocument()").btn.btn-primary.btn-sm.mb Enviar
         div(ng-if="docs.compose.isDraft || docs.compose.truncateDraft")
           .input-group.form-group
-            span.input-group-addon.text-sm Compartir borrador con:
-            ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled || docs.profile.roleID == 5', title='Agregar destinatario')
+            span.input-group-addon.text-sm Borrador para:
+            ui-select(multiple='',  tagging-tokens=',|/', ng-model='docs.compose.draftTo', on-select="docs.compose.onSelectDraftTo($item)", theme='bootstrap', ng-disabled='docs.compose.disabled', title='Agregar destinatario')
               ui-select-match(placeholder='Agregar destinatario') {{$item.name}} <{{$item.email}}>
               ui-select-choices(repeat='person in docs.compose.contacts | propsFilter: {name: $select.search, email: $select.search}')
                 div(ng-if='person.isTag', ng-bind-html="person.name + ' ' + $select.taggingLabel | highlight: $select.search")
@@ -857,9 +863,6 @@
                   | email: {{person.email}}
           .mb-editor
             button(type="button" ng-click="docs.compose.saveDraft()").btn.btn-primary.btn-sm.mb Guardar borrador
-
-
-
 
 
 

@@ -33,6 +33,45 @@
 
 
     vm.onCompose = onCompose;
+    vm.activePrivate = activePrivate;
+    vm.activeShared = activeShared;
+    vm.activeFullPublic = activeFullPublic;
+
+
+    function activePrivate(){
+      console.log('activePrivate', vm.template.private );
+      if(!vm.template.private){
+        vm.template.shared = false;
+        vm.template.fullPublic = false;
+      } else {
+        vm.template.shared = false;
+        vm.template.fullPublic = true;
+      }
+    }
+
+    function activeShared(){
+      console.log('activeShared', vm.template.shared );
+      if(!vm.template.shared){
+        vm.template.private = false;
+        vm.template.fullPublic = false;
+      }else {
+        vm.template.private = false;
+        vm.template.fullPublic = true;
+      }
+    }
+
+    function activeFullPublic(){
+      console.log('activeFullPublic', vm.template.fullPublic );
+      if(!vm.template.fullPublic){
+        vm.template.private = false;
+        vm.template.shared = false;
+      }else {
+        vm.template.shared = false;
+        vm.template.private = true;
+      }
+    }
+
+
 
 function onCompose(){
   console.log('a orale');
@@ -153,6 +192,10 @@ function onCompose(){
               $state.go('app.mailbox.internal.in');
               return;
             }
+
+            vm.template.private = true;
+            vm.template.fullPublic = false;
+            vm.template.shared = false;
 
             getVariableTypes()
               .then(function () {
