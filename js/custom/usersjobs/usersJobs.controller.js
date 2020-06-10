@@ -58,7 +58,7 @@
         } else {
           swalFactory.success('Perfil actualizado', '');
           jobTittle.oldData = {};
-          console.log('data', data);
+
         }
       });
     }

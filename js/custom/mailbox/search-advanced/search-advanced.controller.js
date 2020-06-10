@@ -223,7 +223,6 @@
     function getQueryString() {
       // var queries = window.location.hash.split('?');
       var queries = vm.queryStringRoot;
-      console.log('queries aslkdlakdsldkasjl', queries);
 
       if (queries.length > 1) {
         queries = queries[1].split('&');
@@ -413,7 +412,7 @@
     }
 
     function init() {
-      console.log('INIT SEARCH ADVANCE');
+
       vm.queryStringRoot = window.location.origin + '/#/app/mailbox/searchAdvanced?&searchType=both';
       initLocalStorageSearchOption();
 

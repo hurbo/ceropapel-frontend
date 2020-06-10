@@ -39,7 +39,7 @@
 
 
     function activePrivate(){
-      console.log('activePrivate', vm.template.private );
+
       if(!vm.template.private){
         vm.template.shared = false;
         vm.template.fullPublic = false;
@@ -50,7 +50,7 @@
     }
 
     function activeShared(){
-      console.log('activeShared', vm.template.shared );
+
       if(!vm.template.shared){
         vm.template.private = false;
         vm.template.fullPublic = false;
@@ -61,7 +61,7 @@
     }
 
     function activeFullPublic(){
-      console.log('activeFullPublic', vm.template.fullPublic );
+
       if(!vm.template.fullPublic){
         vm.template.private = false;
         vm.template.shared = false;
@@ -74,7 +74,7 @@
 
 
 function onCompose(){
-  console.log('a orale');
+
   return false;
 }
 
@@ -166,7 +166,7 @@ function onCompose(){
       vm.secretariates = [];
       vm.documentTypes = [];
       templatesFactory.getDocumentTypes(function (err, documentTypes) {
-        console.log('document typES = ', documentTypes);
+
         vm.documentTypes = documentTypes ? documentTypes : [];
       });
 
@@ -236,15 +236,15 @@ function onCompose(){
       var element = document.getElementById('html2image');
       element.innerHTML = vm.template.fullContent;
       // element.style.display = 'block';
-      console.log("element.innerHTM", element.innerHTM);
+
       return domtoimage.toPng(element, { quality: 0.5 });
     }
 
     function _getTemplate(templateId) {
-      console.log('template controller jala datos _getTemplate');
+
       templatesFactory.getTemplateById(templateId)
         .then(function (templateData) {
-          console.log("Resuelve promesa ", templateData);
+
           if (vm.profile.roleID === Roles.NORMAL) {
             if ($state.current.name === 'app.templates.edit' && vm.profile.id !== templateData.authorID) {
               swalFactory.error('No puedes acceder al contenido no eres el autor de la plantilla');
@@ -290,7 +290,7 @@ function onCompose(){
           vm._isLoading = false;
         })
         .catch(function (err) {
-          console.log('Error en factory ', err)
+          console.error('Error en factory ', err)
         });
     }
 
@@ -374,13 +374,16 @@ function onCompose(){
     }
 
     function selectTemplate(id) {
-      console.log("Templeta controller jala datos");
+
       socket.emit(
         'getTemplate', {
         id: id
       },
         function (error, data) {
-          console.log("Template controller selecciono el ", data);
+          if (error) {
+            console.error("Template controller error ", error);
+          }
+
           vm.template = data;
         }
       );
@@ -574,7 +577,7 @@ function onCompose(){
     }
 
     function getTemplatePreview() {
-      console.log("getTemplatePreview");
+
       this.setVariableValues();
       var newContent = this.template.fullContent;
       var _this = this;
@@ -591,7 +594,7 @@ function onCompose(){
 
     function setVariableValues() {
       var _this = this;
-      console.log("this.variables", this.variables);
+
       this.variables.map(function (variable, index) {
         if (variable.type === 'user_active') {
           _this.previewValues[variable.variable] = vm.profile.name;
@@ -637,7 +640,7 @@ function onCompose(){
     }
 
     function showPreviewTemplate() {
-      console.log("showPreviewTemplate");
+
       vm.template.fullContent = '<header>' + vm.template.header + '</header>' +
         '<body>' + vm.template.content + '</body>' +
         '<footer>' + vm.template.footer + '</footer>';
@@ -652,7 +655,6 @@ function onCompose(){
 
 
     function replaceVariableInContent(previousVariable, newVariable) {
-      console.log("replaceVariableInContent");
 
 
       vm.template.header = vm.template.header.split(previousVariable).join(newVariable);

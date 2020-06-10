@@ -59,7 +59,7 @@
     }
 
     function ok() {
-      console.log("On delete template ", vm.currentTemplate);
+
       templatesFactory.deleteTemplate(vm.currentTemplate.id, function (err, data) {
         if (err) {
           swalFactory.error(err.message);

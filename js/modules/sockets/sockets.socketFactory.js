@@ -36,7 +36,7 @@
     });
 
     socket.on('connect_error', function () {
-      console.log('%c Socket connection ERROR', 'background: black; color: red');
+      console.error('%c Socket connection ERROR', 'background: black; color: red');
     });
 
     function logout() {
@@ -59,17 +59,17 @@
       } else if (err.code === 'invalid_token' && err.message === 'jwt expired') {
         logout();
       } else {
-        console.log(`%c Socket ERROR: ${err.message || err}`, 'background: black; color: red');
+        console.error(`%c Socket ERROR: ${err.message || err}`, 'background: black; color: red');
       }
     });
 
     socket.on('connect', function () {
-      console.log('%c Socket CONNECTED!', 'background: black; color: cyan');
+      console.error('%c Socket CONNECTED!', 'background: black; color: cyan');
       $rootScope.$broadcast('socket:connected');
     });
 
     socket.on('unauthorized', (reason) => {
-      console.log('Unauthorized:', reason);
+      console.error('Unauthorized:', reason);
       socket.disconnect();
     });
 

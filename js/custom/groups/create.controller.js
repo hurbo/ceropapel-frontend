@@ -51,13 +51,13 @@
           if ($state.is('app.groups.create')) {
             vm.formTitle = 'Crear grupo';
           } else {
-            console.log("$state.params", parseInt( $state.params.id ));
+
             vm.formTitle = 'Editar grupo';
             Groups.getOne({
                 group: parseInt( $state.params.id )
               },
               function (err, result) {
-                console.log("result", result);
+
                 vm.groupID = parseInt( $state.params.id );
                 vm.name = result.name;
                 vm.members = result.members;
@@ -142,9 +142,9 @@
 
     function _getMembers() {
       var members = [];
-      console.log("members", vm.members);
+
       for (var i = 0; i < vm.members.length; i++) {
-        console.log("members", vm.members[i]);
+
         members.push(vm.members[i].jobTitleID);
       }
       return members;

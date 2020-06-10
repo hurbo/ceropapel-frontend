@@ -114,7 +114,7 @@
     init();
 
     function _activate() {
-      console.log("$state.current.name", $state.current.name);
+
       if ($state.current.name.indexOf('app.mailbox.internal') !== -1) {
         vm.active = true;
         vm.internal = true;
@@ -201,7 +201,7 @@
     }
 
     function open(size) {
-      console.log('open');
+
       var modalInstance = $uibModal.open({
         templateUrl: 'views/mailbox/components/multipleTurnModal.html',
         controller: multipleTurnComponentController,

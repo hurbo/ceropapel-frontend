@@ -117,7 +117,7 @@
     }
 
     function isActive() {
-      console.log('sdasdasdasdasadas isActive');
+
       filter.active =
         filter.read ||
         filter.unread ||

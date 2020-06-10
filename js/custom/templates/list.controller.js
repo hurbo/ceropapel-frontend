@@ -53,7 +53,7 @@
 
 
     function deleteTemplate(id) {
-console.log("deleteTemplate", id);
+
       socket.emit('deleteTemplate', id, function (error, data) {
         if (!error) {
           vm.templates = data;

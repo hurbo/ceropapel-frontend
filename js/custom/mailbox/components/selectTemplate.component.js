@@ -88,7 +88,7 @@
 
 
     function setPage(page) {
-      console.log("setPage", page);
+
       vm.loading = true;
       var data = {
         secretariateID: vm.profile.secretariateID,
@@ -101,29 +101,28 @@
 
       switch (data.box) {
         case 'mostUsed':
-          console.log('get by mostUsed');
+
           templatesFactory.getTemplatesMostUsedPag(data).then(function (pageData) {
             vm.templates = pageData.items;
             vm.numPages = pageData.numPages;
 
-            console.log("vm.getTemplatesMostUsedPag", pageData);
             setPager();
             vm.loading = false;
           });
           break;
         case 'recent':
-          console.log('get by recent');
+
           templatesFactory.getTemplatesPag(data).then(function (pageData) {
             vm.templates = pageData.items;
             vm.numPages = pageData.numPages;
 
-            console.log("vm.getTemplatesPag", pageData);
+
             setPager();
             vm.loading = false;
           });
           break;
         case 'name':
-          console.log('get by name');
+
           break;
       }
 
@@ -135,7 +134,7 @@
 
 
     function setPager() {
-      console.log("setPager");
+
       vm.pager = {
         pages: [],
         currentPage: vm.currentPage,
@@ -202,7 +201,7 @@
 
       profileFactory.getProfile().then(function (profile) {
         vm.profile = profile;
-        console.log("profile", profile);
+
         vm.currentTemplate = null;
         vm.isTemplateVisible = false;
 

@@ -183,7 +183,7 @@
           });
         });
       } else {
-        console.log("$state.current.name", $state.current.name);
+
         alert('Error reportar error numero 9090');
       }
 

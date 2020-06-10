@@ -13,7 +13,7 @@
       controllerAs: 'cdtc'
     });
 
-    
+
 
 
     angular.module("app.mailbox").controller("composeDocumentTourComponentController", composeDocumentTourComponentController);
@@ -57,7 +57,7 @@
         }
 
         function tourSelectTemplate() {
-            console.log(vm.tour);
+
             var tour = new Tour({
                 template:
                     "<div class='popover tour'> \
@@ -84,8 +84,8 @@
 
 
 
-                
-                
+
+
 
 
 

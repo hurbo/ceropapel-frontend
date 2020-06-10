@@ -26,7 +26,7 @@
       },
         function(err, authResult) {
           if (err) {
-            console.log(err);
+            console.error(err);
           }
 
           if (authResult && authResult.idToken) {

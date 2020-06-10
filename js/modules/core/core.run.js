@@ -77,7 +77,7 @@
     // Hook success
     $rootScope.$on('$stateChangeSuccess',
       function (event, toState, toParams, fromState, fromParams) {
-        console.log('stateChangeSuccess core');
+
         // display new view from top
         $window.scrollTo(0, 0);
         // Save the route title

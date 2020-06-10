@@ -236,12 +236,10 @@
       compose.loading = false;
 
       if (draft && draft.templateVariableValues) {
-        console.log("draft.templateVariableValues",draft.templateVariableValues);
-        console.log("draft",draft);
+
 
         var templateData = draft.templateVariableValues;
-        console.log("verga madre que pedo con esta mierda", templateData);
-        console.log("verga madre que pedo con esta mierda [//FOLIO//]", templateData['[//FOLIO//]']);
+
 
         compose.templateFullContent = draft.template.fullContent;
         compose.variableValues = templateData;
@@ -385,7 +383,6 @@
         if (!contact) {
           console.log("Es uno nuevo onSelectTo");
         } else {
-          console.log("No es nuevo onSelectTo");
           item = contact;
         }
 
@@ -468,7 +465,6 @@
         if (!contact) {
           console.log("Es uno nuevo onSelectToCc");
         } else {
-          console.log("No es nuevo onSelectToCc");
           item = contact;
         }
 
@@ -659,7 +655,6 @@
         }
 
         for (var i = 0; i < compose.recipients.length; i++) {
-          console.log("compose.recipients[i]",compose.recipients[i]);
           auxCC.push({
             id: compose.recipients[i].id,
             jobTitleID: compose.recipients[i].jobTitleID,
@@ -753,7 +748,6 @@
 
 
 
-        console.log("manda a crear con ", data);
 
         Doc.create(data, function (error, doc) {
           if (error) {
@@ -1161,7 +1155,7 @@
         if (!contact) {
           console.log("Es uno nuevo onSelectColaboration");
         } else {
-          console.log("No es nuevo onSelectColaboration");
+
           item = contact;
         }
 
@@ -1229,7 +1223,7 @@
         if (!contact) {
           console.log("Es uno nuevo onSelectDraftTo");
         } else {
-          console.log("No es nuevo onSelectDraftTo");
+
           item = contact;
         }
         if (_isEmail(item.email)) {
@@ -1620,7 +1614,6 @@
 
 
 
-        console.log("manda a acrear el borrador con", data);
 
         socket.emit('saveDraft', data, function (err, result) {
 
@@ -1771,8 +1764,7 @@
     }
 
     function _setupDraft(draft) {
-      console.log("aqui es donde debo hacer los cambios perrones");
-      console.log("draft", draft);
+
       Profile.get(function (error, profile) {
 
         if (draft.authorID !== profile.id && draft.draftTo !== profile.jobTitleID) {

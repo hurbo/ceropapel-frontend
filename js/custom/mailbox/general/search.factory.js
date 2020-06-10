@@ -102,7 +102,7 @@
     };
 
     function setFolder(folder) {
-      console.log('folder', folder);
+
     }
 
     function setOption(option, value) {

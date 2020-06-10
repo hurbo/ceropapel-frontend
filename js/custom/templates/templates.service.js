@@ -107,7 +107,7 @@
       socket.emit('getVariableTypes', {}, cb);
     }
     function deleteTemplate(template, cb) {
-      console.log("deleteTemplate factory", template);
+
       socket.emit('deleteTemplate', template, cb);
     }
 

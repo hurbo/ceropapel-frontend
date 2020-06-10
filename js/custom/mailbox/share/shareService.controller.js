@@ -32,7 +32,7 @@
 
 
     function init() {
-      console.log("107570");
+
       Profile.getProfile().then(function (profile) {
         vm.profile = profile;
         if (!vm.profile.jobTitleID) {
@@ -85,13 +85,13 @@
 
 
     function setData() {
-      console.log('setData');
+
       setDocumentContent();
       setInternalBaseInfo();
     }
 
     function goToNextPanel() {
-      console.log('goToNextPanel');
+
       if (!vm.compose.selectedTo || vm.compose.selectedTo.length === 0) {
         vm.error = 'Agrega el email de ' + vm.dataOfFolio.nombrE_EMPLEADO;
         swalFactory.error('Agrega el email de ' + vm.dataOfFolio.nombrE_EMPLEADO);
@@ -112,14 +112,14 @@
 
 
     function setColaborators() {
-      console.log('setColaborators');
+
       var textoImg = 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Firma_Ricardo_Lagos_Escobar.png';
       var textoImgFondo = 'Girl in a jacket';
       vm.current = vm.html;
 
       for (let i = 0; i < vm.compose.selectedTo.length; i++) {
         var element = vm.compose.selectedTo[i];
-        console.log('element', element.email);
+
         if (i !== 0) {
           vm.current = vm.current.replace('[nombrE_EMPLEADO]', element.name);
         }
@@ -143,12 +143,12 @@
 
 
     function setInternalBaseInfo() {
-      console.log('setInternalBaseInfo');
+
       vm.subject = `SOLICITUD DE OFICIO COMISION ${vm.dataOfFolio.nombrE_EMPLEADO} <${vm.dataOfFolio.foliO_SOLICITUD}>`;
     }
 
     function setDocumentContent() {
-      console.log(vm.properties);
+
       for (let i = 0; i < vm.properties.length; i++) {
 
         var element = vm.properties[i];

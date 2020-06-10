@@ -92,13 +92,13 @@
 
     $rootScope.$on('reloadCount', function () {
       _getCount();
-      console.log('reloadCount from notifications controller');
+
     });
 
 
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-      console.log('stateChangeSuccess notification');
+
       vm.currentPath = toState.title;
     });
 
@@ -538,7 +538,7 @@
     }
 
     function _getCount() {
-      console.log("get count");
+
       Notifications.get(function (err, notifications) {
         vm.notifications = notifications;
         vm.notificationsCount = vm.notifications.length;
