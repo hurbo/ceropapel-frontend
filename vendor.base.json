@@ -29,10 +29,6 @@
   "bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js",
   "bower_components/angular-aria/angular-aria.js",
   "bower_components/angular-messages/angular-messages.js",
-
-
-
-
   "bower_components/summernote/dist/summernote.min.js",
   "bower_components/summernote/dist/summernote.css",
   "bower_components/summernote/lang/summernote-es-EU.js",
@@ -42,14 +38,11 @@
   "bower_components/ng-tags-input/ng-tags-input.min.css",
   "bower_components/bootstrap-select/dist/js/bootstrap-select.min.js",
   "bower_components/bootstrap-select/dist/css/bootstrap-select.min.css",
-
   "bower_components/socket.io-client/dist/socket.io.js",
-
   "bower_components/angular-nestable/src/angular-nestable.js",
   "bower_components/ng-idle/angular-idle.min.js",
   "bower_components/jszip/dist/jszip.min.js",
   "bower_components/bootstrap/dist/js/bootstrap.min.js",
-
   "bower_components/lodash/dist/lodash.min.js",
   "bower_components/nz-tour/dist/nz-tour.min.css",
   "bower_components/nz-tour/dist/nz-tour.min.js",
