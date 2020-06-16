@@ -16,6 +16,9 @@
         ],
         "client_sinaloa": [
           "sinaloa-ceropapel"
+        ],
+        "client_continental": [
+          "continental-ceropapel"
         ]
       }
     }
