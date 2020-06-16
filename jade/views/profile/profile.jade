@@ -9,7 +9,7 @@
         .panel-heading(ng-if="pc.needChanges")
           h4.text-light-blue.Poppins-Bold Datos de usuario
             button.btn.btn-sm.btn-secondary.pull-right.animated(style="margin-left: 10px;" ng-class="pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.needChanges = false;' ) Cancelar
-            button.btn.btn-sm.btn-primary.pull-right.animated(ng-class="pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.updateProfileUser(); pc.needChanges = false;' ) Guardar
+            button.btn.btn-sm.btn-primary.pull-right.animated(ng-class="pc.needChanges? 'fadeIn' : 'fadeOut'" type='button', ng-click='pc.updateProfileUser(); pc.needChanges = false;' ) Guardar cambios
         .panel-body
           form(action='')
             .col-md-2
