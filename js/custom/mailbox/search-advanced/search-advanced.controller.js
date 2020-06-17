@@ -222,72 +222,72 @@
 
     function getQueryString() {
       // var queries = window.location.hash.split('?');
-      var queries = vm.queryStringRoot;
-
+      var queries = vm.queryStringRoot.split('?');      
       if (queries.length > 1) {
-        queries = queries[1].split('&');
+        queries = queries[1].split('&');        
+        queries.forEach(function (filter) {          
+          if(filter){            
+            var filterData = filter.split('=');
+            var filterName = filterData[0];
 
-        queries.forEach(function (filter) {
-          var filterData = filter.split('=');
-          var filterName = filterData[0];
+            var filterValue = filterData[1]
+              .replace(/%20/g, ' ')
+              .replace(/%5B/g, '[')
+              .replace(/%7B/g, '{')
+              .replace(/%7D/g, '}')
+              .replace(/%5D/g, ']')
+              .replace(/%22/g, '"')
 
-          var filterValue = filterData[1]
-            .replace(/%20/g, ' ')
-            .replace(/%5B/g, '[')
-            .replace(/%7B/g, '{')
-            .replace(/%7D/g, '}')
-            .replace(/%5D/g, ']')
-            .replace(/%22/g, '"')
+              .replace(/%C3%A1/g, 'á')
+              .replace(/%C3%A9/g, 'é')
+              .replace(/%C3%AD/g, 'í')
+              .replace(/%C3%B3/g, 'ó')
+              .replace(/%C3%BA/g, 'ú')
 
-            .replace(/%C3%A1/g, 'á')
-            .replace(/%C3%A9/g, 'é')
-            .replace(/%C3%AD/g, 'í')
-            .replace(/%C3%B3/g, 'ó')
-            .replace(/%C3%BA/g, 'ú')
+              .replace(/%C3%81/g, 'Á')
+              .replace(/%C3%89/g, 'É')
+              .replace(/%C3%8D/g, 'Í')
+              .replace(/%C3%93/g, 'Ó')
+              .replace(/%C3%9A/g, 'Ú')
 
-            .replace(/%C3%81/g, 'Á')
-            .replace(/%C3%89/g, 'É')
-            .replace(/%C3%8D/g, 'Í')
-            .replace(/%C3%93/g, 'Ó')
-            .replace(/%C3%9A/g, 'Ú')
+              .replace(/%C3%B1/g, 'ñ')
+              .replace(/%C3%91/g, 'Ñ');
 
-            .replace(/%C3%B1/g, 'ñ')
-            .replace(/%C3%91/g, 'Ñ');
+            if (filterName === 'subject') {
+              vm.searchOption[filterName] = filterValue;
+            }
 
-          if (filterName === 'subject') {
-            vm.searchOption[filterName] = filterValue;
-          }
+            if (filterName === 'senders') {
+              vm.selectedTo = JSON.parse(filterValue);
+            }
 
-          if (filterName === 'senders') {
-            vm.selectedTo = JSON.parse(filterValue);
-          }
+            if (filterName === 'recipients') {
+              vm.selectedFrom = JSON.parse(filterValue);
+            }
 
-          if (filterName === 'recipients') {
-            vm.selectedFrom = JSON.parse(filterValue);
-          }
+            if (filterName === 'folio') {
+              vm.searchOption[filterName] = filterValue;
+            }
 
-          if (filterName === 'folio') {
-            vm.searchOption[filterName] = filterValue;
-          }
+            if (filterName === 'documentType') {
+              vm.searchOption.documentType = parseInt(filterValue, 10);
+            }
 
-          if (filterName === 'documentType') {
-            vm.searchOption.documentType = parseInt(filterValue, 10);
-          }
+            if (filterName === 'status') {
+              vm.searchOption[filterName] = filterValue;
+            }
 
-          if (filterName === 'status') {
-            vm.searchOption[filterName] = filterValue;
-          }
+            if (filterName === 'startDate') {
+              vm.searchOption[filterName] = moment(filterValue)._d;
+            }
 
-          if (filterName === 'startDate') {
-            vm.searchOption[filterName] = moment(filterValue)._d;
-          }
+            if (filterName === 'endDate') {
+              vm.searchOption[filterName] = moment(filterValue)._d;
+            }
 
-          if (filterName === 'endDate') {
-            vm.searchOption[filterName] = moment(filterValue)._d;
-          }
-
-          if (filterName === 'searchType') {
-            vm.selectedSearchType = filterValue;
+            if (filterName === 'searchType') {
+              vm.selectedSearchType = filterValue;
+            }
           }
         });
       }
