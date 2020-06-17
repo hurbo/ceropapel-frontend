@@ -2,9 +2,9 @@
   'use strict';
   angular.module('app.mailbox')
     .factory('ExternalsFactory', ExternalsFactory);
-  ExternalsFactory.$inject = ['$q', 'socket', 'profileFactory', '$state', '$stateParams'];
+  ExternalsFactory.$inject = ['$rootScope', '$q', 'socket', 'profileFactory', '$state', '$stateParams'];
 
-  function ExternalsFactory($q, socket, Profile, $state, $stateParams) {
+  function ExternalsFactory($rootScope, $q, socket, Profile, $state, $stateParams) {
     var current = null;
     var users = null;
     var currentPermissions = null;
@@ -83,9 +83,14 @@
         // Profile.getProfile().then(function (profile) {
 
         var boss = getCurrentUser();
+        if(!boss){
+          console.error('No hay jefe activo');
+          defer.reject();
+          return defer;
+        }
         var data = {
           clerkJobTitleID: profile.jobTitleID,
-          bossJobTitleID: boss.jobTitleID,
+          bossJobTitleID: boss && boss.jobTitleID ? boss.jobTitleID : null
         };
 
         socket.emit('getPermission', data, function (err, permissions) {
@@ -130,10 +135,17 @@
 
     function getCurrentUser() {
 
-
+      console.log('getCurrentUser on external factory');
       if (!current && !users) {
         socket.emit('getBosses', {}, function (err, data) {
+          if(data && data[0]){
+            console.log('need reloas');
+            $state.reload();
+          }
+
+          users = data;
           if (data[0]) {
+            current = users[0];
             setCurrentUser(data[0]);
           }
         });

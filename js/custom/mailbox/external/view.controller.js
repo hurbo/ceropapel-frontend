@@ -116,7 +116,7 @@
           $rootScope.$broadcast('reloadCount', function(){
             console.log('call relload from external view');
           });
-          $rootScope.app.layout.isCollapsed = true;
+
           _getDisplay().then(function (solve) {
             vm.isLoading = false;
           }, function (err) {

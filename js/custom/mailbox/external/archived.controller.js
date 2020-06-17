@@ -100,7 +100,6 @@
             Profile.getProfile().then(function (profile) {
               vm.profile = profile;
               vm.currentUserID = $state.params.jobTitle;
-              $rootScope.app.layout.isCollapsed = true;
               vm.paginator = paginatorFactory;
               _getFavoriteOutFoldersOfBoss();
               _getAllOutFoldersOfBoss();
@@ -139,7 +138,6 @@
             Profile.getProfile().then(function (profile) {
               vm.profile = profile;
               vm.currentUserID = $state.params.jobTitle;
-              $rootScope.app.layout.isCollapsed = true;
               vm.paginator = paginatorFactory;
               _getFavoriteFoldersOfBoss();
               _getAllFoldersOfBoss();

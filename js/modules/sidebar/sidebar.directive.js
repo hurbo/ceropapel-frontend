@@ -66,7 +66,7 @@
         // Hide sidebar automatically on mobile
         asideToggleOff();
 
-        $rootScope.$broadcast('closeSidebarMenu');
+        // $rootScope.$broadcast('closeSidebarMenu');
       });
 
       // Autoclose when click outside the sidebar

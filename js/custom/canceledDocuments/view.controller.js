@@ -45,7 +45,6 @@
 
       vm.prossesingLoad = true;
 
-      $rootScope.app.layout.isCollapsed = true;
     }
 
     function _getDocument() {

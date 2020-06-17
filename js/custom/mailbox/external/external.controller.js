@@ -15,6 +15,7 @@
     function activate() {
 
       Externals.getUsers(function (err, users) {
+        console.log('users', users);
         vm.users = users;
         vm.currentUser = Externals.getCurrentUser();
         if (users.length === 0) {

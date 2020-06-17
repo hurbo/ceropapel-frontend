@@ -577,7 +577,7 @@ nav.navbar.topnavbar(role='navigation' ng-controller="NotificationsController as
 
 
 
-      li.dropdown.dropdown-list.animated(uib-dropdown="")
+      li.dropdown.dropdown-list.animated(ng-if="ntc.currentUser" uib-dropdown="")
         a(uib-dropdown-toggle="") Elige un colaborador
           img.img-circle(style = "height: 1.8em; padding-left:5px;" ng-src="{{ntc.currentUser.avatar}}", alt="Avatar", title="{{ntc.currentUser.name}}")
 

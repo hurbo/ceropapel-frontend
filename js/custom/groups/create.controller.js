@@ -6,7 +6,7 @@
     .controller('groupsCreateController', groupsCreateController);
   groupsCreateController.$inject = [
     '$rootScope',
-    'SweetAlert',
+    'swangular',
     'Groups',
     'JobTitles',
     '$state',

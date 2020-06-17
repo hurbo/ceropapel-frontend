@@ -184,7 +184,6 @@
       profileFactory.getProfile().then(profile => {
         vm.profile = profile;
         _getDraft();
-        $rootScope.app.layout.isCollapsed = true;
       })
 
     }

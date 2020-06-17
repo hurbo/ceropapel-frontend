@@ -154,7 +154,6 @@
           return;
         } else {
 
-          $rootScope.app.layout.isCollapsed = true;
           vm.paginator = paginatorFactory;
           _getFavoriteFolders();
           _getAllFolders();

@@ -102,7 +102,7 @@
       }, function (err) {
         console.error('Error addMember on getProfile', err);
       });
-      $rootScope.app.layout.isCollapsed = true;
+
     }
 
   }

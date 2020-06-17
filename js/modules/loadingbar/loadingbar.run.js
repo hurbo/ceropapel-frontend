@@ -9,7 +9,7 @@
   function loadingbarRun($rootScope, $timeout, cfpLoadingBar) {
 
     // Loading bar transition
-    // ----------------------------------- 
+    // -----------------------------------
     var thBar;
     $rootScope.$on('$stateChangeStart', function () {
       if ($('.wrapper > section').length) // check if bar container exists

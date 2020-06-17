@@ -67,7 +67,6 @@
 
     function activate() {
 
-      $rootScope.app.layout.isCollapsed = true;
       vm.paginator = paginatorFactory;
       vm.paginator.init('drafts');
       Profile.getProfile().then(function (profile) {

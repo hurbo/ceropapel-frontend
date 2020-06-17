@@ -126,12 +126,12 @@
             EditorFactory.getSummernoteViewOptions()
           );
           $('.summerNote-disabled+.note-editor .note-editable').attr('contenteditable', false)
-          
+
           $rootScope.$broadcast('reloadCount', function(){
             console.log('call relload from internal view');
           });
 
-          $rootScope.app.layout.isCollapsed = true;
+
           _getDisplay().then(function (solve) {
             vm.isLoading = false;
           }, function (err) {

@@ -156,7 +156,6 @@
         });
       });
 
-      $rootScope.app.layout.isCollapsed = true;
     }
   }
 })();

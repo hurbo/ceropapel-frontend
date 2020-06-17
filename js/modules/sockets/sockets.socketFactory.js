@@ -13,6 +13,7 @@
     let retryAttempts = 5;
     const token = localStorage.getItem(`${env.STORAGE_PREFIX}:access_token`);
 
+
     const socket = io.connect(env.API_URL, {
       reconnection: true,
       reconnectionDelay: 1000,
