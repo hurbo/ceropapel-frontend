@@ -40,7 +40,7 @@
         {
           name: 'ng-nestable',
           files: ['vendor/ng-nestable/src/angular-nestable.js',
-            'vendor/nestable/jquery.nestable.js'
+          'vendor/ng-nestable/lib/jquery.nestable.js'
           ]
         },
 

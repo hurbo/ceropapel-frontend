@@ -51,7 +51,8 @@
   "bower_components/angular-auth0/dist/angular-auth0.min.js",
   "bower_components/angular-jwt/dist/angular-jwt.min.js",
   "bower_components/dom-to-image/dist/dom-to-image.min.js",
-  "bower_components/ng-nestable/src/angular-nestable.js"
+  "bower_components/ng-nestable/src/angular-nestable.js",
+  "bower_components/ng-nestable/lib/jquery.nestable.js"
 ]
 
 

@@ -56,5 +56,6 @@
   "bower_components/simple-line-icons/fonts/*",
   "bower_components/dom-to-image/dist/dom-to-image.min.js",
   "bower_components/angular-material/angular-material.min.css",
-  "bower_components/ng-nestable/src/angular-nestable.js"
+  "bower_components/ng-nestable/src/angular-nestable.js",
+  "bower_components/ng-nestable/lib/jquery.nestable.js"
 ]
