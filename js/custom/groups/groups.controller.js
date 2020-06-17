@@ -25,7 +25,9 @@
 
             Groups.getReloadOwn({}, function (err, groups) {
               vm.groups = groups;
-              $state.reload();
+
+              $state.go('app.groups');
+              // $state.reload();
 
             });
           });

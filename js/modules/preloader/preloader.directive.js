@@ -32,6 +32,7 @@
         Profile.getProfile().then(function (profile) {
           endCounter();
         }).catch(function (err) {
+
           $window.location.reload();
         });
       });

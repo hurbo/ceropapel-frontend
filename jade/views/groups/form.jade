@@ -1,14 +1,10 @@
 
-
-
-
 .col-md-12(style='background-color: white; margin-top: 10px !important;' )
-
   h3.text-light-blue.Poppins-SemiBold.ng-binding(style='padding-left: 50px;') {{gcc.formTitle}}
   .col-md-12.dividerView
   .col-md-12
     .col-md-12.dividerView
-    
+
     .container
 
       .col-md-12
@@ -48,9 +44,7 @@
                 dt {{jt.userName}}
                 dd {{jt.jobTitleName}}
               hr(style="margin:0;")
-        
 
-        
         .col-md-6#miembros
           h4 Miembros selecionados
           span Click sobre el usuario para quitarlo de la lista
@@ -59,8 +53,5 @@
             span.list-group-item.clickable.user(ng-repeat="member in gcc.members", ng-click="gcc.removeMember(member)")
               h4.list-group-item-heading {{member.userName}}
               p.list-group-item-text {{member.jobTitleName}}
-      
+
     .col-md-12.dividerView
-
-
-

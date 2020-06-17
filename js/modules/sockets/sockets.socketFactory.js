@@ -32,6 +32,7 @@
       retryAttempts--;
       if (retryAttempts === 0) {
         alert('Error de conexión al servidor.');
+
         window.location.reload();
       }
     });

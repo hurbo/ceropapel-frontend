@@ -31,6 +31,7 @@
               console.log('vm.profile', vm.profile);
               if(vm.profile.permissions <= 0){
                 console.log('reload completo chsm');
+
                 window.location.reload();
                 // $state.reload();
               }
