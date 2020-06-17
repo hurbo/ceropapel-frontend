@@ -2,13 +2,15 @@
   'use strict';
   angular.module('app.mailbox')
     .factory('ExternalsFactory', ExternalsFactory);
-  ExternalsFactory.$inject = ['$rootScope', '$q', 'socket', 'profileFactory', '$state', '$stateParams'];
+  ExternalsFactory.$inject = ['$q', 'socket', 'profileFactory', '$state', '$stateParams'];
 
-  function ExternalsFactory($rootScope, $q, socket, Profile, $state, $stateParams) {
+  function ExternalsFactory($q, socket, Profile, $state, $stateParams) {
     var current = null;
     var users = null;
     var currentPermissions = null;
     var currentProfile = null;
+
+
     return {
 
       getUsers: getUsers,
@@ -16,8 +18,15 @@
       setCurrentUser: setCurrentUser,
       navigate: navigate,
       getCurrentBossjobTitleID: getCurrentBossjobTitleID,
-      validatePermision: validatePermision
+      validatePermision: validatePermision,
+
+      canEnterOnExternal: canEnterOnExternal
     };
+
+
+    function canEnterOnExternal(profile, cb) {
+      socket.emit('canEnterOnExternal', profile, cb);
+    }
 
     function validatePermision(permission) {
       let defer = $q.defer();
@@ -83,14 +92,9 @@
         // Profile.getProfile().then(function (profile) {
 
         var boss = getCurrentUser();
-        if(!boss){
-          console.error('No hay jefe activo');
-          defer.reject();
-          return defer;
-        }
         var data = {
           clerkJobTitleID: profile.jobTitleID,
-          bossJobTitleID: boss && boss.jobTitleID ? boss.jobTitleID : null
+          bossJobTitleID: boss && boss.jobTitleID ? boss.jobTitleID : null,
         };
 
         socket.emit('getPermission', data, function (err, permissions) {
@@ -123,29 +127,20 @@
 
     function getUsers(cb) {
 
-      if (users) {
-        cb(null, users);
-      } else {
+
         socket.emit('getBosses', {}, function (err, data) {
           if (data[0]) setCurrentUser(data[0]);
           cb(err, data);
         });
-      }
+
     }
 
     function getCurrentUser() {
 
-      console.log('getCurrentUser on external factory');
+
       if (!current && !users) {
         socket.emit('getBosses', {}, function (err, data) {
-          if(data && data[0]){
-            console.log('need reloas');
-            $state.reload();
-          }
-
-          users = data;
           if (data[0]) {
-            current = users[0];
             setCurrentUser(data[0]);
           }
         });

@@ -481,7 +481,6 @@
 
 
         Externals.getUsers(function (err, users) {
-          console.log(' Externals.getUsers notifications', users);
           if (!err) {
             vm.users = users;
             vm.currentUser = Externals.getCurrentUser();
