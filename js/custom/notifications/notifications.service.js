@@ -19,7 +19,6 @@
       });
       socket.emit('logout');
       $rootScope.auth.logout();
-      $state.go('auth.login');
     });
 
     return {

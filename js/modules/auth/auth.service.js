@@ -40,6 +40,7 @@
     function logout() {
       localStorage.removeItem(`${STORAGE_PREFIX}:access_token`);
       localStorage.removeItem(`${STORAGE_PREFIX}:id_token`);
+      angularAuth0.logout();
     }
 
     // This method will check to see if the user is logged in by

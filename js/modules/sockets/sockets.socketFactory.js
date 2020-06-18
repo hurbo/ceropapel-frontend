@@ -66,7 +66,7 @@
     });
 
     socket.on('connect', function () {
-      console.error('%c Socket CONNECTED!', 'background: black; color: cyan');
+      console.info('%c Socket CONNECTED!', 'background: black; color: cyan');
       $rootScope.$broadcast('socket:connected');
     });
 
