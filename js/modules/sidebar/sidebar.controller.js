@@ -25,7 +25,7 @@
       Profile.getProfile().then(function (profile) {
         vm.profile = profile;
         socket.on('updateProfile-' + profile.id, function () {
-          $state.reload();
+          // $state.reload();
           Profile.reloadProfile().then(function () {
             $rootScope.$broadcast('updateProfile');
             SidebarLoader.getMenu(sidebarReady);
