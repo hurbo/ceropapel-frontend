@@ -39,6 +39,11 @@
       }
     }
 
+
+    vm.goToRoot = function() {
+      window.location = window.location.origin;
+    }
+
     vm.getUser = function() {
       return JSON.stringify(vm.service.user(), null, 4)
     }

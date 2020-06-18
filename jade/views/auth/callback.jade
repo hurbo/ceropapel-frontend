@@ -16,6 +16,8 @@ div.containerForm(data-ng-init="auth.onCallbackInit()")
     div(style="padding-top: 5%; text-align: center;" ng-if='auth.error')
       h2.error-login.Poppins-ExtraBold {{auth.error.message}}
       h4.error-login.Poppins-ExtraBold {{auth.error.desc}}
+      br
+      button.btn.btn-primary.pull-center(ng-click="auth.goToRoot()") Ingresar
 
       br
       br
