@@ -128,6 +128,7 @@
 
     function getTemplateById(id) {
       var deferred = $q.defer();
+      console.log("GetTemplate service template");
       socket.emit('getTemplate', {
         id: id
       }, function (error, data) {

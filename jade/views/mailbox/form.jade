@@ -38,7 +38,7 @@
   .col-md-12(style="background-color: #eceded" ng-if="docs.compose.variables.length === 0")
     select-template-component
   .col-md-12(ng-if="docs.compose.variables.length >= 1")
-    .col-md-4(style="background-color: #fff")
+    .col-md-12(style="background-color: #fff")
       .panel-default
           .panel-heading
               h3.Poppins-SemiBold.primaryTextBlue Listado de variables
@@ -126,7 +126,7 @@
                               div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1; margin-bottom: 5px;")
                                 input.form-control(ng-model='tableValues[$index].name', type='text', placeholder="Ingresar valor", style="border-radius: 7px;", required, ng-change='docs.compose.onChangeVariable(variable, $parent.$index, $index)')
 
-    .col-md-8(style="background-color: #eceded")
+    .col-md-12(style="background-color: #eceded")
       .panel-default
           .panel-heading
               h3.Poppins-SemiBold.primaryTextBlue Vista previa
@@ -245,7 +245,18 @@
 
           .col-md-2
           .col-md-8(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+            //- .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+
+
+            .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
+            .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
+              .process-document
+                .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+                  div(ng-repeat="section in sheet.sections")
+                    div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
+                    div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+
+
 
             //- .process-document(ng-if="docs.compose.document.sheets" )
             //-   .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
@@ -1046,18 +1057,18 @@
         h4.modal-title Vista previa
       .modal-body
         .row
-          .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+          //- .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
+            //- .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
 
 
 
-          //- .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
-          //- .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
-          //-   .process-document
-          //-     .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
-          //-       div(ng-repeat="section in sheet.sections")
-          //-         div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
-          //-         div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+          .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
+          .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
+            .process-document
+              .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+                div(ng-repeat="section in sheet.sections")
+                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
+                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
 
 
       .modal-footer(ng-if="docs.step === docs.StepEnum.FILL_DATA")

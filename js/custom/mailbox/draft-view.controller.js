@@ -129,6 +129,10 @@
           _id: $state.params.id
         },
         function (err, draft) {
+          console.log("Draft view ", draft);
+          draft.values = JSON.parse(draft.templateVariableValues);
+          draft.variableValues = JSON.parse(draft.templateVariableValues);
+          console.log("Estos son los datos", draft.values);
 
           templatesFactory.getTemplateById(draft.templateID).then(function (template) {
 
@@ -160,7 +164,7 @@
 
 
     function selectTemplete(item) {
-
+      console.log("Draft view selectTemplete ");
       templatesFactory.getTemplateById(item._id).then(function (solve) {
         if (solve.content) {
           // $('#botonCerrarSeleccionPlantilla').click();

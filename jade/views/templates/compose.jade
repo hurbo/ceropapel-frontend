@@ -112,7 +112,7 @@
 
 
 .row(ng-if='!tc.isLoading()')
-  .col-md-4(style= "background-color: #ebeded;")
+  .col-md-12(style= "background-color: #ebeded;")
     .panel-default
       .panel-heading
         h3 Listado de variables
@@ -172,8 +172,8 @@
               | AGREGAR VARIABLE
 
 
-
-  .col-md-8(style= "background-color: #c5c8ca;")
+.row(ng-if='!tc.isLoading()')
+  .col-md-12(style= "background-color: #c5c8ca;")
     .panel-default
       .panel-heading
         h3 Formato

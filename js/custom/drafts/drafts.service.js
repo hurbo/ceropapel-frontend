@@ -23,7 +23,7 @@
 
 
     function getTemplate(data, callback) {
-
+      console.log("GetTemplate service draft");
       socket.emit('getTemplate', data, callback);
     }
 

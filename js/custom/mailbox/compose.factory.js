@@ -238,14 +238,31 @@
       if (draft && draft.templateVariableValues) {
 
 
-        var templateData = draft.templateVariableValues;
-
 
         compose.templateFullContent = draft.template.fullContent;
-        compose.variableValues = templateData;
+        compose.variableValues = draft.variableValues;
         compose.variables = draft.template.variables;
         compose.templateId = draft.template.id;
         compose.draftID = draft.id;
+        console.log('****************+');
+        console.log('compose.variableValues', compose.variableValues);
+        console.log('****************+');
+        console.log('compose.variables', compose.variables);
+        console.log('****************+');
+
+        for (let i = 0; i < compose.variables.length; i++) {
+          const element = compose.variables[i];
+          if(element.type.indexOf("date") !== -1) {
+            var oldDate = compose.variableValues[element.variable];
+            console.log("oldDate oldDate oldDate oldDate ", oldDate);
+            var newDate = new Date(oldDate);
+            console.log("newDate newDate newDate newDate ", newDate);
+            compose.variableValues[element.variable] = newDate;
+          }
+        }
+
+
+
       }
 
       _getContacts(function () {
@@ -824,10 +841,12 @@
 
       compose.loading = true;
 
-      templatesFactory.getTemplateById(template.id).then(function (solve) {
+      var templateID = template && template.id ? template.id : template;
+      console.log("Compose fctory template template template template", templateID);
+      templatesFactory.getTemplateById(templateID).then(function (solve) {
         if (solve) {
           compose.loading = false;
-          compose.templateId = template.id;
+          compose.templateId = templateID;
           compose.templateLoaded = true;
           compose.document.content = solve.fullContent + '';
           compose.originalContent = compose.document.content;
@@ -1773,7 +1792,7 @@
           $state.go('app.mailbox.internal.drafts');
           return;
         } else {
-          setTemplate(draft.templateID);
+          // setTemplate(draft.templateID);
 
 
             draftID = draft.id;
