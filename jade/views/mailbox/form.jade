@@ -21,7 +21,7 @@
                 | &nbsp;EDITAR DATOS DE ENVIO
           .col-md-6
             .pull-right(ng-if="docs.step === docs.StepEnum.FILL_DATA")
-              button.btn.btn-sm(ng-if='docs.compose.areAllVariablesFilled();', type='button', style='background-color: #e96057; color: white;', ng-click='docs.compose.showPreviewTemplate()')
+              button.btn.btn-sm(ng-if='docs.compose.areAllVariablesFilled();', type='button', style='background-color: #e96057; color: white;', ng-click='docs.setStep(docs.StepEnum.FILL_SEND_DATA);')
                 | LLENAR DATOS DE ENVIO&nbsp;
                 i.fa.fa-arrow-right
 
@@ -30,6 +30,10 @@
               button.btn.btn-sm(type='button', style='background-color: #e96057; color: white;', ng-click='docs.setStep(docs.StepEnum.REVIEW_DATA);')
                 | CONTINUAR&nbsp;
                 i.fa.fa-arrow-right
+
+
+            //- button.btn.btn-secondary(type='button', data-dismiss='modal', ng-click="docs.setStep(docs.StepEnum.FILL_SEND_DATA);")
+            //-   |  CONTINUAR amons
 
 
 
@@ -245,16 +249,16 @@
 
           .col-md-2
           .col-md-8(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            //- .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
 
 
-            .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
-            .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
-              .process-document
-                .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
-                  div(ng-repeat="section in sheet.sections")
-                    div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
-                    div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+            //- .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
+            //- .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
+            //-   .process-document
+            //-     .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+            //-       div(ng-repeat="section in sheet.sections")
+            //-         div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
+            //-         div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
 
 
 
@@ -1057,18 +1061,18 @@
         h4.modal-title Vista previa
       .modal-body
         .row
-          //- .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            //- .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+          .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
+            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
 
 
 
-          .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
-          .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
-            .process-document
-              .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
-                div(ng-repeat="section in sheet.sections")
-                  div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
-                  div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
+          //- .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
+          //- .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
+          //-   .process-document
+          //-     .documentSheet(ng-repeat="sheet in docs.compose.document.sheets")
+          //-       div(ng-repeat="section in sheet.sections")
+          //-         div(ng-if="section.tag === 'footer'" ng-bind-html="section.html | trusted" style="position: absolute; bottom: 0;")
+          //-         div(ng-if="section.tag !== 'footer'" ng-bind-html="section.html | trusted")
 
 
       .modal-footer(ng-if="docs.step === docs.StepEnum.FILL_DATA")
