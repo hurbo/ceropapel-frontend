@@ -167,8 +167,42 @@
         // }
       }),
       templateFullContent: '',
-      getFullSize: getFullSize
+      getFullSize: getFullSize,
+      proceso: proceso
     };
+
+
+
+    function proceso() {
+      var newContent = compose.templateFullContent;
+      compose.variables.map(function (variable) {
+        var variableKey = variable.variable;
+        var value = compose.variableValues[variableKey] || variableKey;
+
+        if (value && (isDateVariable(variable) || isCurrentDateVariable(variable))) {
+          var momentValue = moment(value);
+          var format = DATE_FORMAT;
+          if (variable.type === 'date_ddmonthnameyyyy' || variable.type === 'current_date_ddmonthnameyyyy') {
+            format = DATE_MONTHNAME_FORMAT;
+          } else if (variable.type === 'date_extended' || variable.type === 'current_date_extended') {
+            format = DATE_EXTENDED_FORMAT;
+          }
+          value = !momentValue.isValid() ? '' : momentValue.format(format)
+        } else if (value && variable.type === 'time') {
+          var momentValue = moment(value);
+          value = !momentValue.isValid() ? '' : momentValue.format(TIME_FORMAT)
+        } else if (variable.type === 'table') {
+          value = getVariableTableContent(variable);
+        }
+
+        newContent = newContent.split(variableKey).join(value);
+      });
+
+      compose.document.content = newContent;
+      compose.templateFullContent = newContent;
+      // getRawDocumentElements();
+
+    }
 
     function init(draft) {
 
@@ -255,7 +289,7 @@
 
         for (let i = 0; i < compose.variables.length; i++) {
           const element = compose.variables[i];
-          if(element.type.indexOf("date") !== -1) {
+          if (element.type.indexOf("date") !== -1) {
             var oldDate = compose.variableValues[element.variable];
             console.log("oldDate oldDate oldDate oldDate ", oldDate);
             var newDate = new Date(oldDate);
@@ -316,10 +350,10 @@
       var mm = (date.getMonth() + 1);
 
       if (gg < 10)
-          gg = "0" + gg;
+        gg = "0" + gg;
 
       if (mm < 10)
-          mm = "0" + mm;
+        mm = "0" + mm;
 
       var cur_day = aaaa + "-" + mm + "-" + gg;
 
@@ -328,17 +362,17 @@
       var seconds = date.getSeconds();
 
       if (hours < 10)
-          hours = "0" + hours;
+        hours = "0" + hours;
 
       if (minutes < 10)
-          minutes = "0" + minutes;
+        minutes = "0" + minutes;
 
       if (seconds < 10)
-          seconds = "0" + seconds;
+        seconds = "0" + seconds;
 
       return cur_day + " " + hours + ":" + minutes + ":" + seconds;
 
-  }
+    }
 
     function onRemoveTo(item, model) {
 
@@ -351,7 +385,7 @@
 
 
 
-      if(!item.email){
+      if (!item.email) {
 
         item = {
           name: '',
@@ -408,21 +442,21 @@
 
         if (_isEmail(item.email)) {
 
-            _findEmailInDocument(item.email);
-            var index = _findEmailInList(item.email, compose.contacts);
-            console.error("_findEmailInList 1",index);
+          _findEmailInDocument(item.email);
+          var index = _findEmailInList(item.email, compose.contacts);
+          console.error("_findEmailInList 1", index);
 
-            compose.listToPrivateMessages.push(item);
-            item.needSign = true;
-            compose.recipients.push(item);
+          compose.listToPrivateMessages.push(item);
+          item.needSign = true;
+          compose.recipients.push(item);
 
 
-            if (index >= 0) {
-              item.isNew = false;
-              compose.contacts.splice(index, 1);
-            } else {
-              item.isNew = true;
-            }
+          if (index >= 0) {
+            item.isNew = false;
+            compose.contacts.splice(index, 1);
+          } else {
+            item.isNew = true;
+          }
 
 
         } else {
@@ -490,15 +524,15 @@
 
         if (_isEmail(item.email)) {
 
-            _findEmailInDocument(item.email);
-            var index = _findEmailInList(item.email, compose.contacts);
-            console.error("_findEmailInList 2", index);
-            if (index >= 0) {
-              compose.contacts.splice(index, 1);
-            }
-            compose.listToPrivateMessages.push(item);
-            item.needSign = false;
-            compose.recipients.push(item);
+          _findEmailInDocument(item.email);
+          var index = _findEmailInList(item.email, compose.contacts);
+          console.error("_findEmailInList 2", index);
+          if (index >= 0) {
+            compose.contacts.splice(index, 1);
+          }
+          compose.listToPrivateMessages.push(item);
+          item.needSign = false;
+          compose.recipients.push(item);
 
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
@@ -640,8 +674,8 @@
               jobTitleID: compose.listColaborators[i].item.jobTitleID,
               email: compose.listColaborators[i].item.email.toLowerCase(),
               name:
-              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
-                'Nombre pendiente',
+                compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                  'Nombre pendiente',
               privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
               colaboration: true,
               inColaboration: true,
@@ -655,12 +689,12 @@
               id: compose.listColaborators[i].item.id,
               jobTitleID: compose.listColaborators[i].item.jobTitleID,
 
-              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID? false : true,
+              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID ? false : true,
 
               email: compose.listColaborators[i].item.email.toLowerCase(),
               name:
-              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
-                'Nombre pendiente',
+                compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                  'Nombre pendiente',
               privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
               colaboration: true,
               inColaboration: true,
@@ -678,10 +712,10 @@
           auxCC.push({
             id: compose.recipients[i].id,
             jobTitleID: compose.recipients[i].jobTitleID,
-            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID? false : true,
+            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID ? false : true,
             email: compose.recipients[i].email.toLowerCase(),
             name:
-            compose.recipients[i].name? compose.recipients[i].name.toLowerCase(): 'Nombre pendiente',
+              compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
             privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
             colaboration: compose.colaboration || false,
             inColaboration: false,
@@ -697,7 +731,7 @@
             jobTitleID: compose.recipients[i].jobTitleID,
             email: compose.recipients[i].email.toLowerCase(),
             name:
-            compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
+              compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
             privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
             colaboration: compose.colaboration || false,
             inColaboration: false,
@@ -848,18 +882,18 @@
 
     function bufferToBase64(buf) {
       var binstr = Array.prototype.map.call(buf, function (ch) {
-          return String.fromCharCode(ch);
+        return String.fromCharCode(ch);
       }).join('');
       return btoa(binstr);
-  }
+    }
 
 
-  function onInitPDF(){
-    console.log("onInitPDF");
-  }
-    function htmlToPdf(){
+    function onInitPDF() {
+      console.log("onInitPDF");
+    }
+    function htmlToPdf() {
       console.log("htmlToPdf");
-      socket.emit('htmlToPDFMaker', compose.document.content, function(err, solve){
+      socket.emit('htmlToPDFMaker', compose.document.content, function (err, solve) {
         console.log('error html to pdf', err);
         console.log('solve html to pdf', solve);
 
@@ -870,14 +904,14 @@
         compose.pdfBuffer = solve;
         compose.pdfBlop = pdf;
         compose.pdfUint8Array = new Uint8Array(solve);
-        
 
-        console.log("El pdf es pdf",pdf);
 
- 
+        console.log("El pdf es pdf", pdf);
+
+
 
         // open a file in the viewer
-        
+
 
 
         var fileURL = URL.createObjectURL(pdf);
@@ -885,9 +919,9 @@
         compose.pdfContent = $sce.trustAsResourceUrl(fileURL);
 
 
-      //  window.open(fileURL);
-      //  compose.pdfBuffer = new Uint8Array(solve);
-      //   console.log("pdfBuffer", compose.pdfBuffer);
+        //  window.open(fileURL);
+        //  compose.pdfBuffer = new Uint8Array(solve);
+        //   console.log("pdfBuffer", compose.pdfBuffer);
 
 
 
@@ -990,17 +1024,17 @@
       var variableKey = variable.variable;
       // var value = [rowIndex][columnIndex] || variableKey;
       return '<table class="table table-bordered">' +
-      '<thead><tr>' + (variable.tableColumns.map(function (column) {
-        return '<th width="' + (column.width ? column.width : '') + '">' + column.name + '</th>';
-      })).join('') + '</tr></thead>' +
-      '<tbody>' + (compose.variableValues[variableKey] || []).map(function (row, rowIdx) {
-        return '<tr>' + (row || []).map(function (column, columnIdx) {
-          return '<td width="' + (column.width ? column.width : '') + '">' + (column.name || '') + '</td>';
-        }).join('') + '</tr>';
-      }).join('') + '</tbody></table>';
+        '<thead><tr>' + (variable.tableColumns.map(function (column) {
+          return '<th width="' + (column.width ? column.width : '') + '">' + column.name + '</th>';
+        })).join('') + '</tr></thead>' +
+        '<tbody>' + (compose.variableValues[variableKey] || []).map(function (row, rowIdx) {
+          return '<tr>' + (row || []).map(function (column, columnIdx) {
+            return '<td width="' + (column.width ? column.width : '') + '">' + (column.name || '') + '</td>';
+          }).join('') + '</tr>';
+        }).join('') + '</tbody></table>';
     }
 
-    function areAllVariablesFilled () {
+    function areAllVariablesFilled() {
 
       return (compose.variables || []).every(function (variable) {
         return !!compose.variableValues[variable.variable];
@@ -1020,7 +1054,7 @@
       initModalPreviewTemplate();
       compose.onChangeVariable();
       angular.element('#modalPreviewTemplate').modal('show');
-      compose.document.sheets = null;
+      // compose.document.sheets = null;
 
       setTimeout(function () {
         getRawDocumentElements();
@@ -1035,7 +1069,7 @@
       var footerElement = {};
       var elements = [];
 
-      $documentPreview.children().each(function(elementIndex, documentElement) {
+      $documentPreview.children().each(function (elementIndex, documentElement) {
         var tagName = $(documentElement).prop("tagName").toLowerCase();
         var elementHeight = $(documentElement).outerHeight();
         var elementHTML = documentElement.outerHTML;
@@ -1114,17 +1148,19 @@
       angular.element('#modalPreviewTemplate').modal('hide');
     }
 
-    function onAddTableRow (variable) {
+    function onAddTableRow(variable) {
 
-      compose.variableValues[variable.variable].push((variable.tableColumns || []).map(function (column) { return {
-        name: '',
-        width: column.width
-      }; }));
+      compose.variableValues[variable.variable].push((variable.tableColumns || []).map(function (column) {
+        return {
+          name: '',
+          width: column.width
+        };
+      }));
       onChangeVariable(variable);
       // variable.tableColumns.push('');
     }
 
-    function onRemoveTableRow (variable) {
+    function onRemoveTableRow(variable) {
 
       compose.variableValues[variable.variable].pop();
       onChangeVariable(variable);
@@ -1238,20 +1274,20 @@
 
         if (_isEmail(item.email)) {
 
-            _findEmailInDocument(item.email);
+          _findEmailInDocument(item.email);
 
-            var index = _findEmailInList(item.email, compose.contacts);
-            console.error("_findEmailInList 4", index);
-            if (index >= 0) {
-              compose.contacts.splice(index, 1);
-              item.isNew = false;
-            } else {
-              item.isNew = true;
-            }
-            compose.listColaborators.push({
-              item: item
-            });
-            compose.listToPrivateMessages.push(item);
+          var index = _findEmailInList(item.email, compose.contacts);
+          console.error("_findEmailInList 4", index);
+          if (index >= 0) {
+            compose.contacts.splice(index, 1);
+            item.isNew = false;
+          } else {
+            item.isNew = true;
+          }
+          compose.listColaborators.push({
+            item: item
+          });
+          compose.listToPrivateMessages.push(item);
 
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
@@ -1304,13 +1340,13 @@
         }
         if (_isEmail(item.email)) {
 
-            // var index = _findEmailInList(item.email, compose.contacts);
-            if (compose.draftTo.length > 1) {
-              swalFactory.error("Solo se permite seleccionar un correo");
-              compose.error = "Solo se permite seleccionar un correo";
-              var index = compose.draftTo.indexOf(item);
-              compose.draftTo.splice(index, 1);
-            }
+          // var index = _findEmailInList(item.email, compose.contacts);
+          if (compose.draftTo.length > 1) {
+            swalFactory.error("Solo se permite seleccionar un correo");
+            compose.error = "Solo se permite seleccionar un correo";
+            var index = compose.draftTo.indexOf(item);
+            compose.draftTo.splice(index, 1);
+          }
 
         } else {
           swalFactory.error("Ingresa un correo electrónico válido");
@@ -1490,8 +1526,8 @@
               jobTitleID: compose.listColaborators[i].item.jobTitleID,
               email: compose.listColaborators[i].item.email.toLowerCase(),
               name:
-              compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
-                'Nombre pendiente',
+                compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                  'Nombre pendiente',
               privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
               colaboration: true,
               inColaboration: true,
@@ -1505,12 +1541,12 @@
               id: compose.listColaborators[i].item.id,
               jobTitleID: compose.listColaborators[i].item.jobTitleID,
 
-              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID? false : true,
+              isNew: compose.listColaborators[i].item && compose.listColaborators[i].item.jobTitleID ? false : true,
 
               email: compose.listColaborators[i].item.email.toLowerCase(),
               name:
-              compose.listColaborators[i].item.name? compose.listColaborators[i].item.name.toLowerCase() :
-                'Nombre pendiente',
+                compose.listColaborators[i].item.name ? compose.listColaborators[i].item.name.toLowerCase() :
+                  'Nombre pendiente',
               privateMessage: compose.listColaborators[i].privateMessage ? compose.listColaborators[i].privateMessage : '',
               colaboration: true,
               inColaboration: true,
@@ -1528,10 +1564,10 @@
           auxCC.push({
             id: compose.recipients[i].id,
             jobTitleID: compose.recipients[i].jobTitleID,
-            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID? false : true,
+            isNew: compose.recipients[i] && compose.recipients[i].jobTitleID ? false : true,
             email: compose.recipients[i].email.toLowerCase(),
             name:
-            compose.recipients[i].name? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
+              compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
             privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
             colaboration: compose.colaboration || false,
             inColaboration: false,
@@ -1547,7 +1583,7 @@
             jobTitleID: compose.recipients[i].jobTitleID,
             email: compose.recipients[i].email.toLowerCase(),
             name:
-            compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
+              compose.recipients[i].name ? compose.recipients[i].name.toLowerCase() : 'Nombre pendiente',
             privateMessage: compose.recipients[i].privateMessage ? compose.recipients[i].privateMessage : '',
             colaboration: compose.colaboration || false,
             inColaboration: false,
@@ -1770,8 +1806,8 @@
         },
         function (err, result) {
 
-          console.error('ERR',err);
-          console.error('result',result);
+          console.error('ERR', err);
+          console.error('result', result);
           if (err) {
             swalFactory.error(
               "Lo sentimos su contraseña o alguno de sus archivos del SAT ya no son válidos"
@@ -1828,14 +1864,14 @@
 
       var index = -1;
 
-        for (var i = 0; i < list.length; i++) {
-          if (email === list[i].email) {
-            index = i;
-            break;
-          }
+      for (var i = 0; i < list.length; i++) {
+        if (email === list[i].email) {
+          index = i;
+          break;
         }
+      }
 
-        return index;
+      return index;
 
     }
 
@@ -1852,40 +1888,40 @@
           // setTemplate(draft.templateID);
 
 
-            draftID = draft.id;
-            compose.external = draft.external;
+          draftID = draft.id;
+          compose.external = draft.external;
 
-            compose.document.content = draft.content;
-            compose.isDraft = true;
-            compose.colaboration = draft.ft;
+          compose.document.content = draft.content;
+          compose.isDraft = true;
+          compose.colaboration = draft.ft;
 
-            if (draft.priority === 1){
-              compose.havePriority = true;
-            } else {
-              compose.havePriority = false;
-            }
-            if (draft.confidential === 1){
-              compose.isConfidential = true;
-            } else {
-              compose.isConfidential = false;
-            }
-
-
+          if (draft.priority === 1) {
+            compose.havePriority = true;
+          } else {
+            compose.havePriority = false;
+          }
+          if (draft.confidential === 1) {
+            compose.isConfidential = true;
+          } else {
+            compose.isConfidential = false;
+          }
 
 
 
-            compose.document.subject = draft.subject.indexOf('Guardado automatico ') === -1 ? draft.subject : '';
-            compose.fileURL = draft.fileURL;
-            if (draft.deadline !== "" && draft.deadline !== null) {
-              compose.haveDeadline = true;
-              compose.deadline = new Date(draft.deadline);
-            }
 
-            setEmails(draft.to);
 
-            if (draft.draftToUser) {
-              compose.draftTo.push(draft.draftToUser);
-            }
+          compose.document.subject = draft.subject.indexOf('Guardado automatico ') === -1 ? draft.subject : '';
+          compose.fileURL = draft.fileURL;
+          if (draft.deadline !== "" && draft.deadline !== null) {
+            compose.haveDeadline = true;
+            compose.deadline = new Date(draft.deadline);
+          }
+
+          setEmails(draft.to);
+
+          if (draft.draftToUser) {
+            compose.draftTo.push(draft.draftToUser);
+          }
 
 
         }

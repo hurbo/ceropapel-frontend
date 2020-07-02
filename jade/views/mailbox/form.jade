@@ -21,7 +21,7 @@
                 | &nbsp;EDITAR DATOS DE ENVIO
           .col-md-6
             .pull-right(ng-if="docs.step === docs.StepEnum.FILL_DATA")
-              button.btn.btn-sm(ng-if='docs.compose.areAllVariablesFilled();', type='button', style='background-color: #e96057; color: white;', ng-click='docs.setStep(docs.StepEnum.FILL_SEND_DATA);')
+              button.btn.btn-sm(ng-if=' docs.compose.areAllVariablesFilled();', type='button', style='background-color: #e96057; color: white;', ng-click=' docs.compose.proceso(); docs.setStep(docs.StepEnum.FILL_SEND_DATA);')
                 | LLENAR DATOS DE ENVIO&nbsp;
                 i.fa.fa-arrow-right
 
@@ -244,13 +244,8 @@
         // START row
         .row
 
-
-
-
-          .col-md-2
-          .col-md-8(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
-
+          .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
+            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.templateFullContent | trusted")
 
             //- .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
             //- .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
@@ -512,7 +507,7 @@
 
 
     .panel-default(style="background-color: #fff" ng-if="docs.profile.roleID !== 5")
-      .panel-heading(ng-click="docs.compose.htmlToPdf()") Personal involucrado ???
+      .panel-heading Personal involucrado
       .panel-body
         legend.pull-right.text-danger {{docs.compose.error}}
         .row

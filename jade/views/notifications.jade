@@ -1,12 +1,4 @@
-
-
-
-
-
-
 .container
-
-
   .col-md-12( ng-if="ntc.notifications.length === 0" style="padding-top: 10em;")
     .col-md-6
       .col-md-2
@@ -14,16 +6,8 @@
         h1.text-blue.Poppins-Bold(style="font-size: -webkit-xxx-large;") Bienvenido a Cero Papel
         h4.text-blue.Poppins-SemiBold ¡Organízate! reduce tus tiempos de trabajo y aumenta tu productividad.
         h4.text-danger.Poppins-SemiBold ¡No tienes notificaciones nuevas!
-
     .col-md-6
       img.center(src="assets/img/ilustracion-cero-papel.svg", alt="" style="height: 20em; display: block; margin-left: auto; margin-right: auto;")
-
-
-
-
-
-
-
 .container
   .col-md-12( ng-if="ntc.notifications.length !== 0" style="padding-top: 5em;")
     button.btn.btn-secondary(type='button' ng-click="ntc.markAsRead()" style="margin-bottom: 10px;") Marcar como leído
@@ -33,23 +17,13 @@
           label.checkbox-inline.c-checkbox(style="margin-top: 15px; margin-left: 3px;")
             input(type='checkbox' value='false' ng-model="mail.selected" checked='checked')
             span.fa.fa-bell
-
-
-
-
         .col-md-5(style="margin-bottom: -4px;" ng-if="mail.jobTitleID === ntc.profile.jobTitleID", ui-sref="app.mailbox.internal.in.view({mid: mail.documentID, inboxID: mail.inboxID})")
           h5.text-blue.Poppins-SemiBold {{mail.message}}
           h6.text-light-blue.Poppins-Light {{mail.createdAt   | date:'dd-MM-yyyy h:mm a'}}
         .col-md-6(style="margin-bottom: -4px;" ng-if="mail.jobTitleID === ntc.profile.jobTitleID", ui-sref="app.mailbox.internal.in.view({mid: mail.documentID, inboxID: mail.inboxID})")
           h6.text-light-blue.Poppins-SemiBold {{mail.header}}
-
-
         .col-md-5(style="margin-bottom: -4px;" ng-if="mail.jobTitleID !== ntc.profile.jobTitleID", ui-sref="app.mailbox.external.in.view({jobTitle: mail.jobTitleID, mid: mail.documentID, inboxID: mail.inboxID})")
           h5.text-blue.Poppins-SemiBold {{mail.message}}
           h6.text-light-blue.Poppins-Light {{mail.createdAt   | date:'dd-MM-yyyy h:mm a'}}
         .col-md-6(style="margin-bottom: -4px;" ng-if="mail.jobTitleID !== ntc.profile.jobTitleID", ui-sref="app.mailbox.external.in.view({jobTitle: mail.jobTitleID, mid: mail.documentID, inboxID: mail.inboxID})")
           h6.text-light-blue.Poppins-SemiBold {{mail.header}}
-
-
-
-
