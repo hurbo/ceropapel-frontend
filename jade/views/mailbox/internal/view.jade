@@ -65,8 +65,10 @@ div(ng-if="mvc.isLoading")
 div(ng-if="!mvc.isLoading && mvc.document && mvc.document.active")
   div.animated.zoomInDown
     from-details-component(document='mvc.document')
-    .contenedorSummer
-      .pantallaSummer
+    //- .contenedorSummer
+    .col-md-12(style="background-color: #c5c8ca; height: auto; padding: 50px;" )
+      //- .pantallaSummer
+      .col-md-12
         summernote#summernoteViewOptions(ng-change="mvc.clear()" ng-model="mvc.content" config='mvc.summernoteViewOptions')
 
     change-status-component(document='mvc.document')

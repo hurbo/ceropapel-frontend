@@ -47,7 +47,8 @@
 .panel-default(ng-if="!docs.loading && docs.steep === 2")
   .panel-body
     .contenedorSummer
-      .pantallaSummer
+      //- .pantallaSummer
+      .col-md-12
         summernote#summernoteViewOptions( data-backdrop="false" ng-model="docs.html" config='docs.summernoteViewOptions')
 
 
