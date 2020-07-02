@@ -359,17 +359,10 @@
         inboxFactory.forwardDocuments(data, function (err, solve) {
           if (err) {
             defer.reject(err);
+            console.log("Error", err);
             vm.disableTurnButton = false;
           } else {
-
-            ViewDocumentFactory.sendReloadMessageViewInbox(true);
-            $uibModalStack.dismissAll();
-            vm.disableTurnButton = false;
-            forwards = [];
-            vm.selectedTo = [];
-            vm.recipients = [];
-            vm.turnMessage = '';
-            vm.trackingReason = '';
+            console.log("Termino de turnar", err);
             SweetAlert.swal({
               title: 'Hecho!',
               text: 'Oficio turnado',
@@ -379,6 +372,14 @@
               confirmButtonText: 'Aceptar',
               timer: 1000
             });
+            ViewDocumentFactory.sendReloadMessageViewInbox(true);
+            $uibModalStack.dismissAll();
+            vm.disableTurnButton = false;
+            forwards = [];
+            vm.selectedTo = [];
+            vm.recipients = [];
+            vm.turnMessage = '';
+            vm.trackingReason = '';
             defer.resolve();
           }
         });

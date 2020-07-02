@@ -512,7 +512,7 @@
 
 
     .panel-default(style="background-color: #fff" ng-if="docs.profile.roleID !== 5")
-      .panel-heading Personal involucrado
+      .panel-heading(ng-click="docs.compose.htmlToPdf()") Personal involucrado ???
       .panel-body
         legend.pull-right.text-danger {{docs.compose.error}}
         .row

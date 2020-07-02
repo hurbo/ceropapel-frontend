@@ -69,10 +69,11 @@
     'profileFactory',
     'templatesFactory',
     'DocumentFactory',
-    'fileList'
+    'fileList',
+    '$sce'
   ];
 
-  function composeFactory(socket, $state, $rootScope, swalFactory, Profile, templatesFactory, Doc, fileList) {
+  function composeFactory(socket, $state, $rootScope, swalFactory, Profile, templatesFactory, Doc, fileList, $sce) {
     var draftID = null;
     var contacts = [];
     var prossesing = false;
@@ -234,6 +235,8 @@
       compose.listColaborators = [];
       compose.templateFullContent = '';
       compose.loading = false;
+
+
 
       if (draft && draft.templateVariableValues) {
 
@@ -756,6 +759,10 @@
         compose.document.deadline = compose.haveDeadline ? compose.deadline.getTime() : '';
         compose.document.signIt = true;
 
+        var folio = compose.variableValues['[//FOLIO//]'];
+        console.log("nuevo folio es ", folio);
+        compose.document.content = compose.document.content.replace('[//FOLIO//]', folio);
+
         var data = {
           document: compose.document,
           files: _getFiles()
@@ -834,6 +841,56 @@
         compose.prossesingDeleteDraft = false;
         swalFactory.success("Borrador eliminado");
         $state.go("app.mailbox.internal.drafts");
+      });
+    }
+
+
+
+    function bufferToBase64(buf) {
+      var binstr = Array.prototype.map.call(buf, function (ch) {
+          return String.fromCharCode(ch);
+      }).join('');
+      return btoa(binstr);
+  }
+
+
+  function onInitPDF(){
+    console.log("onInitPDF");
+  }
+    function htmlToPdf(){
+      console.log("htmlToPdf");
+      socket.emit('htmlToPDFMaker', compose.document.content, function(err, solve){
+        console.log('error html to pdf', err);
+        console.log('solve html to pdf', solve);
+
+        var pdf = new Blob([solve], {
+          type: "application/pdf"
+        });
+
+        compose.pdfBuffer = solve;
+        compose.pdfBlop = pdf;
+        compose.pdfUint8Array = new Uint8Array(solve);
+        
+
+        console.log("El pdf es pdf",pdf);
+
+ 
+
+        // open a file in the viewer
+        
+
+
+        var fileURL = URL.createObjectURL(pdf);
+
+        compose.pdfContent = $sce.trustAsResourceUrl(fileURL);
+
+
+      //  window.open(fileURL);
+      //  compose.pdfBuffer = new Uint8Array(solve);
+      //   console.log("pdfBuffer", compose.pdfBuffer);
+
+
+
       });
     }
 
