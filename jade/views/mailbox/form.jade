@@ -56,9 +56,9 @@
 
                   div.variable-date.col-sm-12.col-md-6(ng-if="docs.compose.isDateVariable(variable);", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
-                    span
-                      i.fa.fa-calendar(style='position: absolute; top: 60%; right: 13%;')
-                    input.form-control.border-rounded(type='date', format='dd/MM/yyyy', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
+                    //- span
+                    //-   i.fa.fa-calendar(style='position: absolute; top: 60%; right: 13%;')
+                    input.form-control.border-rounded( min="01-01-1000" type='date', format='DD/MM/YYYY', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
 
                   div.variable-time.col-sm-12.col-md-6(ng-if="variable.type === 'time'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
@@ -70,16 +70,15 @@
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
                     span
                       i.fa.fa-font(style='position: absolute; top: 60%; right: 13%;')
-                    input.form-control.border-rounded(type='text', minlength='{{ variable.min || undefined }}', maxlength='{{ variable.max || undefined }}', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar texto')
+                    input.form-control.border-rounded(type='text', minlength='{{ variable.min || undefined }}', maxlength='{{ default_value || undefined }}', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar texto')
 
                   div.variable-longtext.col-sm-12.col-md-6(ng-if="variable.type === 'longtext'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
                     textarea.form-control.border-rounded(type='text', cols='20', rows='4', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]')
 
-                  div.variable-number.col-sm-12.col-md-6(ng-if="variable.type === 'number'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
+                  div.variable-number.col-sm-12.col-md-6( ng-if="variable.type === 'number'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
-                    input.form-control.border-rounded(numbers-only, type='text', pattern="{{variable.pattern}}", minlength='{{ variable.min || undefined }}', maxlength='{{ variable.max || undefined }}', ng-change='docs.compose.onChangeVariable(variable);', ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar numero')
-
+                    input.form-control.border-rounded(numbers-only, type='number',required pattern="{{variable.pattern}}", minlength='{{ variable.min || undefined }}', maxlength='{{ variable.max || undefined }}', ng-change='docs.compose.onChangeVariable(variable);' ng-model='docs.compose.variableValues[variable.variable]', placeholder='Ingresar numero')
                   div.variable-user-active.col-sm-12.col-md-6(ng-if="variable.type === 'user_active'", style='position: relative; margin: 0 auto; margin-bottom: 15px;')
                     label.text-sm(style='font-weight: bold;', ng-bind='variable.name')
                     span
@@ -118,17 +117,29 @@
                                 i.fa.fa-plus &nbsp;
                                 span(style="margin-right: 5px;") Agregar
 
-                          .row(ng-if="docs.compose.variableValues[variable.variable].length")
-                            .col-xs-12(style="display: flex;")
-                              div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1;")
-                                p
-                                  strong
-                                    | {{ tableColumn.name }}
+                          .row
+                            .col-md-12
 
-                          .row(ng-repeat='tableValues in docs.compose.variableValues[variable.variable] track by $index')
-                            .col-xs-12(style="display: flex;")
-                              div(ng-repeat='tableColumn in variable.tableColumns track by $index', style="flex: 1; margin-bottom: 5px;")
-                                input.form-control(ng-model='tableValues[$index].name', type='text', placeholder="Ingresar valor", style="border-radius: 7px;", required, ng-change='docs.compose.onChangeVariable(variable, $parent.$index, $index)')
+                              .col-md-12
+                                table.table.table-striped.table-bordered
+                                  thead
+                                    tr
+                                      th(ng-repeat='tableColumn in variable.tableColumns track by $index' width= "{{tableColumn.width}} !important") {{ tableColumn.name }}
+                                  tbody
+                                    tr(ng-repeat='tableValues in docs.compose.variableValues[variable.variable] track by $index')
+                                      th(scope='col' ng-repeat='tableColValues in tableValues track by $index') {{ tableColValues.name }}
+
+
+                              .col-md-12(ng-repeat='tableValues in docs.compose.variableValues[variable.variable] track by $index' ng-init="tablesValues.show = true")
+                                h3.Poppins-SemiBold.primaryTextBlue Renglon {{$index + 1}}
+                                button.btn.btn-primary(ng-if="tablesValues.show" type='button' ng-click= "tablesValues.show = false " )
+                                  | Editar
+                                button.btn.btn-secondary(ng-if="!tablesValues.show" type='button' ng-click= "tablesValues.show = true " )
+                                  | Esconder
+                                .col-md-12(ng-if="!tablesValues.show")
+                                  .col-md-4(ng-repeat='tableColumn in variable.tableColumns track by $index', style="margin-bottom: 5px;" max-width="{{tableColumn.width}}" width= "{{tableColumn.width}} !important")
+                                    span {{ tableColumn.name }}
+                                    input.form-control(ng-model='tableValues[$index].name', type='text', placeholder="Ingresar valor", style="border-radius: 7px;", required, ng-change='docs.compose.onChangeVariable(variable, $parent.$index, $index)')
 
     .col-md-12(style="background-color: #eceded")
       .panel-default
@@ -190,7 +201,7 @@
                     div.variable-date(ng-if='docs.compose.haveDeadline', style='position: relative; margin: 0 auto;')
                       span
                         i.fa.fa-calendar(style='position: absolute; top: 30%; right: 2%;')
-                      input.form-control.border-rounded(type='date', format='dd/MM/yyyy', ng-model='docs.compose.deadline', min="{{docs.compose.today | date:'yyyy-MM-dd'}}")
+                      input.form-control.border-rounded(type='date', format='DD/MM/YYYY', ng-model='docs.compose.deadline', min="{{docs.compose.today | date:'yyyy-MM-dd'}}")
                       div(ng-if='alertDate')
                         p.red.danger La fecha límite debe ser despues al día de hoy
 

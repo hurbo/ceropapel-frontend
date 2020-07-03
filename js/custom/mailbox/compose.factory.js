@@ -168,9 +168,15 @@
       }),
       templateFullContent: '',
       getFullSize: getFullSize,
-      proceso: proceso
+      proceso: proceso,
+      parseIntFa: parseIntFa
     };
 
+
+    function parseIntFa(data){
+      console.log("asdasdasdasdadssad");
+      return parseInt(data);
+    }
 
 
     function proceso() {
@@ -1037,6 +1043,8 @@
     function areAllVariablesFilled() {
 
       return (compose.variables || []).every(function (variable) {
+        console.log("variable", variable);
+        console.log("variable.variable :", variable.variable, " : Values : ", compose.variableValues[variable.variable]);
         return !!compose.variableValues[variable.variable];
       });
     }
