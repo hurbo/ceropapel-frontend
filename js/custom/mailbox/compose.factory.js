@@ -966,7 +966,7 @@
             return secretaria.id === compose.profile.secretariateID;
           });
 
-          var folio = 'EGOB-' + secretariateData.acronym + '-' + compose.profile.jobTitle.acronym + '-' + new Date().getFullYear() + '-' + compose.profile.jobTitle.count;
+          var folio = secretariateData.acronym + '-' + compose.profile.jobTitle.acronym + '-' + new Date().getFullYear() + '-' + compose.profile.jobTitle.count;
           compose.variableValues[variable.variable] = folio;
         } else if (variable.type === 'user_active') {
           compose.variableValues[variable.variable] = compose.profile.name;
