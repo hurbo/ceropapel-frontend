@@ -50,33 +50,46 @@
                         select.form-control(ng-model='tc.template.type' ng-options="item.id as item.name for item in tc.documentTypes", style="border-radius: 7px;", required)
                           option(value="", selected=true)
                             | Selecciona una opción
-                  .col-md-3
+
+
+                  .col-md-2(ng-init="tc.template.private = true" ng-if="tc.profile.roleID !== 1 && tc.profile.roleID !== 5")
                     .form-group
-                      label.col-md-6.control-label Requiere firma
+                      label.col-md-6.control-label Privada
                       .col-md-6
                         .clearfix.pull-left
                           .pull-right
                             label.switch
-                              input(type='checkbox', ng-model="tc.template.signatureRequiered")
+                              input(type='checkbox' ng-click="tc.activePrivate()" ng-model="tc.template.private")
                               span
-                  .col-md-3
+                  .col-md-2(ng-if="tc.profile.roleID !== 1 && tc.profile.roleID !== 5")
                     .form-group
-                      label.col-md-6.control-label Compartir
+                      label.col-md-6.control-label Pública
                       .col-md-6
                         .clearfix.pull-left
                           .pull-right
                             label.switch
-                              input(type='checkbox', ng-model="tc.template.private")
+                              input(type='checkbox' ng-click="tc.activeFullPublic()" ng-model="tc.template.fullPublic")
+                              span
+                  .col-md-2(ng-if="tc.profile.roleID !== 1 && tc.profile.roleID !== 5")
+                    .form-group
+                      label.col-md-6.control-label Compartir en área
+                      .col-md-6
+                        .clearfix.pull-left
+                          .pull-right
+                            label.switch
+                              input(type='checkbox' ng-click="tc.activeShared()" ng-model="tc.template.shared")
                               span
 
 
-                .col-md-12.animated( ng-class= "tc.template.private ? 'fadeIn': 'fadeOut'"  ng-if="tc.template.private" style="background-color: #c5c8ca; border-radius: 5px;padding-top: 10px;margin-top: 15px;")
+                .col-md-12.animated( ng-class= "tc.template.shared ? 'fadeIn': 'fadeOut'"  ng-if="tc.template.shared" style="background-color: #c5c8ca; border-radius: 5px;padding-top: 10px;margin-top: 15px;")
                   .form-group
-                    label.control-label Secretaría a compartir
+                    label.control-label Área a compartir
 
                     select.form-control(ng-model='tc.template.secretariateID', ng-options='item.id as item.name for item in tc.secretariates', style='border-radius: 7px;', required)
                       option(value="", selected=true)
                         | Selecciona una opción
+
+
 
 
 

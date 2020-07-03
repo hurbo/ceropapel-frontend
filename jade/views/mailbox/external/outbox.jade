@@ -68,24 +68,37 @@ div(ui-view="")
             .col-md-6(style="margin-top: 5px;")
               .col-md-12(style="margin-top: 5px;")
                 .media.pull-right
-                  span.label.label-notReadNew(ng-if='!mail.isRead') No leído
-                  span.label.label-readNew(ng-if="mail.isRead  && !mail.signed && (mail.status === null || mail.status === 'read' || mail.status === 'Leído')") Leído
-                  span.label.label-notSignedNew(ng-if='mail.isRead && !mail.signed && mail.needSign') No firmado
-                  span.label.label-signedNew(ng-if="mail.signed") Firmado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-notReadNew(ng-if='!mail.isRead') No leído
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-readNew(ng-if="mail.isRead  && !mail.signed && (mail.status === null || mail.status === 'read' || mail.status === 'Leído')") Leído
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-notSignedNew(ng-if='mail.isRead && !mail.signed && mail.needSign') No firmado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-signedNew(ng-if="mail.signed") Firmado
               .col-md-12(style="margin-top: 5px;")
                 .media.pull-right
-                  span.label.label-enProcesoNew(ng-if="mail.status === 'En proceso' ") En proceso
-                  span.label.label-recibidoNew(ng-if="mail.status === 'Recibido' ") Recibido
-                  span.label.label-noProcedeNew(ng-if="mail.status === 'No procede' ") No procede
-                  span.label.label-notSignedNew(ng-if="mail.rejected") Rechazado
-                  span.label.label-canceledNew(ng-if='mail.cancelled') cancelado
-                  span.label.label-deConocimintoNew(ng-if="mail.status === 'De conocimiento' ") De conocimiento
-                  span.label.label-congeladoNew(ng-if="mail.status === 'Congelado' ") Congelado
-                  span.label.label-atendidoSatisfactoriamenteNew(ng-if="mail.status && mail.status.indexOf('Atendido') != -1  ") Atendido
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-enProcesoNew(ng-if="mail.status === 'En proceso' ") En proceso
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-recibidoNew(ng-if="mail.status === 'Recibido' ") Recibido
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-noProcedeNew(ng-if="mail.status === 'No procede' ") No procede
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-notSignedNew(ng-if="mail.rejected") Rechazado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-canceledNew(ng-if='mail.cancelled') cancelado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-deConocimintoNew(ng-if="mail.status === 'De conocimiento' ") De conocimiento
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-congeladoNew(ng-if="mail.status === 'Congelado' ") Congelado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-atendidoSatisfactoriamenteNew(ng-if="mail.status && mail.status.indexOf('Atendido') != -1  ") Atendido
 
               .col-md-12(style="margin-top: 5px;")
                   .media.pull-right
-                  span.label.label-turnadoNew(ng-if="mail.turned ") Turnado
+                  .col-md-12(style="margin-top: 10px;")
+                    span.label.label-turnadoNew(ng-if="mail.turned ") Turnado
 
 
 
