@@ -253,10 +253,11 @@
 
         legend.pull-right.text-danger {{docs.compose.error}}
         // START row
-        .row
+        .content
 
-          .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.templateFullContent | trusted")
+          //- .col-md-12(style="background-color: transparent; height: 100%; overflow: scroll; padding: 50px;" )
+            //- .col-md-12.document-preview( style="background-color: transparent !important;" ng-bind-html="docs.compose.templateFullContent | trusted")
+          summernote(id="vistaEnvio" ng-model='docs.compose.templateFullContent' config='docs.compose.templateViewContentOptions')
 
             //- .col-md-12.document-preview(ng-if="!docs.compose.document.sheets" ng-bind-html="docs.compose.document.content | trusted")
             //- .col-md-12( ng-if="docs.compose.document.sheets" style="background-color: #c5c8ca;" )
@@ -932,7 +933,7 @@
             .col-lg-8
               input.form-control(ng-if="!docs.compose.isDraft && !docs.compose.truncateDraft" type='password' placeholder='Contraseña' ng-model ='docs.compose.password')
             .col-lg-4(style="display: flex; flex-direction: row; justify-content: space-between;")
-              button.btn.btn-md.btn-primary(type='button', ng-click='docs.compose.showPreviewTemplate()') Visualizar documento
+              //- button.btn.btn-md.btn-primary(type='button', ng-click='docs.compose.showPreviewTemplate()') Visualizar documento
               button.btn.btn-md(type='button', style='background-color: #e96057; color: white;', ng-click='!docs.compose.isDraft ? docs.compose.createDocument() : docs.compose.saveDraft()')
                 | {{!docs.compose.isDraft ? 'ENVIAR DOCUMENTO' : 'GUARDAR BORRADOR'}}&nbsp;
                 i.fa.fa-arrow-right
@@ -1067,8 +1068,9 @@
         h4.modal-title Vista previa
       .modal-body
         .row
-          .col-md-12(style="background-color: #c5c8ca; height: 100%; overflow: scroll; padding: 50px;" )
-            .col-md-12.document-preview( style="background-color: white !important;" ng-bind-html="docs.compose.document.content | trusted")
+          //- .col-md-12(style="background-color: transparent; height: 100%; overflow: scroll; padding: 50px;" )
+            //- .col-md-12.document-preview( style="background-color: transparent !important;" ng-bind-html="docs.compose.document.content | trusted")
+          summernote(id="vistaEnvio" ng-model='docs.compose.templateFullContent' config='docs.compose.templateViewContentOptions')
 
 
 

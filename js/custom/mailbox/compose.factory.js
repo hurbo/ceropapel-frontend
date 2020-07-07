@@ -10,6 +10,15 @@
 
   angular.module('app.mailbox').factory('composeFactory', composeFactory);
 
+  function getMinTemplateOptions() {
+    return {
+      height: 700,
+      contenteditable: false,
+      toolbar: [
+        ['view', []]
+      ]
+    }
+  }
   function getCommonTemplateOptions() {
     return {
       lang: 'es-MX',
@@ -32,7 +41,7 @@
         ['fontclr', ['color']],
         ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
         ['height', ['height']],
-        // ['table', ['table']],
+        ['table', ['table']],
         ['insert', ['link', 'picture']],
         ['view', ['fullscreen', 'codeview']]
       ],
@@ -45,10 +54,10 @@
         link: [
           ['link', ['linkDialogShow', 'unlink']]
         ],
-        // table: [
-        //   ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-        //   ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-        // ],
+        table: [
+          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+        ],
         air: [
           ['color', ['color']],
           ['font', ['bold', 'underline', 'clear']],
@@ -156,6 +165,9 @@
       showPreviewTemplate: showPreviewTemplate,
       closePreviewTemplate: closePreviewTemplate,
       printDocument: printDocument,
+      templateViewContentOptions: $.extend(true, {}, getMinTemplateOptions(), {
+        height: 700
+      }),
       templateFullContentOptions: $.extend(true, {}, getCommonTemplateOptions(), {
         height: 700,
         // callbacks: {

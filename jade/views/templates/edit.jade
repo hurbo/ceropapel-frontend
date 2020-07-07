@@ -205,7 +205,7 @@
                 label.control-label(style="margin-right: 10px;") Nombre de plantilla:
                 | {{tc.template.name}}
           .col-md-12(style="padding-left: 30px; padding-right: 30px;")
-            .col-md-12(style= "background-color: #c5c8ca;" ng-bind-html="tc.previewTemplate")
+            .col-md-12(style= "background-color: transparent;" ng-bind-html="tc.previewTemplate")
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal', ng-click="tc.saveTemplate()")
           i.fa.fa-save
